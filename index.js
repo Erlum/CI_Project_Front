@@ -6,7 +6,7 @@ const httpClient = new HttpClient(appConfig.apiUrl);
 const jetpackService = new JetpackService(httpClient);
 
 
-jetpackService.getJetpacks().then(jetpacks => {
+jetpackService.getJetPacks().then(jetpacks => {
     let html =  '';
     jetpacks.forEach((jetpack) => {
         html +=

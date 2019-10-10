@@ -1,8 +1,23 @@
 module.exports = class  {
-    constructor() {
-        this._id = null;
-        this._name = null;
-        this._image = null;
+    constructor(name, image, id) {
+        if (id === undefined){
+            this._id = null;
+        }
+        else {
+            this._id = id;
+        }
+        if (name === undefined){
+            this._name = null;
+        }
+        else {
+            this._name = name;
+        }
+        if (image === undefined){
+            this._image = null;
+        }
+        else {
+            this._image = image;
+        }
     }
 
     get id() {
