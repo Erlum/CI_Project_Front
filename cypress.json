@@ -1,0 +1,16 @@
+{
+  "baseUrl":              "http://127.0.0.1:8080",
+  "userAgent":            "cypress-agent",
+  "fileServerFolder":     "tests/ui",
+  "fixturesFolder":       "tests/ui/fixtures",
+  "integrationFolder":    "tests/ui/integration/ui",
+  "pluginsFile":          "tests/ui/plugins",
+  "screenshotsFolder":    "tests/ui/screenshots",
+  "supportFile":          "tests/ui/support",
+  "videosFolder":         "tests/ui/videos",
+  "watchForFileChanges":  false,
+  "chromeWebSecurity": false,
+  "defaultCommandTimeout": 60000,
+  "requestTimeout": 60000,
+  "responseTimeout": 60000
+}
