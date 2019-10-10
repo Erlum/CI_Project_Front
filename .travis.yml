@@ -16,4 +16,5 @@ before_install:
 script:
   - npm run unit.test.coverage
   - npm run unit.test.mutation
+  - mountebank.start.ci
   - npm run ui.test
