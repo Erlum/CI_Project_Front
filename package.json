@@ -24,7 +24,8 @@
     "unit.test.mutation": "stryker run",
     "mountebank.start": "mb --logfile=./tmp/mb.log --pidfile=./tmp/mb.pid --configfile=tests/mock/imposters.ejs --allowInjection --loglevel=debug",
     "mountebank.start.ci": "mb --logfile=./tmp/mb.log --pidfile=./tmp/mb.pid --configfile=tests/mock/imposters.ejs --allowInjection --loglevel=debug > ./tmp/mb.log &",
-    "ui.test": "cypress run"
+    "ui.test": "cypress run",
+    "ui.open": "cypress open"
   },
   "jest": {
     "verbose": true,
