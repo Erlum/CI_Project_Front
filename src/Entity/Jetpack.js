@@ -2,20 +2,17 @@ module.exports = class  {
     constructor(name, image, id) {
         if (id === undefined){
             this._id = null;
-        }
-        else {
+        } else {
             this._id = id;
         }
         if (name === undefined){
             this._name = null;
-        }
-        else {
+        } else {
             this._name = name;
         }
         if (image === undefined){
             this._image = null;
-        }
-        else {
+        } else {
             this._image = image;
         }
     }
@@ -43,4 +40,4 @@ module.exports = class  {
     set image(value) {
         this._image = value;
     }
-}
+};
