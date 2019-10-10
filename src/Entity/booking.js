@@ -1,5 +1,10 @@
 module.exports = class  {
-    booking(jetPack, start, end) {
+    constructor(jetPack, start, end, id) {
+        if (id === undefined){
+            this._id = null;
+        } else {
+            this._id = id;
+        }
         if (jetPack === undefined){
             this._jetPack = null;
         } else {
@@ -17,10 +22,16 @@ module.exports = class  {
         }
     }
 
+    get id() {
+        return this._id;
+    }
+    set id(value) {
+        this._id = value;
+    }
+
     get jetPack() {
         return this._jetPack;
     }
-
     set jetPack(value) {
         this._jetPack = value;
     }
@@ -28,7 +39,6 @@ module.exports = class  {
     get start() {
         return this._start;
     }
-
     set start(value) {
         this._start = value;
     }
@@ -36,7 +46,6 @@ module.exports = class  {
     get end() {
         return this._end;
     }
-
     set end(value) {
         this._end = value;
     }
