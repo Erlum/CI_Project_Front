@@ -8,11 +8,16 @@ module.exports = class  {
         return this.httpClient.fetch('/jetpacks', {}).then(rows => {
 
             return rows.map(row => {
-                let jetPack = new JetPack();
-                jetPack.id = row.id;
-                jetPack.name = row.name;
-                jetPack.image = row.image;
-                return jetPack
+                return new JetPack(row.name, row.image, row.id);
+            });
+        });
+    }
+
+    getJetPacksInRange(start, end) {
+        return this.httpClient.fetch('/jetpacks?start_date=' + start + '&end_date=' + end, {}).then(rows => {
+
+            return rows.map(row => {
+                return new JetPack(row.name, row.image, row.id);
             });
         });
     }

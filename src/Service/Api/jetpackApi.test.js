@@ -25,6 +25,33 @@ describe('JetPackApi get JetPacks', function () {
     });
 });
 
+describe('JetPackApi get JetPacks in range', function () {
+
+    test('Test getJetPacksInRange', () => {
+        let httpClientMock = {
+            fetch: jest.fn()
+        };
+
+        httpClientMock.fetch.mockResolvedValue([
+            {
+                id: "123",
+                name: "The Jetpack",
+                image: "base64 ..."
+            }
+        ]);
+
+        let jetpackApi = new JetPackApi(httpClientMock);
+        let start = '2019-01-01';
+        let end = '2042-01-01';
+        jetpackApi.getJetPacksInRange(start, end).then(resp => {
+            expect(Array.isArray(resp)).toBe(true);
+            expect(resp.length).toBe(1);
+            expect(resp[0]).toBeInstanceOf(JetPack);
+            expect(httpClientMock.fetch.mock.calls[0][0]).toBe('/jetpacks?start_date=' + start + '&end_date=' + end);
+        });
+    });
+});
+
 describe('JetPackApi post JetPack', function () {
 
     test('Test postJetPack', () => {
@@ -42,22 +69,20 @@ describe('JetPackApi post JetPack', function () {
         ]);
 
         let jetPackApi = new JetPackApi(httpClientMock);
-        let jetPack = new JetPack();
-        jetPack.name = jetPackEntry.name;
-        jetPack.image = jetPackEntry.image;
+        let jetPack = new JetPack(jetPackEntry.name, jetPackEntry.image);
 
         jetPackApi.postJetPack(jetPack).then(resp => {
             expect(jetPack.id).toBe(jetPackEntry.id);
             expect(httpClientMock.fetch.mock.calls[0][1].name).toBe(jetPackEntry.name);
             expect(httpClientMock.fetch.mock.calls[0][1].image).toBe(jetPackEntry.image);
-            expect(httpClientMock.fetch.mock.calls[0][1].method).toBe("delete");
+            expect(httpClientMock.fetch.mock.calls[0][1].method).toBe("post");
         });
     });
 });
 
 describe('JetPackApi delete JetPack', function () {
 
-    test('Test postJetPack', () => {
+    test('Test deleteJetPack', () => {
         let httpClientMock = {
             fetch: jest.fn()
         };

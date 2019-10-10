@@ -3,11 +3,20 @@ module.exports = class  {
         if (id === undefined){
             this._id = null;
         }
+        else {
+            this._id = id;
+        }
         if (name === undefined){
             this._name = null;
         }
+        else {
+            this._name = name;
+        }
         if (image === undefined){
             this._image = null;
+        }
+        else {
+            this._image = image;
         }
     }
 
