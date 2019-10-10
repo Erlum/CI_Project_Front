@@ -29,7 +29,10 @@
   },
   "jest": {
     "verbose": true,
-    "testPathIgnorePatterns": ["./node_modules/", "./tests/ui/"],
+    "testPathIgnorePatterns": [
+      "./node_modules/",
+      "./tests/ui/"
+    ],
     "coverageThreshold": {
       "global": {
         "branches": 50,
