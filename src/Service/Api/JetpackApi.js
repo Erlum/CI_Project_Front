@@ -26,4 +26,10 @@ module.exports = class  {
             jetPack.id = response[0].id;
         });
     }
+
+    deleteJetPack(jetPack) {
+        this.httpClient.fetch('/jetpacks?id=' + jetPack.id, {
+            method: "delete"
+        });
+    }
 };

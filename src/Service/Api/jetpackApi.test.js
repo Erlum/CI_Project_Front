@@ -45,10 +45,34 @@ describe('JetPackApi post JetPack', function () {
         let jetPack = new JetPack();
         jetPack.name = jetPackEntry.name;
         jetPack.image = jetPackEntry.image;
+
         jetPackApi.postJetPack(jetPack).then(resp => {
             expect(jetPack.id).toBe(jetPackEntry.id);
-            expect(jetPack.name).toBe(jetPackEntry.name);
-            expect(jetPack.image).toBe(jetPackEntry.image);
+            expect(httpClientMock.fetch.mock.calls[0][1].name).toBe(jetPackEntry.name);
+            expect(httpClientMock.fetch.mock.calls[0][1].image).toBe(jetPackEntry.image);
+            expect(httpClientMock.fetch.mock.calls[0][1].method).toBe("delete");
         });
+    });
+});
+
+describe('JetPackApi delete JetPack', function () {
+
+    test('Test postJetPack', () => {
+        let httpClientMock = {
+            fetch: jest.fn()
+        };
+
+        let jetPackEntry = {
+            id: "a26574f0-3dd0-4e3b-9c1d-6089619f2f80",
+            name: "big jet pack",
+            image: "blurry.jpg"
+        };
+
+        let jetPackApi = new JetPackApi(httpClientMock);
+        let jetPack = new JetPack(jetPackEntry);
+        jetPackApi.deleteJetPack(jetPack);
+
+        expect(httpClientMock.fetch.mock.calls[0][0]).toBe('/jetpacks?id=' + jetPack.id);
+        expect(httpClientMock.fetch.mock.calls[0][1].method).toStrictEqual("delete");
     });
 });
