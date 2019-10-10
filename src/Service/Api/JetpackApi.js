@@ -1,19 +1,29 @@
-const JetpackApi = require('../../Entity/Jetpack');
+const JetPack = require('../../Entity/Jetpack');
 module.exports = class  {
     constructor(httpClient) {
         this.httpClient = httpClient;
     }
 
-    getJetpacks() {
+    getJetPacks() {
         return this.httpClient.fetch('/jetpacks', {}).then(rows => {
 
             return rows.map(row => {
-                let jetpack = new JetpackApi();
-                jetpack.id = row.id;
-                jetpack.name = row.name
-                jetpack.image = row.image;
-                return jetpack
+                let jetPack = new JetPack();
+                jetPack.id = row.id;
+                jetPack.name = row.name;
+                jetPack.image = row.image;
+                return jetPack
             });
+        });
+    }
+
+    postJetPack(jetPack) {
+        return this.httpClient.fetch('/jetpacks', {
+            name: jetPack.name,
+            image: jetPack.image,
+            method: "post"
+        }).then(response => {
+            jetPack.id = response[0].id;
         });
     }
 };
