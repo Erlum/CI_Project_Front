@@ -1,65 +1,64 @@
-[
-  {
-    "predicates": [
-      {
-        "equals": {
-          "method": "GET",
-          "path": "/booking"
-        }
-      },
-      {
-        "matches": {
-        }
+{
+  "predicates": [
+    {
+      "equals": {
+        "method": "GET",
+        "path": "/booking"
       }
-    ],
-    "responses": [
-      {
-        "is": {
-          "headers": {
-            "Access-Control-Allow-Origin": "*"
-          },
-          "body": [
-            {
-              "jet_pack_id": "a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d",
-              "start_date": "2019-01-01",
-              "end_date": "2042-01-01"
-            },
-            {
-              "jet_pack_id": "a8019ec0-bfdc-4240-9dbb-4927e5ef5c8d",
-              "start_date": "2010-01-01",
-              "end_date": "2019-01-01"
-            }
-          ]
-        }
+    },
+    {
+      "matches": {
       }
-    ]
-  },
-  {
-    "predicates": [
-      {
-        "equals": {
-          "method": "POST",
-          "path": "/bookings"
-        }
-      },
-      {
-        "matches": {
-        }
-      }
-    ],
-    "responses": [
-      {
-        "is": {
-          "headers": {
-            "Access-Control-Allow-Origin": "*"
-          },
-          "body": {
+    }
+  ],
+  "responses": [
+    {
+      "is": {
+        "headers": {
+          "Access-Control-Allow-Origin": "*"
+        },
+        "body": [
+          {
             "jet_pack_id": "a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d",
+            "start_date": "2019-01-01",
+            "end_date": "2042-01-01"
+          },
+          {
+            "jet_pack_id": "a8019ec0-bfdc-4240-9dbb-4927e5ef5c8d",
             "start_date": "2010-01-01",
             "end_date": "2019-01-01"
           }
+        ]
+      }
+    }
+  ]
+},
+{
+  "predicates": [
+    {
+      "equals": {
+        "method": "POST",
+        "path": "/bookings"
+      }
+    },
+    {
+      "matches": {
+      }
+    }
+  ],
+  "responses": [
+    {
+      "is": {
+        "headers": {
+          "Access-Control-Allow-Origin": "*"
+        },
+        "body": {
+          "jet_pack_id": "a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d",
+          "start_date": "2010-01-01",
+          "end_date": "2019-01-01"
         }
       }
-    ]
-  }
-]
+    }
+  ]
+}
+
