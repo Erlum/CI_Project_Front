@@ -36,7 +36,7 @@
     {
       "equals": {
         "method": "GET",
-        "path": "/jetpacks?start_date=<start_date>&end_date=<end_date>"
+        "path": "/jetpacks?start_date=2019-10-10&end_date=2019-12-01"
       }
     },
     {
@@ -97,7 +97,7 @@
     {
       "equals": {
         "method": "DELETE",
-        "path": "/jetpacks?id=<jetpack_id>"
+        "path": "/jetpacks?id=a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d"
       }
     },
     {
