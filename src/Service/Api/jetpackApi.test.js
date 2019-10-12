@@ -25,6 +25,32 @@ describe('JetPackApi get JetPacks', function () {
     });
 });
 
+describe('JetPackApi get a Jet Pack', function () {
+
+    test('Test getJetPacks', () => {
+        let httpClientMock = {
+            fetch: jest.fn()
+        };
+
+        httpClientMock.fetch.mockResolvedValue([
+            {
+                id: "77",
+                name: "The James Bond Jetpack",
+                image: "007picture"
+            }
+        ]);
+
+        let jetpackApi = new JetPackApi(httpClientMock);
+        jetpackApi.getJetPack(77).then(resp => {
+            expect(Array.isArray(resp)).toBe(true);
+            expect(resp.length).toBe(1);
+            expect(resp[0]).toBeInstanceOf(JetPack)
+        });
+    });
+});
+
+
+
 describe('JetPackApi get JetPacks in range', function () {
 
     test('Test getJetPacksInRange', () => {
