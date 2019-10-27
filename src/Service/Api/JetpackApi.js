@@ -1,5 +1,5 @@
 const JetPack = require('../../Entity/Jetpack');
-module.exports = class  {
+module.exports = class {
     constructor(httpClient) {
         this.httpClient = httpClient;
     }
@@ -15,9 +15,7 @@ module.exports = class  {
 
 
     getJetPack(id) {
-        return this.httpClient.fetch('/jetpacks?id=' + id, {
-
-        }).then(rows => {
+        return this.httpClient.fetch('/jetpacks?id=' + id, {}).then(rows => {
 
             return rows.map(row => {
                 return new JetPack(row.name, row.image, row.id);
@@ -51,4 +49,4 @@ module.exports = class  {
         });
     }
 
-    
+}

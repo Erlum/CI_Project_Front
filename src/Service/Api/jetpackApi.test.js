@@ -27,7 +27,7 @@ describe('JetPackApi get JetPacks', function () {
 
 describe('JetPackApi get a Jet Pack', function () {
 
-    test('Test getJetPacks', () => {
+    test('Test getJetPack', () => {
         let httpClientMock = {
             fetch: jest.fn()
         };
@@ -36,7 +36,7 @@ describe('JetPackApi get a Jet Pack', function () {
             {
                 id: "77",
                 name: "The James Bond Jetpack",
-                image: "007picture"
+                image: "007picture.jpg"
             }
         ]);
 
@@ -48,7 +48,6 @@ describe('JetPackApi get a Jet Pack', function () {
         });
     });
 });
-
 
 
 describe('JetPackApi get JetPacks in range', function () {
