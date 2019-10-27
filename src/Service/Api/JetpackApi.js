@@ -43,6 +43,16 @@ module.exports = class {
         });
     }
 
+    editJetPack(jetPack) {
+        return this.httpClient.fetch('/jetpacks?id=', {
+            name: jetPack.name,
+            image: jetPack.image,
+            method: "patch"
+        }).then(response => {
+            jetPack.id = response[0].id;
+        });
+    }
+
     deleteJetPack(jetPack) {
         this.httpClient.fetch('/jetpacks?id=' + jetPack.id, {
             method: "delete"
