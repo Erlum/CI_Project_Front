@@ -2,7 +2,7 @@
   "predicates": [
     {
       "equals": {
-        "method": "GET",
+        "method": "get",
         "path": "/jetpacks"
       }
     },
@@ -31,12 +31,11 @@
     }
   ]
 },
-
 {
   "predicates": [
     {
       "equals": {
-        "method": "POST",
+        "method": "post",
         "path": "/jetpacks"
       }
     },
