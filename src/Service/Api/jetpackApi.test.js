@@ -7,6 +7,7 @@ describe('JetPackApi get JetPacks', function () {
         let httpClientMock = {
             fetch: jest.fn()
         };
+        
 
         httpClientMock.fetch.mockResolvedValue([
             {
