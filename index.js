@@ -44,6 +44,3 @@ jetpackService.getJetPacks().then(jetpacks => {
     document.getElementById('jetpacks').innerHTML = html;
 });
 
-function addJetPack(){
-
-}
