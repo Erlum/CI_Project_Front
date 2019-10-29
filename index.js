@@ -10,18 +10,40 @@ jetpackService.getJetPacks().then(jetpacks => {
     let html =  '';
     jetpacks.forEach((jetpack) => {
         html +=
-            //'<div class="col-lg-4 col-md-6 mb-4">'
-            '<div class="card h-100 col-lg-4 col-md-6 mb-4" \n' +
+            '<div class="card" style="width: 18rem;">\n' +
             '  <img src="'+ jetpack.image +'" class="card-img-top" alt="...">\n' +
             '  <div class="card-body">\n' +
-            '    <h4 class="card-title">' + jetpack.name + '</h4>\n' +
+            '    <h5 class="card-title">' + jetpack.name + '</h5>\n' +
             '    <a href="#" class="btn btn-primary">Edit</a>\n' +
             '  </div>\n' +
-            '</div>' //+
-            //'</div>'
+            '</div>'
+
+    });
+
+    document.getElementById('jetpacks').innerHTML = html;
+});
+
+
+jetpackService.getJetPacks().then(jetpacks => {
+    let html =  '';
+    jetpacks.forEach((jetpack) => {
+        html +=
+            '<div class="col-lg-4 col-md-6 mb-4">' +
+            '<div class="card h-100" style="width: 18rem;">\n' +
+            '  <img src="'+ jetpack.image +'" class="card-img-top" alt="...">\n' +
+            '  <div class="card-body">\n' +
+            '    <h5 class="card-title">' + jetpack.name + '</h5>\n' +
+            '    <a href="#" class="btn btn-primary">Edit</a>\n' +
+            '  </div>\n' +
+            '</div>' +
+            '</div>'
 
     });
 
 
     document.getElementById('jetpacks').innerHTML = html;
 });
+
+function addJetPack(){
+
+}
