@@ -13,10 +13,10 @@ jetpackService.getJetPacks().then(jetpacks => {
             '<div class="col-lg-4 col-md-6 mb-4">' +
             '<div class="card h-100" style="width: 18rem;">\n' +
             '  <img src="'+ jetpack.image +'" class="card-img-top" alt="...">\n' +
-            '  <div class="card-body text-center">\n' +
+            '  <div class="card-body">\n' +
             '    <h4 class="card-title">' + jetpack.name + '</h4>\n' +
             '    <span id="jetpack-id" class="invisible">' + jetpack.id + '</span>' +
-            '    <div class="d-flex justify-content-around">' +
+            '     <div class="d-flex justify-content-around">' +
             '         <button type="button" id="modifier-jetpack" class="btn btn-outline-primary m" data-toggle="modal" data-target="#modifierModal"style="">Modifier</button>' +
             '         <button type="button" id="reserver-jetpack"class="btn btn-outline-success" data-toggle="modal" data-target="#reserverModal">Réserver</button>' +
             '    </div>' +
@@ -27,29 +27,6 @@ jetpackService.getJetPacks().then(jetpacks => {
 
     });
 
+
     document.getElementById('jetpacks').innerHTML = html;
 });
-
-
-jetpackService.postJetPack().then(jetpacks => {
-    let html =  '';
-        html +=
-            '<form method="post" class="mx-auto w-50" >'+
-
-            '<div class="form-group">' +
-            '<label for="name">Nom du JetPack :</label>' +
-            '<input type="text" class="form-control" id="name" placeholder="">' +
-            '</div>' +
-
-            '<div class="form-group">' +
-            '<label for="image">URL de l\'image du JetPack :</label>' +
-    '<input type="text" class="form-control" id="image" placeholder="">' +
-    '</div>' +
-
-    '<button type="submit" id="post-jetpack" class="btn btn-primary btn-success">Créer le JetPack</button>' +
-    '</form>'
-
-
-    document.getElementById('creation-jetpack').innerHTML = html;
-});
-
