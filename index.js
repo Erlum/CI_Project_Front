@@ -20,7 +20,9 @@ jetpackService.getJetPacks().then(jetpacks => {
             '         <button type="button" id="modifier-jetpack" class="btn btn-outline-primary m" data-toggle="modal" data-target="#modifierModal"style="">Modifier</button>' +
             '         <button type="button" id="reserver-jetpack"class="btn btn-outline-success" data-toggle="modal" data-target="#reserverModal">Réserver</button>' +
             '    </div>' +
-            '     <button type="button" id="reserver-jetpack"class="btn btn-outline-danger mt-2" data-toggle="modal" data-target="#supprimerModal">Supprimer</button>' +
+            '    <div class="text-center">' +
+            '           <button type="button" id="supprimer-jetpack"class="btn btn-outline-danger mt-2" data-toggle="modal" data-target="#supprimerModal">Supprimer</button>' +
+            '     </div>' +
             '  </div>\n' +
             '</div>' +
             '</div>'
