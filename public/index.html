@@ -37,7 +37,9 @@
 
 
 
-<div class="container mt-5">
+
+
+<div class="container mt-5 mb-5">
 
     <div class="row" >
 
@@ -55,18 +57,42 @@
 
 
 
-<div class="container">
-
-    <div class="card" style="width: 18rem;">
-        <div class="card-body">
-            <button type="button" class="btn btn-success btn-lg" onclick="">Ajouter</button>
+<div class="modal fade" id="modifierModal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modifier le JetPack</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                        <label for="jetpack-name" class="col-form-label">Nom du JetPack :</label>
+                        <input type="text" class="form-control" id="jetpack-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="jetpack-image" class="col-form-label">URL de l'image du JetPack:</label>
+                        <input type="text" class="form-control" id="jetpack-image"></input>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Send message</button>
+            </div>
         </div>
     </div>
-
 </div>
 
 
-<footer class="py-1 bg-blue fixed-bottom">
+
+
+
+
+
+<footer class="py-1 bg-blue fixed-bottom btn-primary">
     <div class="container">
         <p class="m-0 text-center text-white">Copyright &copy; Pierre Danel, Olivier Gatissou, Antoine Dujardin, Adelino Araujo</p>
     </div>
