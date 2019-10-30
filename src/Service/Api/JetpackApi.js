@@ -23,7 +23,6 @@ module.exports = class {
         });
     }
 
-
     getJetPacksInRange(start, end) {
         return this.httpClient.fetch('/jetpacks?start_date=' + start + '&end_date=' + end, {}).then(rows => {
 
