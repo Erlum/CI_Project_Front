@@ -1,4 +1,5 @@
 const appConfig = require('./app.config');
+const JetPack = require('./src/Entity/Jetpack') ;
 const JetpackService = require('./src/Service/Api/JetpackApi');
 const HttpClient = require('./src/HttpClient');
 
@@ -17,11 +18,11 @@ jetpackService.getJetPacks().then(jetpacks => {
             '    <h4 class="card-title">' + jetpack.name + '</h4>\n' +
             '    <span id="jetpack-id" class="invisible">' + jetpack.id + '</span>' +
             '     <div class="d-flex justify-content-around">' +
-            '         <button type="button" id="modifier-jetpack" class="btn btn-outline-primary m" data-toggle="modal" data-target="#modifierModal"style="">Modifier</button>' +
-            '         <button type="button" id="reserver-jetpack"class="btn btn-outline-success" data-toggle="modal" data-target="#reserverModal">Réserver</button>' +
+            '         <button type="button" id="editJetpack" class="btn btn-outline-primary m" data-toggle="modal" data-target="#editModal"style="">Modifier</button>' +
+            '         <button type="button" id="bookJetpack"class="btn btn-outline-success" data-toggle="modal" data-target="#bookModal">Réserver</button>' +
             '    </div>' +
             '    <div class="text-center">' +
-            '           <button type="button" id="supprimer-jetpack"class="btn btn-outline-danger mt-2" data-toggle="modal" data-target="#supprimerModal">Supprimer</button>' +
+            '           <button type="button" id="deleteJetpack"class="btn btn-outline-danger mt-2" data-toggle="modal" data-target="#deleteModal">Supprimer</button>' +
             '     </div>' +
             '  </div>\n' +
             '</div>' +
@@ -32,3 +33,34 @@ jetpackService.getJetPacks().then(jetpacks => {
 
     document.getElementById('jetpacks').innerHTML = html;
 });
+
+
+
+
+var  addJetPackButton = document.getElementById("addJetPackButton");
+
+addJetPackButton.onclick = function() {
+
+    // var nom = prompt("Please enter your name");
+
+    //var url = prompt("Please enter your url");
+
+    var name = document.getElementById("jetpackName").value;
+
+    var image = document.getElementById("jetpackImage").value;
+
+    if(name != '' &&  image != ''){
+
+        var jetPack = new JetPack();
+
+        jetPack.name = name;
+
+        jetPack.image = image;
+
+        jetpackService.postJetPack(jetPack).then(function() {
+
+            alert("Le jetpack a été enregistré avec succès");
+
+        });
+    }
+};
