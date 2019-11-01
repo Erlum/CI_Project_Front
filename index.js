@@ -39,14 +39,6 @@ jetpackService.getJetPacks().then(jetpacks => {
 $(function(){
     // DateRangePicker initialisation
     moment.locale('fr');
-    $('input.date-range').daterangepicker({
-        minDate: moment(),
-        autoApply: true,
-        opens: "center",
-        isInvalidDate: function (date) {
-            return false;
-        },
-    });
 
     // Modal open listeners
     $('#edit-jetpack-modal').on('show.bs.modal', function (event) {
@@ -62,6 +54,32 @@ $(function(){
         let button = $(event.relatedTarget);
         let jetpack = jetpacks_array[button.data('id')];
         let modal = $(this);
+
+        bookingService.getJetPackBookings(jetpack).then(bookings => {
+            modal.find('input.date-range').daterangepicker({
+                minDate: moment(),
+                autoApply: true,
+                opens: "center",
+                isInvalidDate: function (date) {
+                    for (let i = 0; i < bookings.length; i++) {
+                        if (date >= moment(bookings[i].start, moment.ISO_8601) && date <= moment(bookings[i].end, moment.ISO_8601)){
+                            return true
+                        }
+                    }
+                    return false;
+                },
+            }, function(start, end, label) {
+                for (let i = 0; i < bookings.length; i++) {
+                    if (start < moment(bookings[i].start, moment.ISO_8601) && end > moment(bookings[i].end, moment.ISO_8601)){
+                        this.startDate = moment();
+                        this.endDate = moment();
+                        $('#book-interval-invalid-modal').modal('show');
+                        return;
+                    }
+                }
+            });
+        });
+
         modal.find('span#jetpack-book-name').html(jetpack.name);
         modal.find('input#jetpack-book-id').val(jetpack.id);
     });
@@ -73,4 +91,10 @@ $(function(){
         modal.find('span#jetpack-delete-name').html(jetpack.name);
         modal.find('input#jetpack-delete-id').val(jetpack.id);
     });
+    
+    // Form submit listeners
+    $('#edit-jetpack-modal form').submit(function (event) {
+
+        event.preventDefault();
+    })
 });
