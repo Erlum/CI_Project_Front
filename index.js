@@ -37,6 +37,18 @@ jetpackService.getJetPacks().then(jetpacks => {
 
 // DOM Ready
 $(function(){
+    // DateRangePicker initialisation
+    moment.locale('fr');
+    $('input.date-range').daterangepicker({
+        minDate: moment(),
+        autoApply: true,
+        opens: "center",
+        isInvalidDate: function (date) {
+            return false;
+        },
+    });
+
+    // Modal open listeners
     $('#edit-jetpack-modal').on('show.bs.modal', function (event) {
         let button = $(event.relatedTarget);
         let jetpack = jetpacks_array[button.data('id')];

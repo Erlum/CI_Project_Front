@@ -83,19 +83,9 @@
                     </div>
                     <form>
                         <div class="modal-body">
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <span class="form-label">Début :</span>
-                                        <input class="form-control" type="date" required>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group">
-                                        <span class="form-label">Fin :</span>
-                                        <input class="form-control" type="date" required>
-                                    </div>
-                                </div>
+                            <div class="form-group">
+                                <label for="date-range">Durée de l'emprunt</label>
+                                <input type="text" class="form-control date-range" id="date-range" name="date-range" />
                             </div>
                         </div>
                         <div class="modal-footer">
@@ -118,7 +108,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <p>Attention ! vous etes sur le point de supprimer le JetPack '<span id="jetpack-delete-name"></span>'</p>
+                        <p>Attention ! vous êtes sur le point de supprimer le JetPack '<span id="jetpack-delete-name"></span>'</p>
                     </div>
                     <div class="modal-footer">
                         <form>
@@ -139,7 +129,7 @@
     </body>
     <script src="libraries/jquery/jquery.js"></script>
     <script src="libraries/bootstrap/js/bootstrap.bundle.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment-with-locales.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <script type="text/javascript" src="dist/bundle.js"></script>
 </html>
