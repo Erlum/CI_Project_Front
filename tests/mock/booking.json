@@ -28,8 +28,8 @@
           {
             "id": "a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d",
             "jetpack": "${jetpack}",
-            "start_date": "2019-01-01",
-            "end_date": "2042-01-01"
+            "start_date": "${NEXT_WEEK}",
+            "end_date": "${WEEK_AFTER}"
           }
         ]
       },
@@ -45,7 +45,8 @@
               "selector": "[\\s\\S]*"
             }
           }
-        ]
+        ],
+        "decorate": "(config, response) => {\n            let pad = function (number) {\n                return (number < 10) ? '0' + number : number.toString();\n            };\n            let iso8601 = function (date) {\n                return date.getFullYear() + '-' + pad(date.getMonth() + 1) + '-' + pad(date.getDate());\n            };\n            let now = new Date();\n            let next_week = new Date(now.getFullYear(), now.getMonth(), now.getDate()+7);\n            let week_after = new Date(next_week.getFullYear(), next_week.getMonth(), next_week.getDate()+7);\n            \n            response.body = JSON.stringify(response.body);\n            response.body = response.body.replace('${NEXT_WEEK}', iso8601(next_week));\n            response.body = response.body.replace('${WEEK_AFTER}', iso8601(week_after));\n\n            return {\n                body: JSON.parse(response.body),\n                statusCode: response.statusCode,\n                headers: response.headers\n            };\n        }"
       }
     }
   ]

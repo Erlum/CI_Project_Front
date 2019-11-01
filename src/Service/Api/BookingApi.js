@@ -6,7 +6,7 @@ module.exports = class  {
     }
 
     getBookings() {
-        return this.httpClient.fetch('/bookings', {}).then(rows => {
+        return this.httpClient.fetch('/booking', {}).then(rows => {
 
             return rows.map(row => {
                 return new Booking(row["jetpack"], row["start_date"], row["end_date"], row["id"]);
@@ -15,7 +15,7 @@ module.exports = class  {
     }
 
     getJetPackBookings(JetPack) {
-        return this.httpClient.fetch('/bookings?jetpack=' + JetPack.id, {}).then(rows => {
+        return this.httpClient.fetch('/booking?jetpack=' + JetPack.id, {}).then(rows => {
 
             return rows.map(row => {
                 return new Booking(row["jetpack"], row["start_date"], row["end_date"], row["id"]);
@@ -24,7 +24,7 @@ module.exports = class  {
     }
 
     postBooking(booking) {
-        return this.httpClient.fetch('/jetpacks', {
+        return this.httpClient.fetch('/booking', {
             jet_pack_id: booking.jetPack.id,
             start_date: booking.start,
             end_date: booking.end,

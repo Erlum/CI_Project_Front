@@ -48,18 +48,23 @@
         },
         "body": [
           {
-            "id": "a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d",
+            "id": "a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d1",
             "name": "Jetpack Fortnite Wiki",
             "image": "https://gamepedia.cursecdn.com/fortnite_gamepedia/e/e1/Jetpack_icon.png"
           },
           {
-            "id": "a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d",
+            "id": "a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d2",
             "name": "Jetpack JackTalior",
             "image": "http://www.slate.fr/sites/default/files/styles/1060x523/public/backviewjetpack.jpg"
           },
           {
-            "id": "a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d",
+            "id": "a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d3",
             "name": "Jetpack JackTalior2",
+            "image": "http://www.slate.fr/sites/default/files/styles/1060x523/public/backviewjetpack.jpg"
+          },
+          {
+            "id": "a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d4",
+            "name": "Jetpack JackTalior3",
             "image": "http://www.slate.fr/sites/default/files/styles/1060x523/public/backviewjetpack.jpg"
           }
         ]
