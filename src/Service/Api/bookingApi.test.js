@@ -21,7 +21,33 @@ describe('BookingApi get Bookings', function () {
         bookingApi.getBookings().then(resp => {
             expect(Array.isArray(resp)).toBe(true);
             expect(resp.length).toBe(1);
-            expect(resp[0]).toBeInstanceOf(Booking)
+            expect(resp[0]).toBeInstanceOf(Booking);
+        });
+    });
+});
+
+describe('BookingApi get JetPack Bookings', function () {
+
+    test('Test getBookings', () => {
+        let httpClientMock = {
+            fetch: jest.fn()
+        };
+
+        let jetpack_id = "a26574f0-3dd0-4e3b-9c1d-6089619f2f80";
+        httpClientMock.fetch.mockResolvedValue([
+            {
+                jetpack: jetpack_id,
+                start_date: "2019-01-01",
+                end_date: "2042-01-01"
+            }
+        ]);
+
+        let bookingApi = new BookingApi(httpClientMock);
+        bookingApi.getJetPackBookings(new JetPack("", "", jetpack_id)).then(resp => {
+            expect(Array.isArray(resp)).toBe(true);
+            expect(resp.length).toBe(1);
+            expect(resp[0]).toBeInstanceOf(Booking);
+            expect(resp[0].jetPack).toBe(jetpack_id);
         });
     });
 });
