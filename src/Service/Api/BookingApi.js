@@ -25,12 +25,12 @@ module.exports = class  {
 
     postBooking(booking) {
         return this.httpClient.fetch('/booking', {
-            jet_pack_id: booking.jetPack.id,
+            jetpack: booking.jetPack.id,
             start_date: booking.start,
             end_date: booking.end,
             method: "post"
         }).then(response => {
-            booking.id = response[0].id;
+            booking.id = response.id;
         });
     }
 };
