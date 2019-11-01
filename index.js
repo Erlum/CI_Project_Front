@@ -21,10 +21,10 @@ jetpackService.getJetPacks().then(jetpacks => {
             '    <h4 class="card-title">' + jetpack.name + '</h4>\n' +
             '     <div class="d-flex justify-content-around">' +
             '         <button type="button" id="edit-jetpack" class="btn btn-outline-primary m" data-toggle="modal" data-target="#edit-jetpack-modal" data-id="' + jetpack.id + '">Modifier</button>' +
-            '         <button type="button" id="book-jetpack" class="btn btn-outline-success" data-toggle="modal" data-target="#book-jetpack-modal">Réserver</button>' +
+            '         <button type="button" id="book-jetpack" class="btn btn-outline-success" data-toggle="modal" data-target="#book-jetpack-modal" data-id="' + jetpack.id + '">Réserver</button>' +
             '    </div>' +
             '    <div class="text-center">' +
-            '           <button type="button" id="delete-jetpack" class="btn btn-outline-danger mt-2" data-toggle="modal" data-target="#delete-jetpack-modal">Supprimer</button>' +
+            '           <button type="button" id="delete-jetpack" class="btn btn-outline-danger mt-2" data-toggle="modal" data-target="#delete-jetpack-modal" data-id="' + jetpack.id + '">Supprimer</button>' +
             '     </div>' +
             '  </div>\n' +
             '</div>' +
@@ -41,7 +41,24 @@ $(function(){
         let button = $(event.relatedTarget);
         let jetpack = jetpacks_array[button.data('id')];
         let modal = $(this);
-        modal.find('input.jetpack-name').text(jetpack.name);
-        modal.find('input.jetpack-image').val(jetpack.image);
-    })
+        modal.find('input#jetpack-edit-id').val(jetpack.id);
+        modal.find('input#jetpack-edit-name').val(jetpack.name);
+        modal.find('input#jetpack-edit-image').val(jetpack.image);
+    });
+
+    $('#book-jetpack-modal').on('show.bs.modal', function (event) {
+        let button = $(event.relatedTarget);
+        let jetpack = jetpacks_array[button.data('id')];
+        let modal = $(this);
+        modal.find('span#jetpack-book-name').html(jetpack.name);
+        modal.find('input#jetpack-book-id').val(jetpack.id);
+    });
+
+    $('#delete-jetpack-modal').on('show.bs.modal', function (event) {
+        let button = $(event.relatedTarget);
+        let jetpack = jetpacks_array[button.data('id')];
+        let modal = $(this);
+        modal.find('span#jetpack-delete-name').html(jetpack.name);
+        modal.find('input#jetpack-delete-id').val(jetpack.id);
+    });
 });
