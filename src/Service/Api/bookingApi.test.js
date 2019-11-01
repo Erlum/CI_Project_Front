@@ -80,7 +80,7 @@ describe('JetPackApi post Bookings', function () {
 
         bookingApi.postBooking(booking).then(resp => {
             expect(booking.id).toBe(bookingEntry.id);
-            expect(httpClientMock.fetch.mock.calls[0][1].jet_pack_id).toBe(bookingEntry.jet_pack_id);
+            expect(httpClientMock.fetch.mock.calls[0][1].jetpack).toBe(bookingEntry.jetpack);
             expect(httpClientMock.fetch.mock.calls[0][1].start_date).toBe(bookingEntry.start_date);
             expect(httpClientMock.fetch.mock.calls[0][1].end_date).toBe(bookingEntry.end_date);
             expect(httpClientMock.fetch.mock.calls[0][1].method).toBe("post");

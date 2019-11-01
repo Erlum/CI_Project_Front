@@ -1,4 +1,5 @@
 const appConfig = require('./app.config');
+const Booking = require('./src/Entity/Booking');
 const JetpackService = require('./src/Service/Api/JetpackApi');
 const BookingService = require('./src/Service/Api/BookingApi');
 const HttpClient = require('./src/HttpClient');
@@ -34,6 +35,14 @@ jetpackService.getJetPacks().then(jetpacks => {
 
     document.getElementById('jetpacks').innerHTML = html;
 });
+
+let clean_form_data = function(data_raw){
+    let data = {};
+    for (let i = 0; i < data_raw.length; i++) {
+        data[data_raw[i]["name"]] = data_raw[i]["value"]
+    }
+    return data;
+};
 
 // DOM Ready
 $(function(){
@@ -96,14 +105,29 @@ $(function(){
     $('#edit-jetpack-modal form').submit(function (event) {
         event.preventDefault();
         let form = $(this);
-        let data_raw = form.serializeArray();
-        let data = {};
-        for (let i = 0; i < data_raw.length; i++) {
-            data[data_raw[i]["name"]] = data_raw[i]["value"]
-        }
-        jetPack = jetpacks_array[data["jetpack-id"]];
+        let data = clean_form_data(form.serializeArray());
+        let jetPack = jetpacks_array[data["jetpack-id"]];
         jetPack.name = data["jetpack-name"];
         jetPack.image = data["jetpack-image"];
         jetpackService.editJetPack(jetPack);
-    })
+    });
+
+    $('#book-jetpack-modal form').submit(function (event) {
+        event.preventDefault();
+        let form = $(this);
+        let data = clean_form_data(form.serializeArray());
+        let jetPack = jetpacks_array[data["jetpack-id"]];
+        let start = $(this).find('#date-range').data('daterangepicker').startDate;
+        let end = $(this).find('#date-range').data('daterangepicker').endDate;
+        let booking = new Booking(jetPack.id, start, end);
+        bookingService.postBooking(booking);
+    });
+
+    $('#delete-jetpack-modal form').submit(function (event) {
+        event.preventDefault();
+        let form = $(this);
+        let data = clean_form_data(form.serializeArray());
+        let jetPack = jetpacks_array[data["jetpack-id"]];
+        jetpackService.deleteJetPack(jetPack);
+    });
 });
