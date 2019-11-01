@@ -33,7 +33,8 @@
       }
     }
   ]
-},
+}
+,
 {
   "predicates": [
     {
@@ -93,11 +94,13 @@
         "headers": {
           "Access-Control-Allow-Origin": "*"
         },
-        "body": {
+        "body": [
+          {
           "id": "a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d",
           "name": "Le jetpack",
           "image": "Image 3"
         }
+        ]
       }
     }
   ]

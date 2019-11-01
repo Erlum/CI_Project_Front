@@ -34,3 +34,33 @@ jetpackService.getJetPacks().then(jetpacks => {
     document.getElementById('jetpacks').innerHTML = html;
 });
 
+
+
+
+var  addJetPackButton = document.getElementById("addJetPackButton");
+
+addJetPackButton.onclick = function() {
+
+    // var nom = prompt("Please enter your name");
+
+    //var url = prompt("Please enter your url");
+
+    var name = document.getElementById("jetpackName").value;
+
+    var image = document.getElementById("jetpackImage").value;
+
+    if(name != '' &&  image != ''){
+
+        var jetPack = new JetPack();
+
+        jetPack.name = name;
+
+        jetPack.image = image;
+
+        jetpackService.postJetPack(jetPack).then(function() {
+
+            alert("Le jetpack a été enregistré avec succès");
+
+        });
+    }
+};
