@@ -43,12 +43,10 @@ module.exports = class {
     }
 
     editJetPack(jetPack) {
-        return this.httpClient.fetch('/jetpacks?id=', {
+        return this.httpClient.fetch('/jetpacks?id=' + jetPack.id, {
             name: jetPack.name,
             image: jetPack.image,
             method: "patch"
-        }).then(response => {
-            jetPack.id = response[0].id;
         });
     }
 

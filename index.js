@@ -94,7 +94,16 @@ $(function(){
     
     // Form submit listeners
     $('#edit-jetpack-modal form').submit(function (event) {
-
         event.preventDefault();
+        let form = $(this);
+        let data_raw = form.serializeArray();
+        let data = {};
+        for (let i = 0; i < data_raw.length; i++) {
+            data[data_raw[i]["name"]] = data_raw[i]["value"]
+        }
+        jetPack = jetpacks_array[data["jetpack-id"]];
+        jetPack.name = data["jetpack-name"];
+        jetPack.image = data["jetpack-image"];
+        jetpackService.editJetPack(jetPack);
     })
 });

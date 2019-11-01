@@ -4,7 +4,10 @@
       "deepEquals": {
         "method": "GET",
         "path": "/jetpacks",
-        "query": {"start_date": "2019-10-10", "end_date": "2019-12-01"}
+        "query": {
+          "start_date": "2019-10-10",
+          "end_date": "2019-12-01"
+        }
       }
     }
   ],
@@ -31,87 +34,111 @@
   ]
 },
 {
-  "predicates": [
-    {
-      "equals": {
-        "method": "get",
-        "path": "/jetpacks"
-      }
-    }
-  ],
-  "responses": [
-    {
-      "is": {
-        "headers": {
-          "Access-Control-Allow-Origin": "*"
-        },
-        "body": [
-          {
-            "id": "a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d1",
-            "name": "Jetpack Fortnite Wiki",
-            "image": "https://gamepedia.cursecdn.com/fortnite_gamepedia/e/e1/Jetpack_icon.png"
-          },
-          {
-            "id": "a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d2",
-            "name": "Jetpack JackTalior",
-            "image": "http://www.slate.fr/sites/default/files/styles/1060x523/public/backviewjetpack.jpg"
-          },
-          {
-            "id": "a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d3",
-            "name": "Jetpack JackTalior2",
-            "image": "http://www.slate.fr/sites/default/files/styles/1060x523/public/backviewjetpack.jpg"
-          },
-          {
-            "id": "a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d4",
-            "name": "Jetpack JackTalior3",
-            "image": "http://www.slate.fr/sites/default/files/styles/1060x523/public/backviewjetpack.jpg"
-          }
-        ]
-      }
-    }
-  ]
+"predicates": [
+{
+"equals": {
+"method": "get",
+"path": "/jetpacks"
+}
+}
+],
+"responses": [
+{
+"is": {
+"headers": {
+"Access-Control-Allow-Origin": "*"
+},
+"body": [
+{
+"id": "a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d1",
+"name": "Jetpack Fortnite Wiki",
+"image": "https://gamepedia.cursecdn.com/fortnite_gamepedia/e/e1/Jetpack_icon.png"
 },
 {
-  "predicates": [
-    {
-      "equals": {
-        "method": "post",
-        "path": "/jetpacks"
-      }
-    }
-  ],
-  "responses": [
-    {
-      "is": {
-        "headers": {
-          "Access-Control-Allow-Origin": "*"
-        },
-        "body": {
-          "id": "a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d",
-          "name": "Le jetpack",
-          "image": "Image 3"
-        }
-      }
-    }
-  ]
+"id": "a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d2",
+"name": "Jetpack JackTalior",
+"image": "http://www.slate.fr/sites/default/files/styles/1060x523/public/backviewjetpack.jpg"
 },
 {
-  "predicates": [
-    {
-      "equals": {
-        "method": "DELETE",
-        "path": "/jetpacks?id=a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d"
-      }
-    }
-  ],
-  "responses": [
-    {
-      "is": {
-        "headers": {
-          "Access-Control-Allow-Origin": "*"
-        },
-        "body": {}
-      }
-    }
-  ]
+"id": "a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d3",
+"name": "Jetpack JackTalior2",
+"image": "http://www.slate.fr/sites/default/files/styles/1060x523/public/backviewjetpack.jpg"
+},
+{
+"id": "a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d4",
+"name": "Jetpack JackTalior3",
+"image": "http://www.slate.fr/sites/default/files/styles/1060x523/public/backviewjetpack.jpg"
+}
+]
+}
+}
+]
+},
+{
+"predicates": [
+{
+"equals": {
+"method": "post",
+"path": "/jetpacks"
+}
+}
+],
+"responses": [
+{
+"is": {
+"headers": {
+"Access-Control-Allow-Origin": "*"
+},
+"body": {
+"id": "a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d",
+"name": "Le jetpack",
+"image": "Image 3"
+}
+}
+}
+]
+},
+{
+"predicates": [
+{
+"equals": {
+"method": "PATCH",
+"path": "/jetpacks"
+}
+}
+],
+"responses": [
+{
+"is": {
+"headers": {
+"Access-Control-Allow-Origin": "*"
+},
+"body": {
+"id": "a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d",
+"name": "Le jetpack",
+"image": "Image 3"
+}
+}
+}
+]
+},
+{
+"predicates": [
+{
+"equals": {
+"method": "DELETE",
+"path": "/jetpacks?id=a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d"
+}
+}
+],
+"responses": [
+{
+"is": {
+"headers": {
+"Access-Control-Allow-Origin": "*"
+},
+"body": {}
+}
+}
+]
 }
