@@ -6,10 +6,6 @@
         "path": "/jetpacks",
         "query": {"start_date": "2019-10-10", "end_date": "2019-12-01"}
       }
-    },
-    {
-      "matches": {
-      }
     }
   ],
   "responses": [
@@ -40,10 +36,6 @@
       "equals": {
         "method": "get",
         "path": "/jetpacks"
-      }
-    },
-    {
-      "matches": {
       }
     }
   ],
@@ -86,10 +78,6 @@
         "method": "post",
         "path": "/jetpacks"
       }
-    },
-    {
-      "matches": {
-      }
     }
   ],
   "responses": [
@@ -113,10 +101,6 @@
       "equals": {
         "method": "DELETE",
         "path": "/jetpacks?id=a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d"
-      }
-    },
-    {
-      "matches": {
       }
     }
   ],
