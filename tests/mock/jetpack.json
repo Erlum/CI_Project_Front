@@ -1,6 +1,42 @@
 {
   "predicates": [
     {
+      "deepEquals": {
+        "method": "GET",
+        "path": "/jetpacks",
+        "query": {"start_date": "2019-10-10", "end_date": "2019-12-01"}
+      }
+    },
+    {
+      "matches": {
+      }
+    }
+  ],
+  "responses": [
+    {
+      "is": {
+        "headers": {
+          "Access-Control-Allow-Origin": "*"
+        },
+        "body": [
+          {
+            "id": "a8019ec0-bfdc-4240-9dbb-4927e5ef5c8d",
+            "name": "Jetpack Fortnite Wiki",
+            "image": "https://gamepedia.cursecdn.com/fortnite_gamepedia/e/e1/Jetpack_icon.png"
+          },
+          {
+            "id": "a8019ec0-bfdc-4142-9dbb-4927e5ef5c8d",
+            "name": "Jetpack JackTalior",
+            "image": "http://www.slate.fr/sites/default/files/styles/1060x523/public/backviewjetpack.jpg"
+          }
+        ]
+      }
+    }
+  ]
+},
+{
+  "predicates": [
+    {
       "equals": {
         "method": "get",
         "path": "/jetpacks"
@@ -14,7 +50,9 @@
   "responses": [
     {
       "is": {
-        "headers": { "Access-Control-Allow-Origin": "*" },
+        "headers": {
+          "Access-Control-Allow-Origin": "*"
+        },
         "body": [
           {
             "id": "a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d",
@@ -57,12 +95,38 @@
   "responses": [
     {
       "is": {
-        "headers": { "Access-Control-Allow-Origin": "*" },
+        "headers": {
+          "Access-Control-Allow-Origin": "*"
+        },
         "body": {
-            "id": "a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d",
-            "name": "Le jetpack",
-            "image": "Image 3"
-          }
+          "id": "a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d",
+          "name": "Le jetpack",
+          "image": "Image 3"
+        }
+      }
+    }
+  ]
+},
+{
+  "predicates": [
+    {
+      "equals": {
+        "method": "DELETE",
+        "path": "/jetpacks?id=a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d"
+      }
+    },
+    {
+      "matches": {
+      }
+    }
+  ],
+  "responses": [
+    {
+      "is": {
+        "headers": {
+          "Access-Control-Allow-Origin": "*"
+        },
+        "body": {}
       }
     }
   ]
