@@ -30,7 +30,7 @@ module.exports = class  {
             end_date: booking.end,
             method: "post"
         }).then(response => {
-            booking.id = response[0].id;
+            booking.id = response.id;
         });
     }
 };

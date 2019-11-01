@@ -9,34 +9,40 @@ const httpClient = new HttpClient(appConfig.apiUrl);
 const jetpackService = new JetpackService(httpClient);
 const bookingService = new BookingService(httpClient);
 
+let make_jetpack_block = function (jetpack) {
+    return '<div class="col-lg-4 col-md-6 mb-4">' +
+        '<div class="card h-100" id="jetpack-' + jetpack.id + '" style="width: 18rem;">\n' +
+        '  <img src="' + jetpack.image + '" class="card-img-top" alt="...">\n' +
+        '  <div class="card-body">\n' +
+        '    <h4 class="card-title">' + jetpack.name + '</h4>\n' +
+        '     <div class="d-flex justify-content-around">' +
+        '         <button type="button" id="edit-jetpack" class="btn btn-outline-primary m" data-toggle="modal" data-target="#edit-jetpack-modal" data-id="' + jetpack.id + '">Modifier</button>' +
+        '         <button type="button" id="book-jetpack" class="btn btn-outline-success" data-toggle="modal" data-target="#book-jetpack-modal" data-id="' + jetpack.id + '">Réserver</button>' +
+        '    </div>' +
+        '    <div class="text-center">' +
+        '           <button type="button" id="delete-jetpack" class="btn btn-outline-danger mt-2" data-toggle="modal" data-target="#delete-jetpack-modal" data-id="' + jetpack.id + '">Supprimer</button>' +
+        '     </div>' +
+        '  </div>\n' +
+        '</div>' +
+        '</div>';
+};
+
 // Load data
 let jetpacks_array = {};
 jetpackService.getJetPacks().then(jetpacks => {
     let html =  '';
     jetpacks.forEach((jetpack) => {
         jetpacks_array[jetpack.id] = jetpack;
-        html +=
-            '<div class="col-lg-4 col-md-6 mb-4">' +
-            '<div class="card h-100" id="jetpack-' + jetpack.id + '" style="width: 18rem;">\n' +
-            '  <img src="'+ jetpack.image +'" class="card-img-top" alt="...">\n' +
-            '  <div class="card-body">\n' +
-            '    <h4 class="card-title">' + jetpack.name + '</h4>\n' +
-            '     <div class="d-flex justify-content-around">' +
-            '         <button type="button" id="edit-jetpack" class="btn btn-outline-primary m" data-toggle="modal" data-target="#edit-jetpack-modal" data-id="' + jetpack.id + '">Modifier</button>' +
-            '         <button type="button" id="book-jetpack" class="btn btn-outline-success" data-toggle="modal" data-target="#book-jetpack-modal" data-id="' + jetpack.id + '">Réserver</button>' +
-            '    </div>' +
-            '    <div class="text-center">' +
-            '           <button type="button" id="delete-jetpack" class="btn btn-outline-danger mt-2" data-toggle="modal" data-target="#delete-jetpack-modal" data-id="' + jetpack.id + '">Supprimer</button>' +
-            '     </div>' +
-            '  </div>\n' +
-            '</div>' +
-            '</div>'
-
+        html += make_jetpack_block(jetpack);
     });
 
-    document.getElementById('jetpacks').innerHTML = html;
+    $('#jetpacks').html(html);
 });
 
+/**
+ * Clean data from a form
+ * @param data_raw list: [{name: "...", value: "..."}]
+ */
 let clean_form_data = function(data_raw){
     let data = {};
     for (let i = 0; i < data_raw.length; i++) {
@@ -103,6 +109,17 @@ $(function(){
     });
     
     // Form submit listeners
+    $('#create-jetpack-modal form').submit(function (event) {
+        event.preventDefault();
+        let form = $(this);
+        let data = clean_form_data(form.serializeArray());
+        let jetPack = new JetPack(data["jetpack-name"], data["jetpack-image"]);
+        jetpackService.postJetPack(jetPack).then(function () {
+            $('#jetpacks').append(make_jetpack_block(jetPack));
+            $('#create-jetpack-modal').modal('hide');
+        });
+    });
+
     $('#edit-jetpack-modal form').submit(function (event) {
         event.preventDefault();
         let form = $(this);
@@ -110,7 +127,7 @@ $(function(){
         let jetPack = jetpacks_array[data["jetpack-id"]];
         jetPack.name = data["jetpack-name"];
         jetPack.image = data["jetpack-image"];
-        jetpackService.editJetPack(jetPack);
+        jetpackService.editJetPack(jetPack).then();
     });
 
     $('#book-jetpack-modal form').submit(function (event) {
@@ -132,20 +149,3 @@ $(function(){
         jetpackService.deleteJetPack(jetPack);
     });
 });
-
-var  addJetPackButton = document.getElementById("addJetPackButton");
-
-addJetPackButton.onclick = function() {
-    // var nom = prompt("Please enter your name");
-    //var url = prompt("Please enter your url");
-    var name = document.getElementById("jetpackName").value;
-    var image = document.getElementById("jetpackImage").value;
-    if(name != '' &&  image != ''){
-        var jetPack = new JetPack();
-        jetPack.name = name;
-        jetPack.image = image;
-        jetpackService.postJetPack(jetPack).then(function() {
-            alert("Le jetpack a été enregistré avec succès");
-        });
-    }
-};
