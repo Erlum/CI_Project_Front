@@ -1,4 +1,4 @@
-const BookingApi = require('./bookingApi');
+const BookingApi = require('./BookingApi');
 const JetPack = require('../../Entity/Jetpack');
 const Booking = require('../../Entity/Booking');
 
