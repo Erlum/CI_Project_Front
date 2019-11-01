@@ -8,6 +8,7 @@ describe('JetPackApi get JetPacks', function () {
             fetch: jest.fn()
         };
 
+
         httpClientMock.fetch.mockResolvedValue([
             {
                 id: "123",
@@ -24,6 +25,31 @@ describe('JetPackApi get JetPacks', function () {
         });
     });
 });
+
+describe('JetPackApi get a Jet Pack', function () {
+
+    test('Test getJetPack', () => {
+        let httpClientMock = {
+            fetch: jest.fn()
+        };
+
+        httpClientMock.fetch.mockResolvedValue([
+            {
+                id: "77",
+                name: "The James Bond Jetpack",
+                image: "007picture.jpg"
+            }
+        ]);
+
+        let jetpackApi = new JetPackApi(httpClientMock);
+        jetpackApi.getJetPack(77).then(resp => {
+            expect(Array.isArray(resp)).toBe(true);
+            expect(resp.length).toBe(1);
+            expect(resp[0]).toBeInstanceOf(JetPack)
+        });
+    });
+});
+
 
 describe('JetPackApi get JetPacks in range', function () {
 
@@ -79,6 +105,35 @@ describe('JetPackApi post JetPack', function () {
         });
     });
 });
+
+describe('JetPackApi edit a JetPack', function () {
+
+    test('Test editJetPack', () => {
+        let httpClientMock = {
+            fetch: jest.fn()
+        };
+
+        let jetPackEntry = {
+            id: "77",
+            name: "The James Bond Jetpack",
+            image: "007picture.jpg"
+        };
+        httpClientMock.fetch.mockResolvedValue([
+            jetPackEntry
+        ]);
+
+        let jetPackApi = new JetPackApi(httpClientMock);
+        let jetPack = new JetPack(jetPackEntry.name, jetPackEntry.image);
+
+        jetPackApi.editJetPack(jetPack).then(resp => {
+            expect(jetPack.id).toBe(jetPackEntry.id);
+            expect(httpClientMock.fetch.mock.calls[0][1].name).toBe(jetPackEntry.name);
+            expect(httpClientMock.fetch.mock.calls[0][1].image).toBe(jetPackEntry.image);
+            expect(httpClientMock.fetch.mock.calls[0][1].method).toBe("patch");
+        });
+    });
+});
+
 
 describe('JetPackApi delete JetPack', function () {
 
