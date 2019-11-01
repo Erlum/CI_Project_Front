@@ -1,52 +1,10 @@
 {
   "predicates": [
     {
-      "equals": {
-        "method": "get",
-        "path": "/jetpacks"
-      }
-    },
-    {
-      "matches": {
-      }
-    }
-  ],
-  "responses": [
-    {
-      "is": {
-        "headers": { "Access-Control-Allow-Origin": "*" },
-        "body": [
-          {
-            "id": "a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d",
-            "name": "Jetpack Fortnite Wiki",
-            "image": "https://gamepedia.cursecdn.com/fortnite_gamepedia/e/e1/Jetpack_icon.png"
-          },
-          {
-            "id": "a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d",
-            "name": "Jetpack JackTalior",
-            "image": "http://www.slate.fr/sites/default/files/styles/1060x523/public/backviewjetpack.jpg"
-          },
-          {
-            "id": "a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d",
-            "name": "Jetpack JackTalior2",
-            "image": "http://www.slate.fr/sites/default/files/styles/1060x523/public/backviewjetpack.jpg"
-          },
-          {
-            "id": "a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d",
-            "name": "Jetpack JackTalior3",
-            "image": "http://www.slate.fr/sites/default/files/styles/1060x523/public/backviewjetpack.jpg"
-          }
-        ]
-      }
-    }
-  ]
-},
-{
-  "predicates": [
-    {
-      "equals": {
+      "deepEquals": {
         "method": "GET",
-        "path": "/jetpacks?start_date=2019-10-10&end_date=2019-12-01"
+        "path": "/jetpacks",
+        "query": {"start_date": "2019-10-10", "end_date": "2019-12-01"}
       }
     },
     {
@@ -80,6 +38,51 @@
   "predicates": [
     {
       "equals": {
+        "method": "get",
+        "path": "/jetpacks"
+      }
+    },
+    {
+      "matches": {
+      }
+    }
+  ],
+  "responses": [
+    {
+      "is": {
+        "headers": {
+          "Access-Control-Allow-Origin": "*"
+        },
+        "body": [
+          {
+            "id": "a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d",
+            "name": "Jetpack Fortnite Wiki",
+            "image": "https://gamepedia.cursecdn.com/fortnite_gamepedia/e/e1/Jetpack_icon.png"
+          },
+          {
+            "id": "a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d",
+            "name": "Jetpack JackTalior",
+            "image": "http://www.slate.fr/sites/default/files/styles/1060x523/public/backviewjetpack.jpg"
+          },
+          {
+            "id": "a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d",
+            "name": "Jetpack JackTalior2",
+            "image": "http://www.slate.fr/sites/default/files/styles/1060x523/public/backviewjetpack.jpg"
+          },
+          {
+            "id": "a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d",
+            "name": "Jetpack JackTalior3",
+            "image": "http://www.slate.fr/sites/default/files/styles/1060x523/public/backviewjetpack.jpg"
+          }
+        ]
+      }
+    }
+  ]
+},
+{
+  "predicates": [
+    {
+      "equals": {
         "method": "post",
         "path": "/jetpacks"
       }
@@ -92,12 +95,14 @@
   "responses": [
     {
       "is": {
-        "headers": { "Access-Control-Allow-Origin": "*" },
+        "headers": {
+          "Access-Control-Allow-Origin": "*"
+        },
         "body": {
-            "id": "a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d",
-            "name": "Le jetpack",
-            "image": "Image 3"
-          }
+          "id": "a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d",
+          "name": "Le jetpack",
+          "image": "Image 3"
+        }
       }
     }
   ]

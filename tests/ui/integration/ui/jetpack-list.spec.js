@@ -8,5 +8,5 @@ context('Jetpack list', () => {
     it('List all Jetpacks', () => {
         cy.contains('Jetpack Fortnite Wiki\n')
     })
-    
+
 });

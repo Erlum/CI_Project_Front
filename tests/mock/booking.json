@@ -55,7 +55,7 @@
           "Access-Control-Allow-Origin": "*"
         },
         "body": {
-          "id": "a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d"
+          "id": "a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d",
           "jet_pack_id": "a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d",
           "start_date": "2010-01-01",
           "end_date": "2019-01-01"
@@ -64,4 +64,3 @@
     }
   ]
 }
-
