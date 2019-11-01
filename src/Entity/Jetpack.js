@@ -5,16 +5,12 @@ module.exports = class  {
         } else {
             this._id = id;
         }
-        if (name === undefined){
-            this._name = null;
-        } else {
-            this._name = name;
-        }
         if (image === undefined){
             this._image = null;
         } else {
             this._image = image;
         }
+        this._name = name;
     }
 
     get id() {
@@ -39,5 +35,13 @@ module.exports = class  {
 
     set image(value) {
         this._image = value;
+    }
+
+    toJson() {
+        return {
+            id : this.id,
+            name: this.name,
+            image: this.image
+        }
     }
 };

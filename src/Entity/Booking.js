@@ -5,21 +5,9 @@ module.exports = class  {
         } else {
             this._id = id;
         }
-        if (jetPack === undefined){
-            this._jetPack = null;
-        } else {
-            this._jetPack = jetPack;
-        }
-        if (start === undefined){
-            this._start = null;
-        } else {
-            this._start = start;
-        }
-        if (end === undefined){
-            this._end = null;
-        } else {
-            this._end = end;
-        }
+        this._jetPack = jetPack;
+        this._start = start;
+        this._end = end;
     }
 
     get id() {
@@ -48,5 +36,14 @@ module.exports = class  {
     }
     set end(value) {
         this._end = value;
+    }
+
+    toJson() {
+        return {
+            id : this.id,
+            start: this.start,
+            end: this.end,
+            jetPack: this.jetPack.toJson()
+        }
     }
 };

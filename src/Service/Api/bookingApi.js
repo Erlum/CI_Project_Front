@@ -1,5 +1,4 @@
-const JetPack = require('../../Entity/Jetpack');
-const Booking = require('../../Entity/booking');
+const Booking = require('../../Entity/Booking');
 
 module.exports = class  {
     constructor(httpClient) {

@@ -1,6 +1,6 @@
 const BookingApi = require('./bookingApi');
 const JetPack = require('../../Entity/Jetpack');
-const Booking = require('../../Entity/booking');
+const Booking = require('../../Entity/Booking');
 
 describe('BookingApi get Bookings', function () {
 
