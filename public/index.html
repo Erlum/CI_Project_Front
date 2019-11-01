@@ -25,10 +25,10 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="calendrier-jetpack.html" title="Pour réserver un JetPack">CALENDRIER</a>
+                    <button type="button" id="calendarJetPack" class="btn btn-primary" data-toggle="modal" data-target="#calendarModal"style="">CALENDRIER</button>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="ajouter-jetpack" title="Pour créer un JetPack">AJOUTER</a>
+                    <button type="button" id="addJetpack" class="btn btn-success" data-toggle="modal" data-target="#addModal"style="">AJOUTER</button>
                 </li>
             </ul>
         </div>
@@ -56,8 +56,37 @@
 </div>
 
 
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" >Ajouter un JetPack</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form >
+                    <div class="form-group">
+                        <label for="jetpackName" class="col-form-label">Nom du JetPack :</label>
+                        <input type="text" class="form-control" id="jetpackName">
+                    </div>
+                    <div class="form-group">
+                        <label for="jetpackImage" class="col-form-label">URL de l'image du JetPack:</label>
+                        <input type="text" class="form-control" id="jetpackImage"></input>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success">Ajouter</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-<div class="modal fade" id="modifierModal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -69,12 +98,12 @@
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                        <label for="jetpack-name" class="col-form-label">Nom du JetPack :</label>
-                        <input type="text" class="form-control" id="jetpack-name">
+                        <label for="jetpackName" class="col-form-label">Nom du JetPack :</label>
+                        <input type="text" class="form-control" id="jetpackName">
                     </div>
                     <div class="form-group">
-                        <label for="jetpack-image" class="col-form-label">URL de l'image du JetPack:</label>
-                        <input type="text" class="form-control" id="jetpack-image"></input>
+                        <label for="jetpackImage" class="col-form-label">URL de l'image du JetPack:</label>
+                        <input type="text" class="form-control" id="jetpackImage"></input>
                     </div>
                 </form>
             </div>
@@ -89,7 +118,7 @@
 
 
 
-<div class="modal" id="reserverModal" tabindex="-1" role="dialog">
+<div class="modal" id="bookModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -129,7 +158,7 @@
 </div>
 
 
-<div class="modal" id="supprimerModal" tabindex="-1" role="dialog">
+<div class="modal" id="deleteModal" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">

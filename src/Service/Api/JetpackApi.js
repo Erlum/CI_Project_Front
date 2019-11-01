@@ -38,7 +38,8 @@ module.exports = class {
             image: jetPack.image,
             method: "post"
         }).then(response => {
-            jetPack.id = response[0].id;
+            jetPack.id = response[0].id
+            console.log(jetPack.id)
         });
     }
 
@@ -58,3 +59,4 @@ module.exports = class {
         });
     }
 };
+
