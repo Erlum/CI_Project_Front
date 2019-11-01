@@ -21,7 +21,10 @@ describe('JetPackApi get JetPacks', function () {
         jetpackApi.getJetPacks().then(resp => {
             expect(Array.isArray(resp)).toBe(true);
             expect(resp.length).toBe(1);
-            expect(resp[0]).toBeInstanceOf(JetPack)
+            expect(resp[0]).toBeInstanceOf(JetPack);
+            expect(resp[0].id).toBe("123");
+            expect(resp[0].name).toBe("The Jetpack");
+            expect(resp[0].image).toBe("base64 ...");
         });
     });
 });
@@ -45,7 +48,10 @@ describe('JetPackApi get a Jet Pack', function () {
         jetpackApi.getJetPack(77).then(resp => {
             expect(Array.isArray(resp)).toBe(true);
             expect(resp.length).toBe(1);
-            expect(resp[0]).toBeInstanceOf(JetPack)
+            expect(resp[0]).toBeInstanceOf(JetPack);
+            expect(resp[0].id).toBe("77");
+            expect(resp[0].name).toBe("The James Bond Jetpack");
+            expect(resp[0].image).toBe("007picture.jpg");
         });
     });
 });
@@ -73,6 +79,9 @@ describe('JetPackApi get JetPacks in range', function () {
             expect(Array.isArray(resp)).toBe(true);
             expect(resp.length).toBe(1);
             expect(resp[0]).toBeInstanceOf(JetPack);
+            expect(resp[0].id).toBe("123");
+            expect(resp[0].name).toBe("The Jetpack");
+            expect(resp[0].image).toBe("base64 ...");
             expect(httpClientMock.fetch.mock.calls[0][0]).toBe('/jetpacks?start_date=' + start + '&end_date=' + end);
         });
     });

@@ -19,10 +19,13 @@ describe('Booking toJson', function () {
             }
         });
         expect(booking_empty_fields.toJson()).toMatchObject({
+            id: null,
             start: "12-12-2019",
             end: "25-12-2019",
             jetPack: {
                 name: "big jet pack",
+                image: null,
+                id: null,
             }
         });
     });
