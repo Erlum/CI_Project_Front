@@ -40,7 +40,7 @@ describe('JetPackApi post Bookings', function () {
         };
         let bookingEntry = {
             id: "a26574f0-3dd0-4e3b-9c1d-6089619f2f80",
-            jet_pack_id: jetPackEntry.id,
+            jetpack: jetPackEntry.id,
             start_date: "2019-01-01",
             end_date: "2042-01-01"
         };

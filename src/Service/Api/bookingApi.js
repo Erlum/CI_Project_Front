@@ -1,4 +1,5 @@
 const Booking = require('../../Entity/Booking');
+const JetPack = require('../../Entity/Jetpack');
 
 module.exports = class  {
     constructor(httpClient) {
@@ -9,7 +10,16 @@ module.exports = class  {
         return this.httpClient.fetch('/bookings', {}).then(rows => {
 
             return rows.map(row => {
-                return new Booking(row["jetpack"], row["start_date"], row["end_date"]);
+                return new Booking(row["jetpack"], row["start_date"], row["end_date"], row["id"]);
+            });
+        });
+    }
+
+    getJetPackBookings(JetPack) {
+        return this.httpClient.fetch('/bookings?jetpack=' + JetPack.id, {}).then(rows => {
+
+            return rows.map(row => {
+                return new Booking(row["jetpack"], row["start_date"], row["end_date"], row["id"]);
             });
         });
     }
