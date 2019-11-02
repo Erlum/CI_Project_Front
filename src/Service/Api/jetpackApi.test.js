@@ -88,28 +88,37 @@ describe('JetPackApi get JetPacks in range', function () {
 });
 
 describe('JetPackApi post JetPack', function () {
+    let httpClientMock = {
+        fetch: jest.fn()
+    };
 
-    test('Test postJetPack', () => {
-        let httpClientMock = {
-            fetch: jest.fn()
-        };
+    let jetPackEntry = {
+        id: "a26574f0-3dd0-4e3b-9c1d-6089619f2f80",
+        name: "big jet pack",
+        image: "blurry.jpg"
+    };
+    httpClientMock.fetch.mockResolvedValue(jetPackEntry);
 
-        let jetPackEntry = {
-            id: "a26574f0-3dd0-4e3b-9c1d-6089619f2f80",
-            name: "big jet pack",
-            image: "blurry.jpg"
-        };
-        httpClientMock.fetch.mockResolvedValue([
-            jetPackEntry
-        ]);
+    let jetPackApi = new JetPackApi(httpClientMock);
+    let jetPack = new JetPack(jetPackEntry.name, jetPackEntry.image);
 
-        let jetPackApi = new JetPackApi(httpClientMock);
-        let jetPack = new JetPack(jetPackEntry.name, jetPackEntry.image);
-
-        jetPackApi.postJetPack(jetPack).then(resp => {
+    test('Test postJetPack return jetPack id', () => {
+        return jetPackApi.postJetPack(jetPack).then(resp => {
             expect(jetPack.id).toBe(jetPackEntry.id);
-            expect(httpClientMock.fetch.mock.calls[0][1].name).toBe(jetPackEntry.name);
-            expect(httpClientMock.fetch.mock.calls[0][1].image).toBe(jetPackEntry.image);
+        });
+    });
+    test('Test postJetPack call body jetPack name', () => {
+        return jetPackApi.postJetPack(jetPack).then(resp => {
+            expect(JSON.parse(httpClientMock.fetch.mock.calls[0][1].body).name).toBe(jetPackEntry.name);
+        });
+    });
+    test('Test postJetPack call body jetPack image', () => {
+        return jetPackApi.postJetPack(jetPack).then(resp => {
+            expect(JSON.parse(httpClientMock.fetch.mock.calls[0][1].body).image).toBe(jetPackEntry.image);
+        });
+    });
+    test('Test postJetPack call method', () => {
+        return jetPackApi.postJetPack(jetPack).then(resp => {
             expect(httpClientMock.fetch.mock.calls[0][1].method).toBe("post");
         });
     });

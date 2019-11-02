@@ -1,172 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <link rel="icon" type="image/png" href="./favicon.png">
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
+        <title>JetPacks Club - Location de JetPacks</title>
 
-    <title>JetPacks Club - Location de JetPacks</title>
-
-    <link href="bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
-
-    <link href="css/jetpack.css" rel="stylesheet">
-
-</head>
-
-<body>
-
-<nav class="navbar navbar-expand-lg navbar-dark bg-blue fixed-top">
-    <div class="container">
-        <a class="navbar-brand active" href="index.html" title="Accueil du JetPack Club">JetPack Club </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="calendrier-jetpack.html" title="Pour réserver un JetPack">CALENDRIER</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="ajouter-jetpack" title="Pour créer un JetPack">AJOUTER</a>
-                </li>
-            </ul>
-        </div>
-    </div>
-</nav>
-
-
-
-
-
-<div class="container mt-5 mb-5">
-
-    <div class="row" >
-
-        <div class="col-lg-12" >
-
-            <div class="row" id="jetpacks">
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-
-<div class="modal fade" id="modifierModal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="">Modifier le JetPack</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+        <link href="libraries/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
+        <link href="css/jetpack.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-blue fixed-top">
+            <div class="container">
+                <a class="navbar-brand active" href="index.html" title="Accueil du JetPack Club">JetPack Club </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
                 </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="calendrier-jetpack.html" title="Pour réserver un JetPack">CALENDRIER</a>
+                        </li>
+                        <li class="nav-item">
+                            <button type="button" id="addJetpack" class="btn btn-success" data-toggle="modal" data-target="#addModal"style="">AJOUTER</button>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-group">
-                        <label for="jetpack-name" class="col-form-label">Nom du JetPack :</label>
-                        <input type="text" class="form-control" id="jetpack-name">
+        </nav>
+
+        <div class="container mt-5 mb-5">
+            <div class="row" >
+                <div class="col-lg-12" >
+                    <div class="row" id="jetpacks">
                     </div>
-                    <div class="form-group">
-                        <label for="jetpack-image" class="col-form-label">URL de l'image du JetPack:</label>
-                        <input type="text" class="form-control" id="jetpack-image"></input>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success">Valider</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
 
-
-
-<div class="modal" id="reserverModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Réserver le JetPack</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form>
-                      <div class="row">
-                        <div class="col-sm-6">
+        <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" >Ajouter un JetPack</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form >
                             <div class="form-group">
-                                <span class="form-label">Début :</span>
-                                <input class="form-control" type="date" required>
+                                <label for="jetpackName" class="col-form-label">Nom du JetPack :</label>
+                                <input type="text" class="form-control" id="jetpackName">
+                            </div>
+                            <div class="form-group">
+                                <label for="jetpackImage" class="col-form-label">URL de l'image du JetPack:</label>
+                                <input type="text" class="form-control" id="jetpackImage"></input>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" id="addJetPackButton">Ajouter</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="edit-jetpack-modal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="">Modifier le JetPack</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label for="jetpack-edit-name" class="col-form-label">Nom du JetPack :</label>
+                                <input type="text" class="form-control" id="jetpack-edit-name">
+                            </div>
+                            <div class="form-group">
+                                <label for="jetpack-edit-image" class="col-form-label">URL de l'image du
+                                    JetPack:</label>
+                                <input type="text" class="form-control" id="jetpack-edit-image">
                             </div>
                         </div>
-                        <div class="col-sm-6">
+                        <div class="modal-footer">
+                            <input type="hidden" id="jetpack-edit-id">
+                            <input type="submit" class="btn btn-success" value="Valider">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="book-jetpack-modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Réserver '<span id="jetpack-book-name"></span>'</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <form>
+                        <div class="modal-body">
                             <div class="form-group">
-                                <span class="form-label">Fin :</span>
-                                <input class="form-control" type="date" required>
+                                <label for="date-range">Durée de l'emprunt</label>
+                                <input type="text" class="form-control date-range" id="date-range" name="date-range" value="" />
                             </div>
                         </div>
-                    </div>
-
-                    <div class="form-btn text-center">
-                        <button class="submit-btn btn-primary">Vérifier la disponibilité</button>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success">Réserver</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                        <div class="modal-footer">
+                            <input type="hidden" id="jetpack-book-id">
+                            <input type="submit" class="btn btn-success" value="Réserver">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
-
-<div class="modal" id="supprimerModal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Supprimer le JetPack</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form>
-                    <div class="form-btn text-center">
-                        <button class="submit-btn btn-danger">Supprimer</button>
+        <div class="modal fade" id="delete-jetpack-modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Etes-vous sur de vouloir supprimer ce JetPack ?</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                    <div class="modal-body">
+                        <p>Attention ! vous êtes sur le point de supprimer le JetPack '<span id="jetpack-delete-name"></span>'</p>
+                    </div>
+                    <div class="modal-footer">
+                        <form>
+                            <input type="hidden" id="jetpack-delete-id">
+                            <input type="submit" class="btn btn-danger" value="Supprimer">
+                        </form>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
+        <div class="modal fade" id="book-interval-invalid-modal" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Erreur</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Vous avez choisi un interval contenant des dates invalides !</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-
-
-
-
-<footer class="py-1 bg-blue fixed-bottom btn-primary">
-    <div class="container">
-        <p class="m-0 text-center text-white">Copyright &copy; Pierre Danel, Olivier Gatissou, Antoine Dujardin, Adelino Araujo</p>
-    </div>
-</footer>
-
-
-
-</body>
-<script src="jquery/jquery.js"></script>
-<script src="bootstrap/js/bootstrap.bundle.js"></script>
-<script type="text/javascript" src="dist/bundle.js"></script>
+        <footer class="py-1 bg-blue fixed-bottom btn-primary">
+            <div class="container">
+                <p class="m-0 text-center text-white">Copyright &copy; Pierre Danel, Olivier Gatissou, Antoine Dujardin, Adelino Araujo</p>
+            </div>
+        </footer>
+    </body>
+    <script src="libraries/jquery/jquery.js"></script>
+    <script src="libraries/bootstrap/js/bootstrap.bundle.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/momentjs/latest/moment-with-locales.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <script type="text/javascript" src="dist/bundle.js"></script>
 </html>

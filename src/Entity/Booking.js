@@ -43,7 +43,7 @@ module.exports = class  {
             id : this.id,
             start: this.start,
             end: this.end,
-            jetPack: this.jetPack.toJson()
+            jetPack: this.jetPack
         }
     }
 };
