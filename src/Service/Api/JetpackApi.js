@@ -38,16 +38,18 @@ module.exports = class {
             image: jetPack.image,
             method: "post"
         }).then(response => {
-            jetPack.id = response.id;
+            jetPack.id = response[0].id
             console.log(jetPack.id)
         });
     }
 
     editJetPack(jetPack) {
-        return this.httpClient.fetch('/jetpacks?id=' + jetPack.id, {
+        return this.httpClient.fetch('/jetpacks?id=', {
             name: jetPack.name,
             image: jetPack.image,
             method: "patch"
+        }).then(response => {
+            jetPack.id = response[0].id;
         });
     }
 
