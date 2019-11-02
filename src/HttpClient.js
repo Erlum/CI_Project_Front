@@ -8,7 +8,7 @@ module.exports = class  {
                 if (!response.ok) {
                     throw new Error('Bad status code from server: ' + response.status + response.statusText);
                 }
-                return response.bodyUsed ? response.json() : {};
+                return response.body ? response.json() : {};
             }
         );
     }
