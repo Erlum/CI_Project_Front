@@ -30,9 +30,11 @@ module.exports = class {
 
     postJetPack(jetPack) {
         return this.httpClient.fetch('/jetpacks', {
-            name: jetPack.name,
-            image: jetPack.image,
-            method: "post"
+            method: "post",
+            body: JSON.stringify({
+                name: jetPack.name,
+                image: jetPack.image
+            })
         }).then(response => {
             jetPack.id = response.id;
             console.log(jetPack.id)
@@ -41,9 +43,11 @@ module.exports = class {
 
     editJetPack(jetPack) {
         return this.httpClient.fetch('/jetpacks?id=' + jetPack.id, {
-            name: jetPack.name,
-            image: jetPack.image,
-            method: "patch"
+            method: "patch",
+            body: JSON.stringify({
+                name: jetPack.name,
+                image: jetPack.image
+            })
         });
     }
 
