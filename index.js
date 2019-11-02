@@ -1,4 +1,5 @@
 const appConfig = require('./app.config');
+const HTTPError = require('./src/Entity/HTTPError') ;
 const JetPack = require('./src/Entity/Jetpack') ;
 const JetpackService = require('./src/Service/Api/JetpackApi');
 const BookingService = require('./src/Service/Api/BookingApi');
@@ -39,6 +40,9 @@ jetpackService.getJetPacks().then(jetpacks => {
 }).catch(function (error) {
     if (error instanceof TypeError && error.message === "Failed to fetch"){
         alert("Erreur: connection au serveur impossible")
+    }
+    else if (error instanceof HTTPError){
+        alert("Erreur: " + error.status + " " + error.statusText)
     }
 });
 
