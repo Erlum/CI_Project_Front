@@ -37,7 +37,6 @@ module.exports = class {
             })
         }).then(response => {
             jetPack.id = response.id;
-            console.log(jetPack.id)
         });
     }
 
