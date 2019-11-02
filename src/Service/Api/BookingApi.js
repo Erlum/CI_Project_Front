@@ -25,9 +25,9 @@ module.exports = class  {
         return this.httpClient.fetch('/booking', {
             method: "post",
             body: JSON.stringify({
-                jetpack: booking.jetPack.id,
-                start_date: booking.start,
-                end_date: booking.end,
+                "jetpack": booking.jetPack.id,
+                "start_date": booking.start,
+                "end_date": booking.end,
             })
         }).then(response => {
             booking.id = response.id;

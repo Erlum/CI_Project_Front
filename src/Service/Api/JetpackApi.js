@@ -32,8 +32,8 @@ module.exports = class {
         return this.httpClient.fetch('/jetpacks', {
             method: "post",
             body: JSON.stringify({
-                name: jetPack.name,
-                image: jetPack.image
+                "name": jetPack.name,
+                "image": jetPack.image
             })
         }).then(response => {
             jetPack.id = response.id;
@@ -45,8 +45,8 @@ module.exports = class {
         return this.httpClient.fetch('/jetpacks?id=' + jetPack.id, {
             method: "patch",
             body: JSON.stringify({
-                name: jetPack.name,
-                image: jetPack.image
+                "name": jetPack.name,
+                "image": jetPack.image
             })
         });
     }
