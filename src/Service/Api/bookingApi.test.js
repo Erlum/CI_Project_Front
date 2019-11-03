@@ -7,13 +7,14 @@ describe('BookingApi get Bookings', function () {
         fetch: jest.fn()
     };
 
+    let bookingEntry = {
+        id: "a26574f0-3dd0-4e3b-9c1d-6089619f2f80",
+        idjetpack: "a26574f0-3dd0-4e3b-9c1d-6089619f2f800",
+        startdate: "2019-01-01",
+        enddate: "2042-01-01"
+    };
     httpClientMock.fetch.mockResolvedValue([
-        {
-            id: "a26574f0-3dd0-4e3b-9c1d-6089619f2f80",
-            idjetpack: "a26574f0-3dd0-4e3b-9c1d-6089619f2f800",
-            startdate: "2019-01-01",
-            enddate: "2042-01-01"
-        }
+        bookingEntry
     ]);
 
     let bookingApi = new BookingApi(httpClientMock);
@@ -31,6 +32,26 @@ describe('BookingApi get Bookings', function () {
     test('Test getBookings return unit type', () => {
         return bookingApi.getBookings().then(resp => {
             expect(resp[0]).toBeInstanceOf(Booking);
+        });
+    });
+    test('Test getJetPackBookings return unit id', () => {
+        return bookingApi.getBookings().then(resp => {
+            expect(resp[0].id).toBe(bookingEntry.id);
+        });
+    });
+    test('Test getJetPackBookings return unit start date', () => {
+        return bookingApi.getBookings().then(resp => {
+            expect(resp[0].start).toBe(bookingEntry.startdate);
+        });
+    });
+    test('Test getJetPackBookings return unit end date', () => {
+        return bookingApi.getBookings().then(resp => {
+            expect(resp[0].end).toBe(bookingEntry.enddate);
+        });
+    });
+    test('Test getJetPackBookings call', () => {
+        return bookingApi.getBookings().then(resp => {
+            expect(httpClientMock.fetch.mock.calls[0][0]).toBe('/bookings');
         });
     });
 });
