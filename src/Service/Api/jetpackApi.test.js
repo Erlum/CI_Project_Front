@@ -53,8 +53,9 @@ describe('JetPackApi get a Jet Pack', function () {
         fetch: jest.fn()
     };
 
+    const jetpack_id = "77";
     httpClientMock.fetch.mockResolvedValue({
-        id: "77",
+        id: jetpack_id,
         name: "The James Bond Jetpack",
         image: "007picture.jpg"
     });
@@ -62,52 +63,76 @@ describe('JetPackApi get a Jet Pack', function () {
     let jetpackApi = new JetPackApi(httpClientMock);
 
     test('Test getJetPack return type', () => {
-        return jetpackApi.getJetPacks().then(resp => {
+        return jetpackApi.getJetPack(jetpack_id).then(resp => {
             expect(resp).toBeInstanceOf(JetPack);
         });
     });
     test('Test getJetPack return id', () => {
-        return jetpackApi.getJetPacks().then(resp => {
+        return jetpackApi.getJetPack(jetpack_id).then(resp => {
             expect(resp.id).toBe("77");
         });
     });
     test('Test getJetPack return name', () => {
-        return jetpackApi.getJetPacks().then(resp => {
+        return jetpackApi.getJetPack(jetpack_id).then(resp => {
             expect(resp.name).toBe("The James Bond Jetpack");
         });
     });
     test('Test getJetPack return image', () => {
-        return jetpackApi.getJetPacks().then(resp => {
+        return jetpackApi.getJetPack(jetpack_id).then(resp => {
             expect(resp.image).toBe("007picture.jpg");
         });
     });
 });
 
 describe('JetPackApi get JetPacks in range', function () {
+    let httpClientMock = {
+        fetch: jest.fn()
+    };
 
-    test('Test getJetPacksInRange', () => {
-        let httpClientMock = {
-            fetch: jest.fn()
-        };
+    httpClientMock.fetch.mockResolvedValue([
+        {
+            id: "123",
+            name: "The Jetpack",
+            image: "base64 ..."
+        }
+    ]);
 
-        httpClientMock.fetch.mockResolvedValue([
-            {
-                id: "123",
-                name: "The Jetpack",
-                image: "base64 ..."
-            }
-        ]);
+    let jetpackApi = new JetPackApi(httpClientMock);
+    let start = '2019-01-01';
+    let end = '2042-01-01';
 
-        let jetpackApi = new JetPackApi(httpClientMock);
-        let start = '2019-01-01';
-        let end = '2042-01-01';
-        jetpackApi.getJetPacksInRange(start, end).then(resp => {
+    test('Test getJetPacksInRange return type', () => {
+        return jetpackApi.getJetPacksInRange(start, end).then(resp => {
             expect(Array.isArray(resp)).toBe(true);
+        });
+    });
+    test('Test getJetPacksInRange return length', () => {
+        return jetpackApi.getJetPacksInRange(start, end).then(resp => {
             expect(resp.length).toBe(1);
+        });
+    });
+    test('Test getJetPacksInRange return unit type', () => {
+        return jetpackApi.getJetPacksInRange(start, end).then(resp => {
             expect(resp[0]).toBeInstanceOf(JetPack);
+        });
+    });
+    test('Test getJetPacksInRange return unit jetpack id', () => {
+        return jetpackApi.getJetPacksInRange(start, end).then(resp => {
             expect(resp[0].id).toBe("123");
+        });
+    });
+    test('Test getJetPacksInRange return unit jetpack name', () => {
+        return jetpackApi.getJetPacksInRange(start, end).then(resp => {
             expect(resp[0].name).toBe("The Jetpack");
+        });
+    });
+    test('Test getJetPacksInRange return unit jetpack image', () => {
+        return jetpackApi.getJetPacksInRange(start, end).then(resp => {
             expect(resp[0].image).toBe("base64 ...");
+        });
+    });
+    test('Test getJetPacksInRange return unit jetpack image', () => {
+        return jetpackApi.getJetPacksInRange(start, end).then(resp => {
             expect(httpClientMock.fetch.mock.calls[0][0]).toBe('/jetpacks?start_date=' + start + '&end_date=' + end);
         });
     });
