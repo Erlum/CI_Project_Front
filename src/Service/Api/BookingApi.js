@@ -6,28 +6,28 @@ module.exports = class  {
     }
 
     getBookings() {
-        return this.httpClient.fetch('/booking', {}).then(rows => {
+        return this.httpClient.fetch('/bookings', {}).then(rows => {
             return rows.map(row => {
-                return new Booking(row["jetpack"], row["start_date"], row["end_date"], row["id"]);
+                return new Booking(row["idjetpack"], row["startdate"], row["enddate"], row["id"]);
             });
         });
     }
 
     getJetPackBookings(JetPack) {
-        return this.httpClient.fetch('/booking?jetpack=' + JetPack.id, {}).then(rows => {
+        return this.httpClient.fetch('/bookings?jetpack=' + JetPack.id, {}).then(rows => {
             return rows.map(row => {
-                return new Booking(row["jetpack"], row["start_date"], row["end_date"], row["id"]);
+                return new Booking(row["idjetpack"], row["startdate"], row["enddate"], row["id"]);
             });
         });
     }
 
     postBooking(booking) {
-        return this.httpClient.fetch('/booking', {
+        return this.httpClient.fetch('/bookings', {
             method: "post",
             body: JSON.stringify({
-                "jetpack": booking.jetPack.id,
-                "start_date": booking.start,
-                "end_date": booking.end,
+                "idjetpack": booking.jetPack.id,
+                "startdate": booking.start,
+                "enddate": booking.end,
             })
         }).then(response => {
             booking.id = response.id;
