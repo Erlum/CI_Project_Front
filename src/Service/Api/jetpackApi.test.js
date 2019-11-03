@@ -227,7 +227,7 @@ describe('JetPackApi edit a JetPack', function () {
     });
     test('Test editJetPack call method', () => {
         return jetPackApi.editJetPack(jetPack).then(resp => {
-            expect(httpClientMock.fetch.mock.calls[0][1].method).toBe("patch");
+            expect(httpClientMock.fetch.mock.calls[0][1].method).toBe("put");
         });
     });
 });
