@@ -48,8 +48,9 @@ module.exports = class {
         });
     }
 
-    deleteJetPack(jetPack) {
-        this.httpClient.fetch('/jetpacks?id=' + jetPack.id, {
+    // change parameter from object to string
+    deleteJetPack(jetPack_id) {
+        return this.httpClient.fetch('/jetpacks?id=' + jetPack_id, {
             method: "delete"
         });
     }

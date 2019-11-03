@@ -1,130 +1,238 @@
 const appConfig = require('./app.config');
 const JetPack = require('./src/Entity/Jetpack') ;
+const Booking = require('./src/Entity/Booking') ;
 const JetpackService = require('./src/Service/Api/JetpackApi');
 const BookingService = require('./src/Service/Api/BookingApi');
 const HttpClient = require('./src/HttpClient');
-
 const httpClient = new HttpClient(appConfig.apiUrl);
 const jetpackService = new JetpackService(httpClient);
-const bookingService = new BookingService(httpClient);
+const bookingService = new BookingService(httpClient) ;
 
-// Load data
-let jetpacks_array = {};
 jetpackService.getJetPacks().then(jetpacks => {
     let html =  '';
     jetpacks.forEach((jetpack) => {
-        jetpacks_array[jetpack.id] = jetpack;
         html +=
             '<div class="col-lg-4 col-md-6 mb-4">' +
-            '<div class="card h-100" id="jetpack-' + jetpack.id + '" style="width: 18rem;">\n' +
+            '<div class="card h-100" style="width: 18rem;">\n' +
             '  <img src="'+ jetpack.image +'" class="card-img-top" alt="...">\n' +
             '  <div class="card-body">\n' +
             '    <h4 class="card-title">' + jetpack.name + '</h4>\n' +
+            '    <span id="jetpack-id" class="invisible">' + jetpack.id + '</span>' +
             '     <div class="d-flex justify-content-around">' +
-            '         <button type="button" id="edit-jetpack" class="btn btn-outline-primary m" data-toggle="modal" data-target="#edit-jetpack-modal" data-id="' + jetpack.id + '">Modifier</button>' +
-            '         <button type="button" id="book-jetpack" class="btn btn-outline-success" data-toggle="modal" data-target="#book-jetpack-modal" data-id="' + jetpack.id + '">Réserver</button>' +
-            '    </div>' +
+            '         <button type="button" id="display_jetpack_edit_id/'+jetpack.id+'" class="btn btn-outline-primary edit_button_class" data-toggle="modal" data-target="#edit_modal"style="">Modifier</button>' ;
+
+        html +=   ' <button type="button" id="diplay_jetpack_booking_id/'+jetpack.id+'"class="btn btn-outline-success booking_button_class" data-toggle="modal" data-target="#booking_modal">Réserver</button>' ;
+
+
+        html += '    </div>' +
             '    <div class="text-center">' +
-            '           <button type="button" id="delete-jetpack" class="btn btn-outline-danger mt-2" data-toggle="modal" data-target="#delete-jetpack-modal" data-id="' + jetpack.id + '">Supprimer</button>' +
+            '           <button type="button" id="display_jetpack_delete_id/'+jetpack.id+'"class="btn btn-outline-danger mt-2 delete_button_class" data-toggle="modal" data-target="#delete_modal">Supprimer</button>' +
             '     </div>' +
             '  </div>\n' +
             '</div>' +
             '</div>'
-
     });
 
     document.getElementById('jetpacks').innerHTML = html;
-});
 
-// DOM Ready
-$(function(){
-    // DateRangePicker initialisation
-    moment.locale('fr');
 
-    // Modal open listeners
-    $('#edit-jetpack-modal').on('show.bs.modal', function (event) {
-        let button = $(event.relatedTarget);
-        let jetpack = jetpacks_array[button.data('id')];
-        let modal = $(this);
-        modal.find('input#jetpack-edit-id').val(jetpack.id);
-        modal.find('input#jetpack-edit-name').val(jetpack.name);
-        modal.find('input#jetpack-edit-image').val(jetpack.image);
-    });
+    /**** delete listener on each jetpack delete button class ****/
+    var delete_button = document.getElementsByClassName("delete_button_class");
 
-    $('#book-jetpack-modal').on('show.bs.modal', function (event) {
-        let button = $(event.relatedTarget);
-        let jetpack = jetpacks_array[button.data('id')];
-        let modal = $(this);
+    for(var i=0; i< delete_button.length;i++){
+        delete_button[i].addEventListener('click',function() {
+            getJetPackId(event);
 
-        bookingService.getJetPackBookings(jetpack).then(bookings => {
-            modal.find('input.date-range').daterangepicker({
-                minDate: moment(),
-                autoApply: true,
-                opens: "center",
-                isInvalidDate: function (date) {
-                    for (let i = 0; i < bookings.length; i++) {
-                        if (date >= moment(bookings[i].start, moment.ISO_8601) && date <= moment(bookings[i].end, moment.ISO_8601)){
-                            return true
-                        }
-                    }
-                    return false;
-                },
-            }, function(start, end, label) {
-                for (let i = 0; i < bookings.length; i++) {
-                    if (start < moment(bookings[i].start, moment.ISO_8601) && end > moment(bookings[i].end, moment.ISO_8601)){
-                        this.startDate = moment();
-                        this.endDate = moment();
-                        $('#book-interval-invalid-modal').modal('show');
-                        return;
-                    }
-                }
-            });
-        });
+        }, true);
+    }
 
-        modal.find('span#jetpack-book-name').html(jetpack.name);
-        modal.find('input#jetpack-book-id').val(jetpack.id);
-    });
+    /**** edit listener on each jetpack edit button class ****/
+    var edit_button = document.getElementsByClassName("edit_button_class");
+    for(var i=0; i< edit_button.length;i++){
 
-    $('#delete-jetpack-modal').on('show.bs.modal', function (event) {
-        let button = $(event.relatedTarget);
-        let jetpack = jetpacks_array[button.data('id')];
-        let modal = $(this);
-        modal.find('span#jetpack-delete-name').html(jetpack.name);
-        modal.find('input#jetpack-delete-id').val(jetpack.id);
-    });
-    
-    // Form submit listeners
-    $('#edit-jetpack-modal form').submit(function (event) {
+        edit_button[i].addEventListener('click',function() {
+            getJetPackId(event);
+            getInfosJetpackEdit(event)
 
-        event.preventDefault();
-    })
+        }, true);
+    }
+
+    /**** book listener on each jetpack booking button class ****/
+    var button_addBook=document.getElementsByClassName("booking_button_class");
+
+    for(var i=0; i<button_addBook.length;i++){
+        button_addBook[i].addEventListener('click',function() {
+
+            getInfosJetpackBook(event);
+
+        }, true);
+    }
 });
 
 
+/********************************* ADD **********************************/
 
-var  addJetPackButton = document.getElementById("addJetPackButton");
+var  add_jet_pack_action_button = document.getElementById("add_jetpack_button_id");
 
-addJetPackButton.onclick = function() {
-
+add_jet_pack_action_button.onclick = function() {
     // var nom = prompt("Please enter your name");
-
     //var url = prompt("Please enter your url");
+    var name = document.getElementById("modal_add_jetpack_name").value;
+    var image = document.getElementById("modal_add_jetpack_image").value;
 
-    var name = document.getElementById("jetpackName").value;
-
-    var image = document.getElementById("jetpackImage").value;
-
-    if(name != '' &&  image != ''){
-
+    if(name != '' &&  image !=''){
         var jetPack = new JetPack();
-
         jetPack.name = name;
-
         jetPack.image = image;
 
+            //alert("Votre jetpack a été modifié avec succès")
         jetpackService.postJetPack(jetPack).then(function() {
 
-            alert("Le jetpack a été enregistré avec succès");
+            alert("Votre jetpack a été enregistré avec succès");
+        });
+    }
+};
+
+
+/******************************** GET JETPACK ID ***************************/
+
+function getJetPackId(event){
+    //console.log(event.target.id);
+    var id_array = event.target.id.split("/");
+    jetpack_id = id_array[1];
+    document.getElementById("delete_jetpack_id").value = jetpack_id;
+    //console.log("getjetpackid " + jetpack_id)
+}
+
+
+/********************************* DELETE **********************************/
+
+
+var  delete_jetpack_action_button = document.getElementById("delete_jetpack_button_id");
+delete_jetpack_action_button.onclick = function() {
+
+    jetpack_id = document.getElementById("delete_jetpack_id").value;
+    //console.log("delete button " + jetpack_id)
+    deleteJetPack(jetpack_id);
+};
+
+
+function deleteJetPack(jetPackId) {
+    //console.log("deleteJetPack " + jetPackId)
+    jetpackService.deleteJetPack(jetpack_id);
+}
+
+
+/********************************* EDIT **********************************/
+
+function getInfosJetpackEdit(event){
+
+    //console.log(event.target.id);
+    var id_array = event.target.id.split("/");
+    jetpack_id = id_array[1];
+    //console.log(jetpack_id);
+
+    jetpackService.getJetPack(jetpack_id).then(jetpack => {
+        //console.log(jetpack);
+        document.getElementById("modal_edit_jetpack_name").value = jetpack[0].name;
+        document.getElementById("modal_edit_jetpack_image").value = jetpack[0].image;
+        document.getElementById("edit_jetpack_id").value = jetpack[0].id;
+        //console.log(jetpack);
+    });
+}
+
+
+var  edit_jetpack_action_button = document.getElementById("edit_jetpack_button_id");
+edit_jetpack_action_button.onclick = function() {
+    //console.log("edit");
+    jetpack_id = document.getElementById("edit_jetpack_id").value;
+    //console.log(jetpack_id)
+        editJetPack(jetpack_id);
+};
+
+
+function editJetPack(jetPackId) {
+    //console.log("function jetpack id " + jetPackId)
+    var name = document.getElementById("modal_edit_jetpack_name").value;
+    //console.log("name" + name)
+    var image = document.getElementById("modal_edit_jetpack_image").value;
+    //console.log("image" + image)
+    var id = document.getElementById("edit_jetpack_id").value;
+    //console.log("id" + id)
+
+    //console.log("id after getElement" + id)
+    if (name != '' && image != '') {
+        // var jetPack = {};
+        var jetPack = new jetPack();
+        jetPack.name = name;
+        jetPack.image = image;
+        jetPack.id = id;
+
+            //alert("Votre jetpack a été modifié avec succès");
+        jetpackService.editJetPack(jetPack).then(function () {
+            alert("Votre jetpack a été modifié avec succès");
+        });
+    }
+}
+
+
+/********************************* BOOK **********************************/
+
+function getInfosJetpackBook(event){
+
+    //console.log(event.target.id);
+    var id_array = event.target.id.split("/");
+    jetpack_id = id_array[1];
+    //console.log("avant "+jetpack_id);
+
+    jetpackService.getJetPack(jetpack_id).then(jetpack => {
+        //console.log(jetpack);
+        document.getElementById("booking_jetpack_id").value=jetpack[0].id;
+        //console.log("apres "+jetpack[0].id);
+    });
+}
+
+
+var  check_book_jetpack_action_button = document.getElementById("check_book_jetpack");
+check_book_jetpack_action_button.onclick = function() {
+
+    var startDate = document.getElementById("startDate").value;
+    var endDate = document.getElementById("endDate").value;
+    var jetpack_id = document.getElementById("booking_jetpack_id").value;
+
+    if(startDate != '' &&  endDate!=''){
+
+        bookingService.getBookingsByIdJetpack(jetpack_id,startDate,endDate).then(bookings => {
+            bookings.length = 0; // test
+
+            if (bookings.length > 0) {
+                alert("Les dates choisies ne sont pas disponibles")
+            }else{
+                alert("Les dates choisies sont disponibles")
+            }
+        });
+    }
+};
+
+
+var  book_jetpack_action_button = document.getElementById("booking_jetpack_button_id");
+book_jetpack_action_button.onclick = function() {
+
+    var startDate = document.getElementById("startDate").value;
+    var endDate = document.getElementById("endDate").value;
+    var jetpack_id = document.getElementById("booking_jetpack_id").value;
+
+    if(startDate != '' &&  endDate!=''){
+
+        var booking = new Booking();
+        booking.startDate = startDate ;
+        booking.endDate = endDate ;
+        booking.jetPack_id = jetpack_id ;
+
+        //console.log(booking)
+        bookingService.postBooking(booking).then(function () {
+
+            alert("Votre réservation a été effectué avec succès");
 
         });
     }
