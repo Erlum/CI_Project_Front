@@ -46,6 +46,11 @@ describe('JetPackApi get JetPacks', function () {
             expect(resp[0].image).toBe("base64 ...");
         });
     });
+    test('Test GetJetPacks call path', () => {
+        return jetpackApi.getJetPacks().then(resp => {
+            expect(httpClientMock.fetch.mock.calls[0][0]).toBe('/jetpacks');
+        });
+    });
 });
 
 describe('JetPackApi get a Jet Pack', function () {
@@ -80,6 +85,11 @@ describe('JetPackApi get a Jet Pack', function () {
     test('Test getJetPack return image', () => {
         return jetpackApi.getJetPack(jetpack_id).then(resp => {
             expect(resp.image).toBe("007picture.jpg");
+        });
+    });
+    test('Test getJetPack call path', () => {
+        return jetpackApi.getJetPack(jetpack_id).then(resp => {
+            expect(httpClientMock.fetch.mock.calls[0][0]).toBe('/jetpacks?id=' + jetpack_id);
         });
     });
 });
@@ -131,7 +141,7 @@ describe('JetPackApi get JetPacks in range', function () {
             expect(resp[0].image).toBe("base64 ...");
         });
     });
-    test('Test getJetPacksInRange return unit jetpack image', () => {
+    test('Test getJetPacksInRange call path', () => {
         return jetpackApi.getJetPacksInRange(start, end).then(resp => {
             expect(httpClientMock.fetch.mock.calls[0][0]).toBe('/jetpacks?start_date=' + start + '&end_date=' + end);
         });
@@ -166,6 +176,11 @@ describe('JetPackApi post JetPack', function () {
     test('Test postJetPack call body jetPack image', () => {
         return jetPackApi.postJetPack(jetPack).then(resp => {
             expect(JSON.parse(httpClientMock.fetch.mock.calls[0][1].body).image).toBe(jetPackEntry.image);
+        });
+    });
+    test('Test postJetPack call path', () => {
+        return jetPackApi.editJetPack(jetPack).then(resp => {
+            expect(httpClientMock.fetch.mock.calls[0][0]).toBe('/jetpacks');
         });
     });
     test('Test postJetPack call method', () => {
@@ -203,6 +218,11 @@ describe('JetPackApi edit a JetPack', function () {
     test('Test editJetPack call body jetPack image', () => {
         return jetPackApi.editJetPack(jetPack).then(resp => {
             expect(JSON.parse(httpClientMock.fetch.mock.calls[0][1].body).image).toBe(jetPackEntry.image);
+        });
+    });
+    test('Test editJetPack call path', () => {
+        return jetPackApi.editJetPack(jetPack).then(resp => {
+            expect(httpClientMock.fetch.mock.calls[0][0]).toBe('/jetpacks?id=' + jetPackEntry.id);
         });
     });
     test('Test editJetPack call method', () => {
