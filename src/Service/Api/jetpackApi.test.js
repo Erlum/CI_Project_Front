@@ -245,8 +245,8 @@ describe('JetPackApi delete JetPack', function () {
     };
 
     let jetPackApi = new JetPackApi(httpClientMock);
-    let jetPack = new JetPack(jetPackEntry);
-    jetPackApi.deleteJetPack(jetPack);
+    let jetPack = new JetPack(jetPackEntry.name, jetPackEntry.image, jetPackEntry.id);
+    jetPackApi.deleteJetPack(jetPack.id);
 
     test('Test deleteJetPack url', () => {
         expect(httpClientMock.fetch.mock.calls[0][0]).toBe('/jetpacks?id=' + jetPack.id);
