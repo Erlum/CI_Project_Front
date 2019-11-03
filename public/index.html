@@ -4,33 +4,23 @@
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
+    <meta name="description" content="Welcome to the JetPack Club">
+    <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
 
     <title>JetPacks Club - Location de JetPacks</title>
 
     <link href="libraries/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css" />
-
     <link href="css/jetpack.css" rel="stylesheet">
 
 </head>
 
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-blue fixed-top">
-    <div class="container">
-        <a class="navbar-brand active" href="index.html" title="Accueil du JetPack Club">JetPack Club </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add_modal"style="">AJOUTER</button>
-                </li>
-            </ul>
-        </div>
+<div class="bg-blue fixed-top">
+    <div class="container text-center">
+        <h1 class="text-center text-white p-1">JetPack Club </h1>
     </div>
-</nav>
+</div>
 
 
 
@@ -43,6 +33,12 @@
         <div class="col-lg-12" >
 
             <div class="row" id="jetpacks">
+
+            </div>
+
+            <div class="" >
+
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add_modal"style="">AJOUTER</button>
 
             </div>
 
@@ -159,9 +155,9 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body text-center">
 
-                <button class="submit-btn btn-danger" id="delete_jetpack_button_id">Supprimer</button>
+                <button class="submit-btn btn-danger" id="delete_jetpack_button_id" >Supprimer</button>
 
                 <input type="hidden"  id="delete_jetpack_id"  value=""  />
 
@@ -174,7 +170,8 @@
 </div>
 
 
-<footer class="py-1 bg-blue fixed-bottom btn-primary">
+
+<footer class="py-1 bg-blue fixed-bottom">
     <div class="container">
         <p class="m-0 text-center text-white">Copyright &copy; Pierre Danel, Olivier Gatissou, Antoine Dujardin, Adelino Araujo</p>
     </div>
