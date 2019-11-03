@@ -134,9 +134,9 @@ function getInfosJetpackEdit(event){
 
     jetpackService.getJetPack(jetpack_id).then(jetpack => {
         //console.log(jetpack);
-        document.getElementById("modal_edit_jetpack_name").value = jetpack.name;
-        document.getElementById("modal_edit_jetpack_image").value = jetpack.image;
-        document.getElementById("edit_jetpack_id").value = jetpack.id;
+        document.getElementById("modal_edit_jetpack_name").value = jetpack[0].name;
+        document.getElementById("modal_edit_jetpack_image").value = jetpack[0].image;
+        document.getElementById("edit_jetpack_id").value = jetpack[0].id;
         //console.log(jetpack);
     });
 }
