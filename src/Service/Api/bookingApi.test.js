@@ -11,9 +11,9 @@ describe('BookingApi get Bookings', function () {
 
         httpClientMock.fetch.mockResolvedValue([
             {
-                jetpack: "a26574f0-3dd0-4e3b-9c1d-6089619f2f80",
-                start_date: "2019-01-01",
-                end_date: "2042-01-01"
+                idjetpack: "a26574f0-3dd0-4e3b-9c1d-6089619f2f80",
+                startdate: "2019-01-01",
+                enddate: "2042-01-01"
             }
         ]);
 
@@ -36,9 +36,9 @@ describe('BookingApi get JetPack Bookings', function () {
         let jetpack_id = "a26574f0-3dd0-4e3b-9c1d-6089619f2f80";
         httpClientMock.fetch.mockResolvedValue([
             {
-                jetpack: jetpack_id,
-                start_date: "2019-01-01",
-                end_date: "2042-01-01"
+                idjetpack: jetpack_id,
+                startdate: "2019-01-01",
+                enddate: "2042-01-01"
             }
         ]);
 
@@ -66,9 +66,9 @@ describe('JetPackApi post Bookings', function () {
         };
         let bookingEntry = {
             id: "a26574f0-3dd0-4e3b-9c1d-6089619f2f80",
-            jetpack: jetPackEntry.id,
-            start_date: "2019-01-01",
-            end_date: "2042-01-01"
+            idjetpack: jetPackEntry.id,
+            startdate: "2019-01-01",
+            enddate: "2042-01-01"
         };
         httpClientMock.fetch.mockResolvedValue([
             bookingEntry
@@ -76,13 +76,13 @@ describe('JetPackApi post Bookings', function () {
 
         let bookingApi = new BookingApi(httpClientMock);
         let jetPack = new JetPack(jetPackEntry.name, jetPackEntry.image, jetPackEntry.id);
-        let booking = new Booking(jetPack, bookingEntry.start_date, bookingEntry.end_date);
+        let booking = new Booking(jetPack, bookingEntry.startdate, bookingEntry.enddate);
 
         bookingApi.postBooking(booking).then(resp => {
             expect(booking.id).toBe(bookingEntry.id);
-            expect(httpClientMock.fetch.mock.calls[0][1].jet_pack_id).toBe(bookingEntry.jet_pack_id);
-            expect(httpClientMock.fetch.mock.calls[0][1].start_date).toBe(bookingEntry.start_date);
-            expect(httpClientMock.fetch.mock.calls[0][1].end_date).toBe(bookingEntry.end_date);
+            expect(httpClientMock.fetch.mock.calls[0][1].idjetpack).toBe(bookingEntry.idjetpack);
+            expect(httpClientMock.fetch.mock.calls[0][1].startdate).toBe(bookingEntry.startdate);
+            expect(httpClientMock.fetch.mock.calls[0][1].enddate).toBe(bookingEntry.enddate);
             expect(httpClientMock.fetch.mock.calls[0][1].method).toBe("post");
         });
     });

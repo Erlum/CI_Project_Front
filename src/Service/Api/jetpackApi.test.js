@@ -42,7 +42,7 @@ describe('JetPackApi get a Jet Pack', function () {
         ]);
 
         let jetpackApi = new JetPackApi(httpClientMock);
-        jetpackApi.getJetPack(77).then(resp => {
+        jetpackApi.getJetPack("77").then(resp => {
             expect(Array.isArray(resp)).toBe(true);
             expect(resp.length).toBe(1);
             expect(resp[0]).toBeInstanceOf(JetPack)
