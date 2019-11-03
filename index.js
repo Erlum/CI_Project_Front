@@ -128,10 +128,10 @@ function deleteJetPack(jetPackId) {
 
 function getInfosJetpackEdit(event){
 
-    console.log(event.target.id);
+    //console.log(event.target.id);
     var id_array = event.target.id.split("/");
     jetpack_id = id_array[1];
-    console.log(jetpack_id);
+    //console.log(jetpack_id);
 
     jetpackService.getJetPack(jetpack_id).then(jetpack => {
         //console.log(jetpack);
@@ -145,23 +145,23 @@ function getInfosJetpackEdit(event){
 
 var  edit_jetpack_action_button = document.getElementById("edit_jetpack_button_id");
 edit_jetpack_action_button.onclick = function() {
-    console.log("edit");
+    //console.log("edit");
     jetpack_id = document.getElementById("edit_jetpack_id").value;
-    console.log(jetpack_id)
+    //console.log(jetpack_id)
         editJetPack(jetpack_id);
 };
 
 
 function editJetPack(jetPackId) {
-    console.log("function jetpack id " + jetPackId)
+    //console.log("function jetpack id " + jetPackId)
     var name = document.getElementById("modal_edit_jetpack_name").value;
-    console.log("name" + name)
+    //console.log("name" + name)
     var image = document.getElementById("modal_edit_jetpack_image").value;
-    console.log("image" + image)
+    //console.log("image" + image)
     var id = document.getElementById("edit_jetpack_id").value;
-    console.log("id" + id)
+    //console.log("id" + id)
 
-    console.log("id after getElement" + id)
+    //console.log("id after getElement" + id)
     if (name != '' && image != '') {
         // var jetPack = {};
         var jetPack = new Object();
@@ -181,15 +181,15 @@ function editJetPack(jetPackId) {
 
 function getInfosJetpackBook(event){
 
-    console.log(event.target.id);
+    //console.log(event.target.id);
     var id_array = event.target.id.split("/");
     jetpack_id = id_array[1];
-    console.log("avant "+jetpack_id);
+    //console.log("avant "+jetpack_id);
 
     jetpackService.getJetPack(jetpack_id).then(jetpack => {
-        console.log(jetpack);
+        //console.log(jetpack);
         document.getElementById("booking_jetpack_id").value=jetpack[0].id;
-        console.log("apres "+jetpack[0].id);
+        //console.log("apres "+jetpack[0].id);
     });
 }
 
