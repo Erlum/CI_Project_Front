@@ -68,12 +68,12 @@
             <div class="modal-body">
                 <form >
                     <div class="form-group">
-                        <label for="modal_jetpack_name_id" class="col-form-label">Nom du JetPack :</label>
-                        <input type="text" class="form-control" id="modal_jetpack_name_id">
+                        <label for="modal_add_jetpack_name" class="col-form-label">Nom du JetPack :</label>
+                        <input type="text" class="form-control" id="modal_add_jetpack_name">
                     </div>
                     <div class="form-group">
-                        <label for="modal_jetpack_image_id" class="col-form-label">URL de l'image du JetPack:</label>
-                        <input type="text" class="form-control" id="modal_jetpack_image_id"></input>
+                        <label for="modal_add_jetpack_image_id" class="col-form-label">URL de l'image du JetPack:</label>
+                        <input type="text" class="form-control" id="modal_add_jetpack_image"></input>
                     </div>
                 </form>
             </div>
@@ -86,7 +86,7 @@
 </div>
 
 
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+<div class="modal fade" id="edit_modal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -98,19 +98,19 @@
             <div class="modal-body">
                 <form>
                     <div class="form-group">
-                        <label for="jetpackName" class="col-form-label">Nom du JetPack :</label>
-                        <input type="text" class="form-control" id="editjetpackName" value="">
+                        <label for="modal_edit_jetpack_name" class="col-form-label">Nom du JetPack :</label>
+                        <input type="text" class="form-control" id="modal_edit_jetpack_name" value="">
                     </div>
                     <div class="form-group">
-                        <label for="jetpackImage" class="col-form-label">URL de l'image du JetPack:</label>
-                        <input type="text" class="form-control" id="editjetpackImage" value="">
+                        <label for="modal_edit_jetpack_image" class="col-form-label">URL de l'image du JetPack:</label>
+                        <input type="text" class="form-control" id="modal_edit_jetpack_image" value="">
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" id="modifier_jetpack">Modifier</button>
+                <button type="button" class="btn btn-success" id="edit_jetpack_button_id">Modifier</button>
 
-                <input type="hidden"  id="editidJetpack"  value=""  />
+                <input type="hidden"  id="edit_jetpack_id"  value=""  />
 
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
             </div>

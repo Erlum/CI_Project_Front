@@ -19,7 +19,7 @@ jetpackService.getJetPacks().then(jetpacks => {
             '    <h4 class="card-title">' + jetpack.name + '</h4>\n' +
             '    <span id="jetpack-id" class="invisible">' + jetpack.id + '</span>' +
             '     <div class="d-flex justify-content-around">' +
-            '         <button type="button" id="displayeditJetpack/'+jetpack.id+'" class="btn btn-outline-primary edit_button" data-toggle="modal" data-target="#editModal"style="">Modifier</button>' ;
+            '         <button type="button" id="display_jetpack_edit_id/'+jetpack.id+'" class="btn btn-outline-primary edit_button_class" data-toggle="modal" data-target="#edit_modal"style="">Modifier</button>' ;
 
         html +=   ' <button type="button" id="bookJetpack/'+jetpack.id+'"class="btn btn-outline-success book_button" data-toggle="modal" data-target="#bookModal">Réserver</button>' ;
 
@@ -37,16 +37,25 @@ jetpackService.getJetPacks().then(jetpacks => {
 
 
     /**** delete listener on each jetpack delete button ****/
-    var button_delete=document.getElementsByClassName("delete_button_class");
+    var delete_button = document.getElementsByClassName("delete_button_class");
 
-    for(var i=0; i<button_delete.length;i++){
-        button_delete[i].addEventListener('click',function() {
+    for(var i=0; i< delete_button.length;i++){
+        delete_button[i].addEventListener('click',function() {
             getJetPackId(event);
 
         }, true);
     }
 
+    /**** edit listener on each jetpack delete button ****/
+    var edit_button = document.getElementsByClassName("edit_button_class");
+    for(var i=0; i< edit_button.length;i++){
 
+        edit_button[i].addEventListener('click',function() {
+            getJetPackId(event);
+            getInfosJetpackEdit(event)
+
+        }, true);
+    }
 });
 
 
@@ -57,14 +66,15 @@ var  add_jet_pack_action_button = document.getElementById("add_jetpack_button_id
 add_jet_pack_action_button.onclick = function() {
     // var nom = prompt("Please enter your name");
     //var url = prompt("Please enter your url");
-    var name = document.getElementById("modal_jetpack_name_id").value;
-    var image = document.getElementById("modal_jetpack_image_id").value;
+    var name = document.getElementById("modal_add_jetpack_name").value;
+    var image = document.getElementById("modal_add_jetpack_image").value;
 
     if(name != '' &&  image !=''){
         var jetPack = new JetPack();
         jetPack.name = name;
         jetPack.image = image;
 
+            //alert("Votre jetpack a été modifié avec succès")
         jetpackService.postJetPack(jetPack).then(function() {
 
             alert("Votre jetpack a été enregistré avec succès");
@@ -73,30 +83,83 @@ add_jet_pack_action_button.onclick = function() {
 };
 
 
-/********************************* DELETE **********************************/
+/******************************** GET JETPACK ID ***************************/
 
 function getJetPackId(event){
     //console.log(event.target.id);
     var id_array = event.target.id.split("/");
     jetpack_id = id_array[1];
     document.getElementById("delete_jetpack_id").value = jetpack_id;
-    console.log("function getjetpackid " + jetpack_id)
+    //console.log("getjetpackid " + jetpack_id)
 }
+
+
+/********************************* DELETE **********************************/
 
 
 var  delete_jetpack_action_button = document.getElementById("delete_jetpack_button_id");
 delete_jetpack_action_button.onclick = function() {
 
-    //alert("delete");
     jetpack_id = document.getElementById("delete_jetpack_id").value;
-    console.log("delete button " + jetpack_id)
+    //console.log("delete button " + jetpack_id)
     deleteJetPack(jetpack_id);
 };
 
+
 function deleteJetPack(jetPackId) {
-    console.log("function deleteJetPack " + jetPackId)
+    //console.log("deleteJetPack " + jetPackId)
     jetpackService.deleteJetPack(jetpack_id);
 }
 
 
+/********************************* EDIT **********************************/
 
+function getInfosJetpackEdit(event){
+
+    console.log(event.target.id);
+    var id_array = event.target.id.split("/");
+    jetpack_id = id_array[1];
+    console.log(jetpack_id);
+
+    jetpackService.getJetPack(jetpack_id).then(jetpack => {
+        //console.log(jetpack);
+        document.getElementById("modal_edit_jetpack_name").value = jetpack[0].name;
+        document.getElementById("modal_edit_jetpack_image").value = jetpack[0].image;
+        document.getElementById("edit_jetpack_id").value = jetpack[0].id;
+        //console.log(jetpack);
+    });
+}
+
+
+var  edit_jetpack_action_button = document.getElementById("edit_jetpack_button_id");
+edit_jetpack_action_button.onclick = function() {
+    console.log("edit");
+    jetpack_id = document.getElementById("edit_jetpack_id").value;
+    console.log(jetpack_id)
+        editJetPack(jetpack_id);
+};
+
+
+function editJetPack(jetPackId) {
+    console.log("function jetpack id " + jetPackId)
+    var name = document.getElementById("modal_edit_jetpack_name").value;
+    console.log("name" + name)
+    var image = document.getElementById("modal_edit_jetpack_image").value;
+    console.log("image" + image)
+    var id = document.getElementById("edit_jetpack_id").value;
+    console.log("id" + id)
+
+    console.log("id after getElement" + id)
+    if (name != '' && image != '') {
+        // var jetPack = {};
+        var jetPack = new Object();
+        jetPack.name = name;
+        jetPack.image = image;
+        jetPack.id = id;
+        
+            //alert("Votre jetpack a été modifié avec succès");
+        jetpackService.editJetPack(jetPack).then(function () {
+            alert("Votre jetpack a été modifié avec succès");
+        });
+    }
+}
