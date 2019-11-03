@@ -224,6 +224,7 @@ book_jetpack_action_button.onclick = function() {
     var jetpack_id = document.getElementById("booking_jetpack_id").value;
 
     if(startDate != '' &&  endDate!=''){
+
         var booking = new Booking();
         booking.startDate = startDate ;
         booking.endDate = endDate ;
