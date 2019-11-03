@@ -26,7 +26,7 @@ jetpackService.getJetPacks().then(jetpacks => {
 
         html += '    </div>' +
             '    <div class="text-center">' +
-            '           <button type="button" id="displayJetpack/'+jetpack.id+'"class="btn btn-outline-danger mt-2 delete_button" data-toggle="modal" data-target="#deleteModal">Supprimer</button>' +
+            '           <button type="button" id="display_jetpack_delete_id/'+jetpack.id+'"class="btn btn-outline-danger mt-2 delete_button_class" data-toggle="modal" data-target="#delete_modal">Supprimer</button>' +
             '     </div>' +
             '  </div>\n' +
             '</div>' +
@@ -34,6 +34,17 @@ jetpackService.getJetPacks().then(jetpacks => {
     });
 
     document.getElementById('jetpacks').innerHTML = html;
+
+
+    /**** delete listener on each jetpack delete button ****/
+    var button_delete=document.getElementsByClassName("delete_button_class");
+
+    for(var i=0; i<button_delete.length;i++){
+        button_delete[i].addEventListener('click',function() {
+            getJetPackId(event);
+
+        }, true);
+    }
 
 
 });
@@ -60,3 +71,32 @@ add_jet_pack_action_button.onclick = function() {
         });
     }
 };
+
+
+/********************************* DELETE **********************************/
+
+function getJetPackId(event){
+    //console.log(event.target.id);
+    var id_array = event.target.id.split("/");
+    jetpack_id = id_array[1];
+    document.getElementById("delete_jetpack_id").value = jetpack_id;
+    console.log("function getjetpackid " + jetpack_id)
+}
+
+
+var  delete_jetpack_action_button = document.getElementById("delete_jetpack_button_id");
+delete_jetpack_action_button.onclick = function() {
+
+    //alert("delete");
+    jetpack_id = document.getElementById("delete_jetpack_id").value;
+    console.log("delete button " + jetpack_id)
+    deleteJetPack(jetpack_id);
+};
+
+function deleteJetPack(jetPackId) {
+    console.log("function deleteJetPack " + jetPackId)
+    jetpackService.deleteJetPack(jetpack_id);
+}
+
+
+
