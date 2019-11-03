@@ -13,7 +13,7 @@ module.exports = class {
     }
 
     getJetPack(id) {
-        return this.httpClient.fetch('/jetpacks?id=' + id, {}).then(row => {
+        return this.httpClient.fetch('/jetpacks/' + id, {}).then(row => {
             return new JetPack(row.name, row.image, row.id);
         });
     }
@@ -39,8 +39,8 @@ module.exports = class {
     }
 
     editJetPack(jetPack) {
-        return this.httpClient.fetch('/jetpacks?id=' + jetPack.id, {
-            method: "patch",
+        return this.httpClient.fetch('/jetpacks/' + jetPack.id, {
+            method: "put",  // patch is not supported by express.
             body: JSON.stringify({
                 "name": jetPack.name,
                 "image": jetPack.image
@@ -50,7 +50,7 @@ module.exports = class {
 
     // change parameter from object to string
     deleteJetPack(jetPack_id) {
-        return this.httpClient.fetch('/jetpacks?id=' + jetPack_id, {
+        return this.httpClient.fetch('/jetpacks/' + jetPack_id, {
             method: "delete"
         });
     }

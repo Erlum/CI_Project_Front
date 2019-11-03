@@ -89,7 +89,7 @@ describe('JetPackApi get a Jet Pack', function () {
     });
     test('Test getJetPack call path', () => {
         return jetpackApi.getJetPack(jetpack_id).then(resp => {
-            expect(httpClientMock.fetch.mock.calls[0][0]).toBe('/jetpacks?id=' + jetpack_id);
+            expect(httpClientMock.fetch.mock.calls[0][0]).toBe('/jetpacks/' + jetpack_id);
         });
     });
 });
@@ -222,12 +222,12 @@ describe('JetPackApi edit a JetPack', function () {
     });
     test('Test editJetPack call path', () => {
         return jetPackApi.editJetPack(jetPack).then(resp => {
-            expect(httpClientMock.fetch.mock.calls[0][0]).toBe('/jetpacks?id=' + jetPackEntry.id);
+            expect(httpClientMock.fetch.mock.calls[0][0]).toBe('/jetpacks/' + jetPackEntry.id);
         });
     });
     test('Test editJetPack call method', () => {
         return jetPackApi.editJetPack(jetPack).then(resp => {
-            expect(httpClientMock.fetch.mock.calls[0][1].method).toBe("patch");
+            expect(httpClientMock.fetch.mock.calls[0][1].method).toBe("put");
         });
     });
 });
@@ -249,7 +249,7 @@ describe('JetPackApi delete JetPack', function () {
     jetPackApi.deleteJetPack(jetPack.id);
 
     test('Test deleteJetPack url', () => {
-        expect(httpClientMock.fetch.mock.calls[0][0]).toBe('/jetpacks?id=' + jetPack.id);
+        expect(httpClientMock.fetch.mock.calls[0][0]).toBe('/jetpacks/' + jetPack.id);
     });
     test('Test deleteJetPack method', () => {
         expect(httpClientMock.fetch.mock.calls[0][1].method).toStrictEqual("delete");

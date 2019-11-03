@@ -152,7 +152,7 @@
     {
       "equals": {
         "method": "DELETE",
-        "path": "/jetpacks?id=a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d"
+        "path": "/jetpacks/a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d"
       }
     }
   ],
