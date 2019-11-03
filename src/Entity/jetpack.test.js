@@ -2,7 +2,7 @@ const Jetpack = require('./Jetpack');
 
 describe('Booking toJson', function () {
     let jetpack = new Jetpack("jetpack name", "image", "2222");
-    let jetpack_no_booking_id = new Jetpack("jetpack2 name", "image");
+    let jetpack_empty_fields = new Jetpack("jetpack2 name");
 
     test('Test toJson all information', () => {
         expect(jetpack.toJson()).toMatchObject({
@@ -12,10 +12,10 @@ describe('Booking toJson', function () {
         });
     });
     test('Test toJson empty booking id', () => {
-        expect(jetpack_no_booking_id.toJson()).toMatchObject({
+        expect(jetpack_empty_fields.toJson()).toMatchObject({
             id: null,
             name: "jetpack2 name",
-            image: "image"
+            image: null
         });
     });
 });
