@@ -72,7 +72,7 @@
                         <input type="text" class="form-control" id="modal_add_jetpack_name">
                     </div>
                     <div class="form-group">
-                        <label for="modal_add_jetpack_image_id" class="col-form-label">URL de l'image du JetPack:</label>
+                        <label for="modal_add_jetpack_image" class="col-form-label">URL de l'image du JetPack:</label>
                         <input type="text" class="form-control" id="modal_add_jetpack_image"></input>
                     </div>
                 </form>
@@ -119,7 +119,7 @@
 </div>
 
 
-<div class="modal fade" id="bookModal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+<div class="modal fade" id="booking_modal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -139,12 +139,12 @@
                     <input id="endDate" class="form-control" type="date" required>
                 </div>
                 <div class="form-btn text-center">
-                    <button class="submit-btn btn-primary"  id="action_check_disponibilite">Vérifier la disponibilité</button>
+                    <button class="submit-btn btn-primary"  id="check_book_jetpack">Vérifier la disponibilité</button>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" id="book-jetpack-action" >Réserver</button>
-                <input type="hidden"  id="bookidJetpack"  value=""  />
+                <button type="button" class="btn btn-success" id="booking_jetpack_button_id">Réserver</button>
+                <input type="hidden"  id="booking_jetpack_id"  value=""  />
 
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
             </div>

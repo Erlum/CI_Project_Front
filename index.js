@@ -21,7 +21,7 @@ jetpackService.getJetPacks().then(jetpacks => {
             '     <div class="d-flex justify-content-around">' +
             '         <button type="button" id="display_jetpack_edit_id/'+jetpack.id+'" class="btn btn-outline-primary edit_button_class" data-toggle="modal" data-target="#edit_modal"style="">Modifier</button>' ;
 
-        html +=   ' <button type="button" id="bookJetpack/'+jetpack.id+'"class="btn btn-outline-success book_button" data-toggle="modal" data-target="#bookModal">Réserver</button>' ;
+        html +=   ' <button type="button" id="diplay_jetpack_booking_id/'+jetpack.id+'"class="btn btn-outline-success booking_button_class" data-toggle="modal" data-target="#booking_modal">Réserver</button>' ;
 
 
         html += '    </div>' +
@@ -36,7 +36,7 @@ jetpackService.getJetPacks().then(jetpacks => {
     document.getElementById('jetpacks').innerHTML = html;
 
 
-    /**** delete listener on each jetpack delete button ****/
+    /**** delete listener on each jetpack delete button class ****/
     var delete_button = document.getElementsByClassName("delete_button_class");
 
     for(var i=0; i< delete_button.length;i++){
@@ -46,13 +46,25 @@ jetpackService.getJetPacks().then(jetpacks => {
         }, true);
     }
 
-    /**** edit listener on each jetpack delete button ****/
+    /**** edit listener on each jetpack edit button class ****/
     var edit_button = document.getElementsByClassName("edit_button_class");
     for(var i=0; i< edit_button.length;i++){
 
         edit_button[i].addEventListener('click',function() {
             getJetPackId(event);
             getInfosJetpackEdit(event)
+
+        }, true);
+    }
+
+    /**** book listener on each jetpack booking button class ****/
+    var button_addBook=document.getElementsByClassName("booking_button_class");
+
+    for(var i=0; i<button_addBook.length;i++){
+        button_addBook[i].addEventListener('click',function() {
+
+            getInfosJetpackBook(event);
+            // getJetPackIdBook(event); // recuperation Id et injection les infos dans le dom
 
         }, true);
     }
@@ -156,10 +168,76 @@ function editJetPack(jetPackId) {
         jetPack.name = name;
         jetPack.image = image;
         jetPack.id = id;
-        
+
             //alert("Votre jetpack a été modifié avec succès");
         jetpackService.editJetPack(jetPack).then(function () {
             alert("Votre jetpack a été modifié avec succès");
         });
     }
 }
+
+
+/********************************* BOOK **********************************/
+
+function getInfosJetpackBook(event){
+
+    console.log(event.target.id);
+    var id_array = event.target.id.split("/");
+    jetpack_id = id_array[1];
+    console.log("avant "+jetpack_id);
+
+    jetpackService.getJetPack(jetpack_id).then(jetpack => {
+        console.log(jetpack);
+        document.getElementById("booking_jetpack_id").value=jetpack[0].id;
+        console.log("apres "+jetpack[0].id);
+    });
+}
+
+
+var  check_book_jetpack_action_button = document.getElementById("check_book_jetpack");
+check_book_jetpack_action_button.onclick = function() {
+
+    var startDate = document.getElementById("startDate").value;
+    var endDate = document.getElementById("endDate").value;
+    var jetpack_id = document.getElementById("booking_jetpack_id").value;
+
+    if(startDate != '' &&  endDate!=''){
+
+        bookingService.getBookingsByIdJetpack(jetpack_id,startDate,endDate).then(bookings => {
+            bookings.length = 0; // test
+
+            if (bookings.length > 0) {
+                alert("Les dates choisies ne sont pas disponibles")
+            }else{
+                alert("Les dates choisies sont disponibles")
+            }
+        });
+    }
+};
+
+
+var  book_jetpack_action_button = document.getElementById("booking_jetpack_button_id");
+book_jetpack_action_button.onclick = function() {
+
+    var startDate = document.getElementById("startDate").value;
+
+    var endDate = document.getElementById("endDate").value;
+
+    var jetpack_id = document.getElementById("booking_jetpack_id").value;
+
+    if(startDate != '' &&  endDate!=''){
+
+        var booking = new Booking();
+
+        booking.startDate = startDate ;
+        booking.endDate = endDate ;
+        booking.jetPack_id = jetpack_id ;
+
+        bookingService.postBooking(booking).then(function () {
+
+            alert("Votre réservation a été effectué avec succès");
+
+        });
+
+    }
+};
