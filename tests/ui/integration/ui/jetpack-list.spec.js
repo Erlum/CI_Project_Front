@@ -10,3 +10,4 @@ context('Jetpack list', () => {
     })
 
 });
+
