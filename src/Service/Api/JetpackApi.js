@@ -13,10 +13,8 @@ module.exports = class {
     }
 
     getJetPack(id) {
-        return this.httpClient.fetch('/jetpacks?id=' + id, {}).then(rows => {
-            return rows.map(row => {
-                return new JetPack(row.name, row.image, row.id);
-            });
+        return this.httpClient.fetch('/jetpacks?id=' + id, {}).then(row => {
+            return new JetPack(row.name, row.image, row.id);
         });
     }
 

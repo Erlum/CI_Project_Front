@@ -49,32 +49,39 @@ describe('JetPackApi get JetPacks', function () {
 });
 
 describe('JetPackApi get a Jet Pack', function () {
+    let httpClientMock = {
+        fetch: jest.fn()
+    };
 
-    test('Test getJetPack', () => {
-        let httpClientMock = {
-            fetch: jest.fn()
-        };
+    httpClientMock.fetch.mockResolvedValue({
+        id: "77",
+        name: "The James Bond Jetpack",
+        image: "007picture.jpg"
+    });
 
-        httpClientMock.fetch.mockResolvedValue([
-            {
-                id: "77",
-                name: "The James Bond Jetpack",
-                image: "007picture.jpg"
-            }
-        ]);
+    let jetpackApi = new JetPackApi(httpClientMock);
 
-        let jetpackApi = new JetPackApi(httpClientMock);
-        jetpackApi.getJetPack("77").then(resp => {
-            expect(Array.isArray(resp)).toBe(true);
-            expect(resp.length).toBe(1);
-            expect(resp[0]).toBeInstanceOf(JetPack);
-            expect(resp[0].id).toBe("77");
-            expect(resp[0].name).toBe("The James Bond Jetpack");
-            expect(resp[0].image).toBe("007picture.jpg");
+    test('Test getJetPack return type', () => {
+        return jetpackApi.getJetPacks().then(resp => {
+            expect(resp).toBeInstanceOf(JetPack);
+        });
+    });
+    test('Test getJetPack return id', () => {
+        return jetpackApi.getJetPacks().then(resp => {
+            expect(resp.id).toBe("77");
+        });
+    });
+    test('Test getJetPack return name', () => {
+        return jetpackApi.getJetPacks().then(resp => {
+            expect(resp.name).toBe("The James Bond Jetpack");
+        });
+    });
+    test('Test getJetPack return image', () => {
+        return jetpackApi.getJetPacks().then(resp => {
+            expect(resp.image).toBe("007picture.jpg");
         });
     });
 });
-
 
 describe('JetPackApi get JetPacks in range', function () {
 

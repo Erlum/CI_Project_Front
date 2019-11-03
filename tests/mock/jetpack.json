@@ -1,6 +1,55 @@
 {
   "predicates": [
     {
+      "and": [
+        {
+          "deepEquals": {
+            "method": "GET",
+            "path": "/jetpacks"
+          }
+        },
+        {
+          "exists": {
+            "query": {
+              "id": true
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "responses": [
+    {
+      "is": {
+        "headers": {
+          "Access-Control-Allow-Origin": "*"
+        },
+        "body": {
+          "id": "${id}",
+          "name": "Jetpack Fortnite Wiki",
+          "image": "https://gamepedia.cursecdn.com/fortnite_gamepedia/e/e1/Jetpack_icon.png"
+        }
+      },
+      "_behaviors": {
+        "copy": [
+          {
+            "from": {
+              "query": "id"
+            },
+            "into": "${id}",
+            "using": {
+              "method": "regex",
+              "selector": "[\\s\\S]*"
+            }
+          }
+        ]
+      }
+    }
+  ]
+},
+{
+  "predicates": [
+    {
       "deepEquals": {
         "method": "GET",
         "path": "/jetpacks",
