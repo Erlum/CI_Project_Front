@@ -163,7 +163,7 @@ function editJetPack(jetPackId) {
     //console.log("id after getElement" + id)
     if (name != '' && image != '') {
         // var jetPack = {};
-        var jetPack = new Object();
+        var jetPack = new jetPack();
         jetPack.name = name;
         jetPack.image = image;
         jetPack.id = id;
@@ -202,8 +202,8 @@ check_book_jetpack_action_button.onclick = function() {
 
     if(startDate != '' &&  endDate!=''){
 
-        bookingService.getBookingsByJetpackId(jetpack_id,startDate,endDate).then(bookings => {
-            //bookings.length = 0;
+        bookingService.getBookingsByIdJetpack(jetpack_id,startDate,endDate).then(bookings => {
+            bookings.length = 0; // test
 
             if (bookings.length > 0) {
                 alert("Les dates choisies ne sont pas disponibles")
@@ -224,10 +224,10 @@ book_jetpack_action_button.onclick = function() {
 
     if(startDate != '' &&  endDate!=''){
 
-        var booking = new Object();
+        var booking = new Booking();
         booking.startDate = startDate ;
         booking.endDate = endDate ;
-        booking.jetPack = jetpack_id ;
+        booking.jetPack_id = jetpack_id ;
 
         //console.log(booking)
         bookingService.postBooking(booking).then(function () {
