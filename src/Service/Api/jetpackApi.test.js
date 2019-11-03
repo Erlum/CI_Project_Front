@@ -8,7 +8,6 @@ describe('JetPackApi get JetPacks', function () {
             fetch: jest.fn()
         };
 
-
         httpClientMock.fetch.mockResolvedValue([
             {
                 id: "123",
@@ -137,25 +136,25 @@ describe('JetPackApi edit a JetPack', function () {
     httpClientMock.fetch.mockResolvedValue(jetPackEntry);
 
     let jetPackApi = new JetPackApi(httpClientMock);
-    let jetPack = new JetPack(jetPackEntry.id, jetPackEntry.name, jetPackEntry.image);
+    let jetPack = new JetPack(jetPackEntry.name, jetPackEntry.image, jetPackEntry.id);
 
     test('Test editJetPack return jetPack id', () => {
-        return jetPackApi.postJetPack(jetPack).then(resp => {
+        return jetPackApi.editJetPack(jetPack).then(resp => {
             expect(jetPack.id).toBe(jetPackEntry.id);
         });
     });
     test('Test editJetPack call body jetPack name', () => {
-        return jetPackApi.postJetPack(jetPack).then(resp => {
+        return jetPackApi.editJetPack(jetPack).then(resp => {
             expect(JSON.parse(httpClientMock.fetch.mock.calls[0][1].body).name).toBe(jetPackEntry.name);
         });
     });
     test('Test editJetPack call body jetPack image', () => {
-        return jetPackApi.postJetPack(jetPack).then(resp => {
+        return jetPackApi.editJetPack(jetPack).then(resp => {
             expect(JSON.parse(httpClientMock.fetch.mock.calls[0][1].body).image).toBe(jetPackEntry.image);
         });
     });
     test('Test editJetPack call method', () => {
-        return jetPackApi.postJetPack(jetPack).then(resp => {
+        return jetPackApi.editJetPack(jetPack).then(resp => {
             expect(httpClientMock.fetch.mock.calls[0][1].method).toBe("patch");
         });
     });
