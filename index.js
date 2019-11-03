@@ -39,7 +39,7 @@ jetpackService.getJetPacks().then(jetpacks => {
     /**** delete listener on each jetpack delete button class ****/
     var delete_button = document.getElementsByClassName("delete_button_class");
 
-    for(var i=0; i< delete_button.length;i++){
+    for(var i=0; i < delete_button.length;i++){
         delete_button[i].addEventListener('click',function() {
             getJetPackId(event);
 
@@ -48,7 +48,7 @@ jetpackService.getJetPacks().then(jetpacks => {
 
     /**** edit listener on each jetpack edit button class ****/
     var edit_button = document.getElementsByClassName("edit_button_class");
-    for(var i=0; i< edit_button.length;i++){
+    for(var i=0; i<edit_button.length;i++){
 
         edit_button[i].addEventListener('click',function() {
             getJetPackId(event);
@@ -60,7 +60,7 @@ jetpackService.getJetPacks().then(jetpacks => {
     /**** book listener on each jetpack booking button class ****/
     var button_addBook=document.getElementsByClassName("booking_button_class");
 
-    for(var i=0; i<button_addBook.length;i++){
+    for(var i=0; i < button_addBook.length;i++){
         button_addBook[i].addEventListener('click',function() {
 
             getInfosJetpackBook(event);
@@ -81,7 +81,7 @@ add_jet_pack_action_button.onclick = function() {
     var image = document.getElementById("modal_add_jetpack_image").value;
 
     if(name != '' &&  image !=''){
-        var jetPack = new JetPack();
+        var jetPack = new Object();
         jetPack.name = name;
         jetPack.image = image;
 
