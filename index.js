@@ -1,9 +1,9 @@
 const appConfig = require('./app.config');
 const JetPack = require('./src/Entity/Jetpack') ;
+const Booking = require('./src/Entity/Booking') ;
 const JetpackService = require('./src/Service/Api/JetpackApi');
 const BookingService = require('./src/Service/Api/BookingApi');
 const HttpClient = require('./src/HttpClient');
-
 const httpClient = new HttpClient(appConfig.apiUrl);
 const jetpackService = new JetpackService(httpClient);
 const bookingService = new BookingService(httpClient) ;
@@ -64,7 +64,6 @@ jetpackService.getJetPacks().then(jetpacks => {
         button_addBook[i].addEventListener('click',function() {
 
             getInfosJetpackBook(event);
-            // getJetPackIdBook(event); // recuperation Id et injection les infos dans le dom
 
         }, true);
     }
@@ -203,8 +202,8 @@ check_book_jetpack_action_button.onclick = function() {
 
     if(startDate != '' &&  endDate!=''){
 
-        bookingService.getBookingsByIdJetpack(jetpack_id,startDate,endDate).then(bookings => {
-            bookings.length = 0; // test
+        bookingService.getBookingsByJetpackId(jetpack_id,startDate,endDate).then(bookings => {
+            //bookings.length = 0;
 
             if (bookings.length > 0) {
                 alert("Les dates choisies ne sont pas disponibles")
@@ -225,16 +224,16 @@ book_jetpack_action_button.onclick = function() {
 
     if(startDate != '' &&  endDate!=''){
 
-        var booking = new Booking();
+        var booking = new Object();
         booking.startDate = startDate ;
         booking.endDate = endDate ;
-        booking.jetPack_id = jetpack_id ;
+        booking.jetPack = jetpack_id ;
 
+        //console.log(booking)
         bookingService.postBooking(booking).then(function () {
 
             alert("Votre réservation a été effectué avec succès");
 
         });
-
     }
 };
