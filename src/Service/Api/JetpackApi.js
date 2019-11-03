@@ -52,7 +52,7 @@ module.exports = class {
 
     // change parameter from object to string
     deleteJetPack(jetPack_id) {
-        this.httpClient.fetch('/jetpacks?id=' + jetPack_id, {
+        return this.httpClient.fetch('/jetpacks?id=' + jetPack_id, {
             method: "delete"
         });
     }

@@ -137,22 +137,23 @@ describe('JetPackApi edit a JetPack', function () {
 
 describe('JetPackApi delete JetPack', function () {
 
-    test('Test deleteJetPack', () => {
+    test('Test deleteJetpack', () => {
         let httpClientMock = {
             fetch: jest.fn()
         };
 
-        let jetPackEntry = {
-            id: "a26574f0-3dd0-4e3b-9c1d-6089619f2f80",
-            name: "big jet pack",
-            image: "blurry.jpg"
-        };
+        httpClientMock.fetch.mockResolvedValue([
+            {
+                id: "123",
+                name: "The Jetpack",
+                image: "base64"
+            }
+        ]);
 
-        let jetPackApi = new JetPackApi(httpClientMock);
-        let jetPack = new JetPack(jetPackEntry);
-        jetPackApi.deleteJetPack(jetPack);
-
-        expect(httpClientMock.fetch.mock.calls[0][0]).toBe('/jetpacks?id=' + jetPack.id);
-        expect(httpClientMock.fetch.mock.calls[0][1].method).toStrictEqual("delete");
+        let jetpackApi = new JetPackApi(httpClientMock);
+        let jetpackid = '198456';
+        jetpackApi.deleteJetPack(jetpackid).then(resp => {
+            expect(httpClientMock.fetch.mock.calls[0][0]).toBe('/jetpacks?id=' + jetpackid);
+        });
     });
 });

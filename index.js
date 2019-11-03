@@ -220,15 +220,11 @@ var  book_jetpack_action_button = document.getElementById("booking_jetpack_butto
 book_jetpack_action_button.onclick = function() {
 
     var startDate = document.getElementById("startDate").value;
-
     var endDate = document.getElementById("endDate").value;
-
     var jetpack_id = document.getElementById("booking_jetpack_id").value;
 
     if(startDate != '' &&  endDate!=''){
-
         var booking = new Booking();
-
         booking.startDate = startDate ;
         booking.endDate = endDate ;
         booking.jetPack_id = jetpack_id ;

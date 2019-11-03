@@ -21,6 +21,15 @@ module.exports = class  {
         });
     }
 
+    getBookingsByIdJetpack(jetpack_id,start_date,end_date) {
+
+        return this.httpClient.fetch('/booking?jetpack_id=' + jetpack_id+'&start_date='+start_date+'&end_date='+end_date, {}).then(rows => {
+            return rows.map(row => {
+                return new Booking(row["jetpack"], row["start_date"], row["end_date"], row["id"]);
+            });
+        });
+    }
+
     postBooking(booking) {
         return this.httpClient.fetch('/bookings', {
             method: "post",
