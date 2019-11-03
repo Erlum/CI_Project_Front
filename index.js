@@ -37,7 +37,7 @@ jetpackService.getJetPacks().then(jetpacks => {
 
 
     /**** delete listener on each jetpack delete button class ****/
-    var delete_button = document.getElementsByClassName("delete_button_class");
+    let delete_button = document.getElementsByClassName("delete_button_class");
 
     for(var i=0; i < delete_button.length;i++){
         delete_button[i].addEventListener('click',function() {
@@ -47,7 +47,7 @@ jetpackService.getJetPacks().then(jetpacks => {
     }
 
     /**** edit listener on each jetpack edit button class ****/
-    var edit_button = document.getElementsByClassName("edit_button_class");
+    let edit_button = document.getElementsByClassName("edit_button_class");
     for(var i=0; i<edit_button.length;i++){
 
         edit_button[i].addEventListener('click',function() {
@@ -58,7 +58,7 @@ jetpackService.getJetPacks().then(jetpacks => {
     }
 
     /**** book listener on each jetpack booking button class ****/
-    var button_addBook=document.getElementsByClassName("booking_button_class");
+    let button_addBook=document.getElementsByClassName("booking_button_class");
 
     for(var i=0; i < button_addBook.length;i++){
         button_addBook[i].addEventListener('click',function() {
@@ -77,8 +77,8 @@ var  add_jet_pack_action_button = document.getElementById("add_jetpack_button_id
 add_jet_pack_action_button.onclick = function() {
     // var nom = prompt("Please enter your name");
     //var url = prompt("Please enter your url");
-    var name = document.getElementById("modal_add_jetpack_name").value;
-    var image = document.getElementById("modal_add_jetpack_image").value;
+    let name = document.getElementById("modal_add_jetpack_name").value;
+    let image = document.getElementById("modal_add_jetpack_image").value;
 
     if(name != '' &&  image !=''){
         var jetPack = new Object();
@@ -98,7 +98,7 @@ add_jet_pack_action_button.onclick = function() {
 
 function getJetPackId(event){
     //console.log(event.target.id);
-    var id_array = event.target.id.split("/");
+    let id_array = event.target.id.split("/");
     jetpack_id = id_array[1];
     document.getElementById("delete_jetpack_id").value = jetpack_id;
     //console.log("getjetpackid " + jetpack_id)
@@ -128,7 +128,7 @@ function deleteJetPack(jetPackId) {
 function getInfosJetpackEdit(event){
 
     //console.log(event.target.id);
-    var id_array = event.target.id.split("/");
+    let id_array = event.target.id.split("/");
     jetpack_id = id_array[1];
     //console.log(jetpack_id);
 
@@ -153,17 +153,17 @@ edit_jetpack_action_button.onclick = function() {
 
 function editJetPack(jetPackId) {
     //console.log("function jetpack id " + jetPackId)
-    var name = document.getElementById("modal_edit_jetpack_name").value;
+    let name = document.getElementById("modal_edit_jetpack_name").value;
     //console.log("name" + name)
-    var image = document.getElementById("modal_edit_jetpack_image").value;
+    let image = document.getElementById("modal_edit_jetpack_image").value;
     //console.log("image" + image)
-    var id = document.getElementById("edit_jetpack_id").value;
+    let id = document.getElementById("edit_jetpack_id").value;
     //console.log("id" + id)
 
     //console.log("id after getElement" + id)
     if (name != '' && image != '') {
         // var jetPack = {};
-        var jetPack = new jetPack();
+        var jetPack = new Object();
         jetPack.name = name;
         jetPack.image = image;
         jetPack.id = id;
@@ -181,7 +181,7 @@ function editJetPack(jetPackId) {
 function getInfosJetpackBook(event){
 
     //console.log(event.target.id);
-    var id_array = event.target.id.split("/");
+    let id_array = event.target.id.split("/");
     jetpack_id = id_array[1];
     //console.log("avant "+jetpack_id);
 
@@ -196,14 +196,14 @@ function getInfosJetpackBook(event){
 var  check_book_jetpack_action_button = document.getElementById("check_book_jetpack");
 check_book_jetpack_action_button.onclick = function() {
 
-    var startDate = document.getElementById("startDate").value;
-    var endDate = document.getElementById("endDate").value;
-    var jetpack_id = document.getElementById("booking_jetpack_id").value;
+    let startDate = document.getElementById("startDate").value;
+    let endDate = document.getElementById("endDate").value;
+    let jetpack_id = document.getElementById("booking_jetpack_id").value;
 
     if(startDate != '' &&  endDate!=''){
 
-        bookingService.getBookingsByIdJetpack(jetpack_id,startDate,endDate).then(bookings => {
-            bookings.length = 0; // test
+        bookingService.getBookingsByJetpackId(jetpack_id,startDate,endDate).then(bookings => {
+            //bookings.length = 0; // test
 
             if (bookings.length > 0) {
                 alert("Les dates choisies ne sont pas disponibles")
@@ -218,9 +218,9 @@ check_book_jetpack_action_button.onclick = function() {
 var  book_jetpack_action_button = document.getElementById("booking_jetpack_button_id");
 book_jetpack_action_button.onclick = function() {
 
-    var startDate = document.getElementById("startDate").value;
-    var endDate = document.getElementById("endDate").value;
-    var jetpack_id = document.getElementById("booking_jetpack_id").value;
+    let startDate = document.getElementById("startDate").value;
+    let endDate = document.getElementById("endDate").value;
+    let jetpack_id = document.getElementById("booking_jetpack_id").value;
 
     if(startDate != '' &&  endDate!=''){
 
