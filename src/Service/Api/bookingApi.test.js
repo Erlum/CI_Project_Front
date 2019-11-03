@@ -49,6 +49,11 @@ describe('BookingApi get Bookings', function () {
             expect(resp[0].end).toBe(bookingEntry.enddate);
         });
     });
+    test('Test getJetPackBookings return unit end date', () => {
+        return bookingApi.getBookings().then(resp => {
+            expect(resp[0].jetPack).toBe(bookingEntry.idjetpack);
+        });
+    });
     test('Test getJetPackBookings call', () => {
         return bookingApi.getBookings().then(resp => {
             expect(httpClientMock.fetch.mock.calls[0][0]).toBe('/bookings');
@@ -156,6 +161,11 @@ describe('JetPackApi post Bookings', function () {
     test('Test postJetPack call enddate', () => {
         return bookingApi.postBooking(booking).then(resp => {
             expect(JSON.parse(httpClientMock.fetch.mock.calls[0][1].body).enddate).toBe(bookingEntry.enddate);
+        });
+    });
+    test('Test postJetPack call', () => {
+        return bookingApi.postBooking(booking).then(resp => {
+            expect(httpClientMock.fetch.mock.calls[0][0]).toBe('/bookings');
         });
     });
     test('Test postJetPack call method', () => {
