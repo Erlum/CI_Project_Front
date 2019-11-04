@@ -49,7 +49,6 @@ jetpackService.getJetPacks().then(jetpacks => {
         edit_button[i].addEventListener('click',function() {
             getJetPackId(event);
             getInfosJetpackEdit(event)
-
         }, true);
     }
 
@@ -67,7 +66,6 @@ jetpackService.getJetPacks().then(jetpacks => {
 
 
 /********************************* ADD **********************************/
-
 var  add_jet_pack_action_button = document.getElementById("add_jetpack_button_id");
 
 add_jet_pack_action_button.onclick = function() {
@@ -77,21 +75,20 @@ add_jet_pack_action_button.onclick = function() {
     let image = document.getElementById("modal_add_jetpack_image").value;
 
     if(name != '' &&  image !=''){
-        var jetPack = new Object();
-        jetPack.name = name;
-        jetPack.image = image;
+        var jetpack_to_add = new Object();
+        jetpack_to_add.name = name;
+        jetpack_to_add.image = image;
         //console.log(jetPack)
 
-        jetpackService.postJetPack(jetPack).then(function() {
+        jetpackService.postJetPack(jetpack_to_add).then(function() {
 
-            alert("Votre jetpack a été enregistré avec succès");
+            alert("Votre jetpack a bien été enregistré.");
         });
     }
 };
 
 
 /******************************** GET JETPACK ID ***************************/
-
 function getJetPackId(event){
     //console.log(event.target.id);
     let id_array = event.target.id.split("/");
@@ -102,9 +99,7 @@ function getJetPackId(event){
 
 
 /********************************* DELETE **********************************/
-
-
-var  delete_jetpack_action_button = document.getElementById("delete_jetpack_button_id");
+var  delete_jetpack_action_button = document.getElementById("delete_jetpack_button");
 delete_jetpack_action_button.onclick = function() {
 
     jetpack_id = document.getElementById("delete_jetpack_id").value;
@@ -119,9 +114,48 @@ delete_jetpack_action_button.onclick = function() {
         jetpack_to_delete.id = jetpack.id ;
     });
 
-    deleteJetPack(jetpack_to_delete);
+    jetpackService.deleteJetPack(jetpack_to_delete).then(function() {
+
+        alert("Votre jetpack a été supprimé.");
+    });
 };
 
 
+/********************************* EDIT **********************************/
+function getInfosJetpackEdit(event){
+    //console.log(event.target.id);
+    var id_array = event.target.id.split("/");
+    jetpack_id = id_array[1];
+    //console.log("edit jetpack id" + jetpack_id);
+
+    jetpackService.getJetPack(jetpack_id).then(jetpack => {
+        //console.log(jetpack);
+        document.getElementById("modal_edit_jetpack_name").value = jetpack.name
+        document.getElementById("modal_edit_jetpack_image").value = jetpack.image
+        document.getElementById("edit_id_jetpack").value = jetpack.id;
+    });
+}
+
+var  edit_jetpack_action_button = document.getElementById("edit_jetpack_button");
+edit_jetpack_action_button.onclick = function() {
+
+    jetpack_id = document.getElementById("edit_jetpack_id").value;
+
+    var jetpack_to_edit = new Object()
+
+    jetpackService.getJetPack(jetpack_id).then(jetpack => {
+        //console.log(jetpack);
+        jetpack_to_edit.name = jetpack.name ;
+        jetpack_to_edit.image = jetpack.image ;
+        jetpack_to_edit.id = jetpack.id ;
+    });
+
+    jetpackService.editJetPack(jetpack_to_edit).then(function() {
+
+        alert("Votre jetpack a été modifié.");
+    });
+
+
+};
 
 
