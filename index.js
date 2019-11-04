@@ -154,8 +154,6 @@ edit_jetpack_action_button.onclick = function() {
 
         alert("Votre jetpack a été modifié.");
     });
-
-
 };
 
-
+/********************************* BOOK **********************************/

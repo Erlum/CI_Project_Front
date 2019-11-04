@@ -164,3 +164,4 @@ tmp/mb*
 dist
 tests/ui/videos
 public/dist/
+temp.js
