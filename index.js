@@ -80,7 +80,7 @@ add_jet_pack_action_button.onclick = function() {
         var jetPack = new Object();
         jetPack.name = name;
         jetPack.image = image;
-        console.log(jetPack)
+        //console.log(jetPack)
 
         jetpackService.postJetPack(jetPack).then(function() {
 
@@ -109,127 +109,19 @@ delete_jetpack_action_button.onclick = function() {
 
     jetpack_id = document.getElementById("delete_jetpack_id").value;
     //console.log("delete button " + jetpack_id)
-    deleteJetPack(jetpack_id);
-};
 
-
-function deleteJetPack(jetPackId) {
-    //console.log("deleteJetPack " + jetPackId)
-    jetpackService.deleteJetPack(jetpack_id);
-}
-
-
-/********************************* EDIT **********************************/
-
-function getInfosJetpackEdit(event){
-
-    //console.log(event.target.id);
-    let id_array = event.target.id.split("/");
-    jetpack_id = id_array[1];
-    //console.log(jetpack_id);
+    var jetpack_to_delete = new Object()
 
     jetpackService.getJetPack(jetpack_id).then(jetpack => {
         //console.log(jetpack);
-        document.getElementById("modal_edit_jetpack_name").value = jetpack[0].name;
-        document.getElementById("modal_edit_jetpack_image").value = jetpack[0].image;
-        document.getElementById("edit_jetpack_id").value = jetpack[0].id;
-        //console.log(jetpack);
+        jetpack_to_delete.name = jetpack.name ;
+        jetpack_to_delete.image = jetpack.image ;
+        jetpack_to_delete.id = jetpack.id ;
     });
-}
 
-
-var  edit_jetpack_action_button = document.getElementById("edit_jetpack_button_id");
-edit_jetpack_action_button.onclick = function() {
-    //console.log("edit");
-    jetpack_id = document.getElementById("edit_jetpack_id").value;
-    //console.log(jetpack_id)
-        editJetPack(jetpack_id);
+    deleteJetPack(jetpack_to_delete);
 };
 
 
-function editJetPack(jetPackId) {
-    //console.log("function jetpack id " + jetPackId)
-    let name = document.getElementById("modal_edit_jetpack_name").value;
-    //console.log("name" + name)
-    let image = document.getElementById("modal_edit_jetpack_image").value;
-    //console.log("image" + image)
-    let id = document.getElementById("edit_jetpack_id").value;
-    //console.log("id" + id)
-
-    //console.log("id after getElement" + id)
-    if (name != '' && image != '') {
-        // var jetPack = {};
-        var jetPack = new Object();
-        jetPack.name = name;
-        jetPack.image = image;
-        jetPack.id = id;
-
-            //alert("Votre jetpack a été modifié avec succès");
-        jetpackService.editJetPack(jetPack).then(function () {
-            alert("Votre jetpack a été modifié avec succès");
-        });
-    }
-}
 
 
-/********************************* BOOK **********************************/
-
-function getInfosJetpackBook(event){
-
-    //console.log(event.target.id);
-    let id_array = event.target.id.split("/");
-    jetpack_id = id_array[1];
-    //console.log("avant "+jetpack_id);
-
-    jetpackService.getJetPack(jetpack_id).then(jetpack => {
-        //console.log(jetpack);
-        document.getElementById("booking_jetpack_id").value=jetpack[0].id;
-        //console.log("apres "+jetpack[0].id);
-    });
-}
-
-
-var  check_book_jetpack_action_button = document.getElementById("check_book_jetpack");
-check_book_jetpack_action_button.onclick = function() {
-
-    let startDate = document.getElementById("startDate").value;
-    let endDate = document.getElementById("endDate").value;
-    let jetpack_id = document.getElementById("booking_jetpack_id").value;
-
-    if(startDate != '' &&  endDate!=''){
-
-        bookingService.getBookingsByJetpackId(jetpack_id,startDate,endDate).then(bookings => {
-            //bookings.length = 0; // test
-
-            if (bookings.length > 0) {
-                alert("Les dates choisies ne sont pas disponibles")
-            }else{
-                alert("Les dates choisies sont disponibles")
-            }
-        });
-    }
-};
-
-
-var  book_jetpack_action_button = document.getElementById("booking_jetpack_button_id");
-book_jetpack_action_button.onclick = function() {
-
-    let startDate = document.getElementById("startDate").value;
-    let endDate = document.getElementById("endDate").value;
-    let jetpack_id = document.getElementById("booking_jetpack_id").value;
-
-    if(startDate != '' &&  endDate!=''){
-
-        var booking = new Booking();
-        booking.startDate = startDate ;
-        booking.endDate = endDate ;
-        booking.jetPack_id = jetpack_id ;
-
-        //console.log(booking)
-        bookingService.postBooking(booking).then(function () {
-
-            alert("Votre réservation a été effectué avec succès");
-
-        });
-    }
-};
