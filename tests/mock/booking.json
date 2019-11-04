@@ -1,4 +1,32 @@
 {
+  "predicates": [{
+    "equals": {
+      "method": "OPTIONS"
+    }
+  }],
+  "responses": [{
+    "is": {
+      "headers": {
+        "Access-Control-Allow-Origin": "${ORIGIN}",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
+        "Access-Control-Allow-Headers": "${ALLOW-HEADERS}"
+      }
+    },
+    "_behaviors": {
+      "copy": [{
+        "from": { "headers": "Origin" },
+        "into": "${ORIGIN}",
+        "using": { "method": "regex", "selector": "[\\s\\S]*" }
+      },
+      {
+        "from": { "headers": "Access-Control-Request-Headers" },
+        "into": "${ALLOW-HEADERS}",
+        "using": { "method": "regex", "selector": "[\\s\\S]*" }
+      }]
+    }
+  }]
+},
+{
   "predicates": [
     {
       "and": [
