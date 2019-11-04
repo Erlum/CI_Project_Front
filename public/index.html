@@ -16,11 +16,26 @@
 
 <body>
 
+
 <div class="bg-blue fixed-top">
-    <div class="container text-center">
-        <h1 class="text-center text-white p-1">JetPack Club </h1>
+    <div class="container-fluid p-2">
+        <div class="row align-items-center">
+            <div class="col-sm">
+                <h1 class="text-center text-white m-1" style="display: inline">JetPack Club </h1>
+            </div>
+            <div class="col-sm">
+                <input id="startDate" title="Date de début de réservation" class="form-control" type="date" required>
+            </div>
+            <div class="col-sm">
+                <input id="endDate" title="Date de fin de réservation" class="form-control" type="date" required>
+            </div>
+            <div class="col-sm">
+                <button class="btn btn-success"  id="check_jetpack_availability">VERIFIER</button>
+            </div>
+        </div>
     </div>
 </div>
+
 
 
 
@@ -38,7 +53,7 @@
 
             <div class="" >
 
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add_modal"style="">AJOUTER</button>
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add_modal" style="">AJOUTER</button>
 
             </div>
 
@@ -111,39 +126,6 @@
     </div>
 </div>
 
-
-<div class="modal fade" id="booking_modal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" >Réserver le JetPack</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-
-                <div class="form-group">
-                    <span class="form-label">Début :</span>
-                    <input id="startDate" class="form-control" type="date" required>
-                </div>
-                <div class="form-group">
-                    <span class="form-label">Fin :</span>
-                    <input id="endDate" class="form-control" type="date" required>
-                </div>
-                <div class="form-btn text-center">
-                    <button class="submit-btn btn-primary"  id="check_book_jetpack">Vérifier la disponibilité</button>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-success" id="booking_jetpack_button_id">Réserver</button>
-                <input type="hidden"  id="booking_jetpack_id"  value=""  />
-
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 
 <div class="modal" id="delete_modal" tabindex="-1" role="dialog">

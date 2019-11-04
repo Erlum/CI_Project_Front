@@ -22,9 +22,9 @@ jetpackService.getJetPacks().then(jetpacks => {
             '  </div>\n' +
             '     <div class="btn-group" role="group"">' +
             //'         <button type="button" id="display_jetpack_view_id/'+jetpack.id+'" class="btn btn-outline-primary edit_button_class" data-toggle="modal" data-target="#view_modal"style="">Voir</button>' +
-            '         <button type="button" id="display_jetpack_edit_id/'+jetpack.id+'" class="btn btn-outline-primary edit_button_class" data-toggle="modal" data-target="#edit_modal"style="">Modifier</button>' +
-            '         <button type="button" id="diplay_jetpack_booking_id/'+jetpack.id+'"class="btn btn-outline-success booking_button_class" data-toggle="modal" data-target="#booking_modal">Réserver</button>' +
-            '         <button type="button" id="display_jetpack_delete_id/'+jetpack.id+'"class="btn btn-outline-danger delete_button_class" data-toggle="modal" data-target="#delete_modal">Supprimer</button>' +
+            '         <button type="button" id="display_jetpack_edit_id/'+jetpack.id+'" class="btn btn-outline-primary edit_button_class dual-btn-equal-width" data-toggle="modal" data-target="#edit_modal"style="">Modifier</button>' +
+            //'         <button type="button" id="diplay_jetpack_booking_id/'+jetpack.id+'"class="btn btn-outline-success booking_button_class" data-toggle="modal" data-target="#booking_modal">Réserver</button>' +
+            '         <button type="button" id="display_jetpack_delete_id/'+jetpack.id+'"class="btn btn-outline-danger delete_button_class dual-btn-equal-width" data-toggle="modal" data-target="#delete_modal">Supprimer</button>' +
             '    </div>' +
             '</div>' +
             '</div>'
@@ -39,7 +39,6 @@ jetpackService.getJetPacks().then(jetpacks => {
     for(var i=0; i < delete_button.length;i++){
         delete_button[i].addEventListener('click',function() {
             getJetPackId(event);
-
         }, true);
     }
 
@@ -81,8 +80,8 @@ add_jet_pack_action_button.onclick = function() {
         var jetPack = new Object();
         jetPack.name = name;
         jetPack.image = image;
+        console.log(jetPack)
 
-            //alert("Votre jetpack a été modifié avec succès")
         jetpackService.postJetPack(jetPack).then(function() {
 
             alert("Votre jetpack a été enregistré avec succès");
