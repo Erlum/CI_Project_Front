@@ -250,7 +250,7 @@ describe('JetPackApi delete JetPack', function () {
         let jetPack = new JetPack(jetPackEntry);
         jetPackApi.deleteJetPack(jetPack);
 
-        expect(httpClientMock.fetch.mock.calls[0][0]).toBe('/jetpacks?id=' + jetPack.id);
+        expect(httpClientMock.fetch.mock.calls[0][0]).toBe('/jetpacks/' + jetPack.id);
         expect(httpClientMock.fetch.mock.calls[0][1].method).toStrictEqual("delete");
     });
 });
