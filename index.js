@@ -8,10 +8,11 @@ const httpClient = new HttpClient(appConfig.apiUrl);
 const jetpackService = new JetpackService(httpClient);
 const bookingService = new BookingService(httpClient) ;
 
+/*** diplay all jetpacks *****/
 jetpackService.getJetPacks().then(jetpacks => {
-    let html =  '';
+    let html_display_all_jetpacks =  '';
     jetpacks.forEach((jetpack) => {
-        html +=
+        html_display_all_jetpacks +=
             '<div class="col-lg-4 col-md-6 mb-4">' +
             '<div class="card h" style="width: 18rem;">\n' +
             '  <img src="'+ jetpack.image +'" class="card-img-top" alt="...">\n' +
@@ -30,7 +31,7 @@ jetpackService.getJetPacks().then(jetpacks => {
             '</div>'
     });
 
-    document.getElementById('jetpacks').innerHTML = html;
+    document.getElementById('jetpacks').innerHTML = html_display_all_jetpacks ;
 
 
     /**** delete listener on each jetpack delete button class ****/
@@ -63,6 +64,37 @@ jetpackService.getJetPacks().then(jetpacks => {
         }, true);
     }
 });
+
+
+/**** Display all avalaible jetpacks only ****/
+var  check_jetpacks_action_button = document.getElementById("check_jetpack_availability");
+
+check_jetpacks_action_button.onclick = function() {
+
+    //include get avalaible method here
+    jetpackService.getJetPacks().then(jetpacks => {
+        let html_display_avalaible_jetpacks = '';
+        jetpacks.forEach((jetpack) => {
+            html_display_avalaible_jetpacks +=
+                '<div class="col-lg-4 col-md-6 mb-4">' +
+                '<div class="card h" style="width: 18rem;">\n' +
+                '  <img src="' + jetpack.image + '" class="card-img-top" alt="...">\n' +
+                '  <div class="card-body">\n' +
+                '    <h4 class="card-title">' + jetpack.name + '</h4>\n' +
+                '    <span id="jetpack-id" class="invisible">' + jetpack.id + '</span>' +
+
+                '  </div>\n' +
+                '     <div class="btn-group" role="group"">' +
+                //'         <button type="button" id="display_jetpack_view_id/'+jetpack.id+'" class="btn btn-outline-primary edit_button_class" data-toggle="modal" data-target="#view_modal"style="">Voir</button>' +
+                '           <button type="button" id="diplay_jetpack_booking_id/' + jetpack.id + '"class="btn btn-outline-success booking_button_class" data-toggle="modal" data-target="#booking_modal">Réserver</button>' +
+                '    </div>' +
+                '</div>' +
+                '</div>'
+        });
+
+        document.getElementById('jetpacks').innerHTML = html_display_avalaible_jetpacks;
+    });
+};
 
 
 /********************************* ADD **********************************/
