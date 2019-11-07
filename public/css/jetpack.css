@@ -5,3 +5,7 @@ body {
 .hidden{
     display: none;
 }
+
+.dual-btn-equal-width {
+    width: 50%;
+}
