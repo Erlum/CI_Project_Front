@@ -24,13 +24,14 @@
                 <h1 class="text-center text-white m-1" style="display: inline">JetPack Club </h1>
             </div>
             <div class="col-sm">
-                <input id="startDate" title="Date de début de réservation" class="form-control" type="date" required>
+                <input id="booking_start_date" title="Date de début de réservation" class="form-control" type="date" required>
             </div>
             <div class="col-sm">
-                <input id="endDate" title="Date de fin de réservation" class="form-control" type="date" required>
+                <input id="booking_end_date" title="Date de fin de réservation" class="form-control" type="date" required>
             </div>
             <div class="col-sm">
                 <button class="btn btn-success"  id="check_jetpack_availability">VERIFIER</button>
+                <button class="btn btn-primary"  id="reset_jetpack_filter">RESET</button>
             </div>
         </div>
     </div>
@@ -42,29 +43,29 @@
 
 
 <div class="container mt-5 mb-5">
+    <div class="m-auto">
 
-    <div class="row" >
-
-        <div class="col-lg-12" >
-
-            <div class="row" id="jetpacks">
-
-            </div>
-
-            <div class="" >
-
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add_modal" style="">AJOUTER</button>
-
-            </div>
+        <div id="booking_start_date_id">
 
         </div>
 
-    </div>
+        <div id="booking_end_date_id">
 
+        </div>
+
+        <div class="row m-auto" id="jetpacks">
+
+        </div>
+
+        <div class="row m-auto">
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#add_modal" style="">AJOUTER</button>
+        </div>
+
+    </div>
 </div>
 
 
-<div class="modal fade" id="add_modal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+<div class="modal fade" id="add_modal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -81,7 +82,7 @@
                     </div>
                     <div class="form-group">
                         <label for="modal_add_jetpack_image" class="col-form-label">URL de l'image du JetPack:</label>
-                        <input type="text" class="form-control" id="modal_add_jetpack_image"></input>
+                        <input type="text" class="form-control" id="modal_add_jetpack_image">
                     </div>
                 </form>
             </div>
@@ -94,7 +95,7 @@
 </div>
 
 
-<div class="modal fade" id="edit_modal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+<div class="modal fade" id="edit_modal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -139,7 +140,7 @@
             </div>
             <div class="modal-body text-center">
 
-                <button class="submit-btn btn-danger" id="delete_jetpack_button" >Supprimer</button>
+                <button class="submit-btn btn-danger" id="delete_jetpack_button" >SUPPRIMER</button>
 
                 <input type="hidden"  id="delete_jetpack_id"  value=""  />
 
@@ -151,9 +152,33 @@
     </div>
 </div>
 
+<div class="modal" id="booking_modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Réserver le JetPack</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+
+                <button class="submit-btn btn-success" id="booking_jetpack_button" >RESERVER</button>
+                <input type="hidden"  id="booking_jetpack_id"  value=""  />
+                <input id="modal_booking_start_date" hidden type="date" value="">
+                <input id="modal_booking_end_date" hidden type="date" value="">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
-<footer class="py-1 bg-blue fixed-bottom">
+
+<footer class="py-1 bg-blue fixed-bottom mt-5">
     <div class="container">
         <p class="m-0 text-center text-white">Copyright &copy; Pierre Danel, Olivier Gatissou, Antoine Dujardin, Adelino Araujo</p>
     </div>

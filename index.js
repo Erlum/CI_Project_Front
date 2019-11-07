@@ -8,68 +8,71 @@ const httpClient = new HttpClient(appConfig.apiUrl);
 const jetpackService = new JetpackService(httpClient);
 const bookingService = new BookingService(httpClient) ;
 
-/*** diplay all jetpacks *****/
-jetpackService.getJetPacks().then(jetpacks => {
-    let html_display_all_jetpacks =  '';
-    jetpacks.forEach((jetpack) => {
-        html_display_all_jetpacks +=
-            '<div class="col-lg-4 col-md-6 mb-4">' +
-            '<div class="card h" style="width: 18rem;">\n' +
-            '  <img src="'+ jetpack.image +'" class="card-img-top" alt="...">\n' +
-            '  <div class="card-body">\n' +
-            '    <h4 class="card-title">' + jetpack.name + '</h4>\n' +
-            '    <span id="jetpack-id" class="invisible">' + jetpack.id + '</span>' +
+/**** Display all jetpacks in index.html (definition below ***/
+display_all_jetpacks_and_create_listeners()
 
-            '  </div>\n' +
-            '     <div class="btn-group" role="group"">' +
-            //'         <button type="button" id="display_jetpack_view_id/'+jetpack.id+'" class="btn btn-outline-primary edit_button_class" data-toggle="modal" data-target="#view_modal"style="">Voir</button>' +
-            '         <button type="button" id="display_jetpack_edit_id/'+jetpack.id+'" class="btn btn-outline-primary edit_button_class dual-btn-equal-width" data-toggle="modal" data-target="#edit_modal"style="">Modifier</button>' +
-            //'         <button type="button" id="diplay_jetpack_booking_id/'+jetpack.id+'"class="btn btn-outline-success booking_button_class" data-toggle="modal" data-target="#booking_modal">Réserver</button>' +
-            '         <button type="button" id="display_jetpack_delete_id/'+jetpack.id+'"class="btn btn-outline-danger delete_button_class dual-btn-equal-width" data-toggle="modal" data-target="#delete_modal">Supprimer</button>' +
-            '    </div>' +
-            '</div>' +
-            '</div>'
+
+/*** function to display all jetpacks ***/
+function display_all_jetpacks_and_create_listeners() {
+    jetpackService.getJetPacks().then(jetpacks => {
+        let html_display_all_jetpacks =  '';
+        jetpacks.forEach((jetpack) => {
+            html_display_all_jetpacks +=
+                '<div class="col-lg-4 col-md-6 mb-4">' +
+                '<div class="card h" style="width: 18rem;">\n' +
+                '  <img src="'+ jetpack.image +'" class="card-img-top" alt="...">\n' +
+                '  <div class="card-body">\n' +
+                '    <h4 class="card-title">' + jetpack.name + '</h4>\n' +
+                '    <span id="jetpack-id" class="invisible">' + jetpack.id + '</span>' +
+
+                '  </div>\n' +
+                '     <div class="btn-group" role="group"">' +
+                //'         <button type="button" id="display_jetpack_view_id/'+jetpack.id+'" class="btn btn-outline-primary edit_button_class" data-toggle="modal" data-target="#view_modal"style="">Voir</button>' +
+                '         <button type="button" id="display_jetpack_edit_id/'+jetpack.id+'" class="btn btn-outline-primary edit_button_class dual-btn-equal-width" data-toggle="modal" data-target="#edit_modal"style="">Modifier</button>' +
+                //'         <button type="button" id="diplay_jetpack_booking_id/'+jetpack.id+'"class="btn btn-outline-success booking_button_class" data-toggle="modal" data-target="#booking_modal">Réserver</button>' +
+                '         <button type="button" id="display_jetpack_delete_id/'+jetpack.id+'"class="btn btn-outline-danger delete_button_class dual-btn-equal-width" data-toggle="modal" data-target="#delete_modal">Supprimer</button>' +
+                '    </div>' +
+                '</div>' +
+                '</div>'
+        });
+
+        document.getElementById('jetpacks').innerHTML = html_display_all_jetpacks ;
+
+        /**** delete listener on each jetpack delete button class ****/
+        let delete_jetpack_button = document.getElementsByClassName("delete_button_class");
+        for(var i=0; i < delete_jetpack_button.length;i++){
+            delete_jetpack_button[i].addEventListener('click',function() {
+                getJetPackId(event);
+            }, true);
+        }
+
+        /**** edit listener on each jetpack edit button class ****/
+        let edit_jetpack_button = document.getElementsByClassName("edit_button_class");
+        for(var i=0; i<edit_jetpack_button.length;i++){
+            edit_jetpack_button[i].addEventListener('click',function() {
+                getJetPackId(event);
+                getInfosJetpackEdit(event)
+            }, true);
+        }
     });
+}
 
-    document.getElementById('jetpacks').innerHTML = html_display_all_jetpacks ;
-
-
-    /**** delete listener on each jetpack delete button class ****/
-    let delete_button = document.getElementsByClassName("delete_button_class");
-
-    for(var i=0; i < delete_button.length;i++){
-        delete_button[i].addEventListener('click',function() {
-            getJetPackId(event);
-        }, true);
-    }
-
-    /**** edit listener on each jetpack edit button class ****/
-    let edit_button = document.getElementsByClassName("edit_button_class");
-    for(var i=0; i<edit_button.length;i++){
-
-        edit_button[i].addEventListener('click',function() {
-            getJetPackId(event);
-            getInfosJetpackEdit(event)
-        }, true);
-    }
-
-    /**** book listener on each jetpack booking button class ****/
-    let button_addBook=document.getElementsByClassName("booking_button_class");
-
-    for(var i=0; i < button_addBook.length;i++){
-        button_addBook[i].addEventListener('click',function() {
-
-            getInfosJetpackBook(event);
-
-        }, true);
-    }
-});
+/**** Reset jetpack filter list button ****/
+var reset_jetpack_list_action_button = document.getElementById("reset_jetpack_filter") ;
+reset_jetpack_list_action_button.onclick = function () {
+    display_all_jetpacks_and_create_listeners()
+}
 
 
-/**** Display all avalaible jetpacks only ****/
+
+/**** Display only avalaible jetpacks for selected range date ****/
 var  check_jetpacks_action_button = document.getElementById("check_jetpack_availability");
-
 check_jetpacks_action_button.onclick = function() {
+
+    let booking_start_date = document.getElementById("booking_start_date").value;
+    let booking_end_date = document.getElementById("booking_end_date").value;
+
+    //console.log("debut : " + booking_start_date + "fin : " + booking_end_date)
 
     //include get avalaible method here
     jetpackService.getJetPacks().then(jetpacks => {
@@ -81,11 +84,11 @@ check_jetpacks_action_button.onclick = function() {
                 '  <img src="' + jetpack.image + '" class="card-img-top" alt="...">\n' +
                 '  <div class="card-body">\n' +
                 '    <h4 class="card-title">' + jetpack.name + '</h4>\n' +
-                '    <span id="jetpack-id" class="invisible">' + jetpack.id + '</span>' +
-
+                '    <span id="jetpack-id" class="hidden">' + jetpack.id + '</span>' +
+                '    <span class="start_date_booking_class hidden" >' + booking_start_date + '</span>' +
+                '    <span class="end_date_booking_class hidden" >' + booking_end_date + '</span>' +
                 '  </div>\n' +
                 '     <div class="btn-group" role="group"">' +
-                //'         <button type="button" id="display_jetpack_view_id/'+jetpack.id+'" class="btn btn-outline-primary edit_button_class" data-toggle="modal" data-target="#view_modal"style="">Voir</button>' +
                 '           <button type="button" id="diplay_jetpack_booking_id/' + jetpack.id + '"class="btn btn-outline-success booking_button_class" data-toggle="modal" data-target="#booking_modal">Réserver</button>' +
                 '    </div>' +
                 '</div>' +
@@ -93,13 +96,24 @@ check_jetpacks_action_button.onclick = function() {
         });
 
         document.getElementById('jetpacks').innerHTML = html_display_avalaible_jetpacks;
+
+        /**** book listener on each jetpack booking button class ****/
+        let book_jetpack_button = document.getElementsByClassName("booking_button_class");
+        for (var i = 0; i < book_jetpack_button.length; i++) {
+            book_jetpack_button[i].addEventListener('click', function () {
+
+                getJetPackIdBooking(event)
+
+            }, true);
+        }
     });
-};
+}
+
+
 
 
 /********************************* ADD **********************************/
 var  add_jet_pack_action_button = document.getElementById("add_jetpack_button_id");
-
 add_jet_pack_action_button.onclick = function() {
     // var nom = prompt("Please enter your name");
     //var url = prompt("Please enter your url");
@@ -127,6 +141,16 @@ function getJetPackId(event){
     jetpack_id = id_array[1];
     document.getElementById("delete_jetpack_id").value = jetpack_id;
     //console.log("getjetpackid " + jetpack_id)
+}
+
+
+/******************************** GET JETPACK ID for booking ***************************/
+function getJetPackIdBooking(event){
+    //console.log(event.target.id);
+    let id_array = event.target.id.split("/");
+    jetpack_id = id_array[1];
+    document.getElementById("booking_jetpack_id").value = jetpack_id;
+    //console.log("book jetpack id " + jetpack_id)
 }
 
 
@@ -188,4 +212,14 @@ edit_jetpack_action_button.onclick = function() {
     });
 };
 
+
 /********************************* BOOK **********************************/
+
+var  booking_jetpack_action_button = document.getElementById("booking_jetpack_button");
+booking_jetpack_action_button.onclick = function() {
+
+
+
+};
+
+
