@@ -20,7 +20,7 @@ function display_all_jetpacks_and_create_listeners() {
         jetpacks.forEach((jetpack) => {
             html_display_all_jetpacks +=
                 '<div class="col-lg-4 col-md-6 mb-4">' +
-                '<div class="card h" style="width: 18rem;">\n' +
+                '<div class="card h box zoom" style="width: 18rem;">\n' +
                 '  <img src="'+ jetpack.image +'" class="card-img-top" alt="...">\n' +
                 '  <div class="card-body">\n' +
                 '    <h4 class="card-title">' + jetpack.name + '</h4>\n' +
@@ -83,8 +83,8 @@ check_jetpacks_action_button.onclick = function() {
         let html_display_avalaible_jetpacks = '';
         jetpacks.forEach((jetpack) => {
             html_display_avalaible_jetpacks +=
-                '<div class="col-lg-4 col-md-6 mb-4">' +
-                '<div class="card h" style="width: 18rem;">\n' +
+                '<div class="col-lg-4 col-md-6 mb-4 box">' +
+                '<div class="card h box zoom" style="width: 18rem;">\n' +
                 '  <img src="' + jetpack.image + '" class="card-img-top" alt="...">\n' +
                 '  <div class="card-body">\n' +
                 '    <h4 class="card-title">' + jetpack.name + '</h4>\n' +
