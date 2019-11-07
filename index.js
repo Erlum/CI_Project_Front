@@ -8,6 +8,7 @@ const httpClient = new HttpClient(appConfig.apiUrl);
 const jetpackService = new JetpackService(httpClient);
 const bookingService = new BookingService(httpClient) ;
 
+
 /**** Display all jetpacks in index.html (definition below ***/
 display_all_jetpacks_and_create_listeners()
 
@@ -72,6 +73,9 @@ check_jetpacks_action_button.onclick = function() {
     let booking_start_date = document.getElementById("booking_start_date").value;
     let booking_end_date = document.getElementById("booking_end_date").value;
 
+    document.getElementById("modal_booking_start_date").value = booking_start_date
+    document.getElementById("modal_booking_end_date").value = booking_end_date
+
     //console.log("debut : " + booking_start_date + "fin : " + booking_end_date)
 
     //include get avalaible method here
@@ -85,8 +89,6 @@ check_jetpacks_action_button.onclick = function() {
                 '  <div class="card-body">\n' +
                 '    <h4 class="card-title">' + jetpack.name + '</h4>\n' +
                 '    <span id="jetpack-id" class="hidden">' + jetpack.id + '</span>' +
-                '    <span class="start_date_booking_class hidden" >' + booking_start_date + '</span>' +
-                '    <span class="end_date_booking_class hidden" >' + booking_end_date + '</span>' +
                 '  </div>\n' +
                 '     <div class="btn-group" role="group"">' +
                 '           <button type="button" id="diplay_jetpack_booking_id/' + jetpack.id + '"class="btn btn-outline-success booking_button_class" data-toggle="modal" data-target="#booking_modal">Réserver</button>' +
@@ -218,7 +220,23 @@ edit_jetpack_action_button.onclick = function() {
 var  booking_jetpack_action_button = document.getElementById("booking_jetpack_button");
 booking_jetpack_action_button.onclick = function() {
 
+    let jetpack_id = document.getElementById("booking_jetpack_id").value
+    let start_date = document.getElementById("modal_booking_start_date").value
+    let end_date = document.getElementById("modal_booking_end_date").value
 
+    //console.log("jetpack id : " + jetpack_id)
+    //console.log("start date : " + start_date)
+    //console.log("end date : " + end_date)
+
+    booking_to_post = new Object()
+
+    booking_to_post.id =  jetpack_id
+    booking_to_post.start = start_date
+    booking_to_post._end = end_date
+
+    //console.log(booking_to_post)
+
+    bookingService.postBooking(booking_to_post)
 
 };
 
