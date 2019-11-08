@@ -81,7 +81,7 @@ check_jetpacks_action_button.onclick = function() {
     //console.log("debut : " + booking_start_date + "fin : " + booking_end_date)
 
     //include get avalaible method here
-    jetpackService.getJetPacks().then(jetpacks => {
+    jetpackService.getJetPacksInRange(booking_start_date, booking_end_date).then(jetpacks => {
         let html_display_avalaible_jetpacks = '';
         jetpacks.forEach((jetpack) => {
             html_display_avalaible_jetpacks +=
