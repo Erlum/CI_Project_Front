@@ -13,42 +13,48 @@ module.exports = class {
     }
 
     getJetPack(id) {
-        return this.httpClient.fetch('/jetpacks?id=' + id, {}).then(rows => {
-            return rows.map(row => {
-                return new JetPack(row.name, row.image, row.id);
-            });
+        return this.httpClient.fetch('/jetpacks/' + id, {}).then(row => {
+            return new JetPack(row.name, row.image, row.id);
         });
     }
 
     getJetPacksInRange(start, end) {
-        return this.httpClient.fetch('/jetpacks?start_date=' + start + '&end_date=' + end, {}).then(rows => {
+        return this.httpClient.fetch('/jetpacks?beg=' + start + '&end=' + end, {}).then(rows => {
             return rows.map(row => {
                 return new JetPack(row.name, row.image, row.id);
             });
         });
     }
 
+    getJetPacksAvailable(start_date, end_date){
+
+
+    }
+
     postJetPack(jetPack) {
         return this.httpClient.fetch('/jetpacks', {
-            name: jetPack.name,
-            image: jetPack.image,
-            method: "post"
+            method: "post",
+            body: JSON.stringify({
+                "name": jetPack.name,
+                "image": jetPack.image
+            })
         }).then(response => {
             jetPack.id = response.id;
-            console.log(jetPack.id)
         });
     }
 
     editJetPack(jetPack) {
-        return this.httpClient.fetch('/jetpacks?id=' + jetPack.id, {
-            name: jetPack.name,
-            image: jetPack.image,
-            method: "patch"
+        return this.httpClient.fetch('/jetpacks/' + jetPack.id, {
+            method: "put",  // patch is not supported by express.
+            body: JSON.stringify({
+                "name": jetPack.name,
+                "image": jetPack.image
+            })
         });
     }
 
-    deleteJetPack(jetPack) {
-        this.httpClient.fetch('/jetpacks?id=' + jetPack.id, {
+   deleteJetPack(jetPack) {
+        return this.httpClient.fetch('/jetpacks/' + jetPack.id, {
             method: "delete"
         });
     }

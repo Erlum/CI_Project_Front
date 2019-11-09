@@ -1,4 +1,81 @@
 {
+  "predicates": [{
+    "equals": {
+      "method": "OPTIONS"
+    }
+  }],
+  "responses": [{
+    "is": {
+      "headers": {
+        "Access-Control-Allow-Origin": "${ORIGIN}",
+        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE",
+        "Access-Control-Allow-Headers": "${ALLOW-HEADERS}"
+      }
+    },
+    "_behaviors": {
+      "copy": [{
+        "from": { "headers": "Origin" },
+        "into": "${ORIGIN}",
+        "using": { "method": "regex", "selector": "[\\s\\S]*" }
+      },
+        {
+          "from": { "headers": "Access-Control-Request-Headers" },
+          "into": "${ALLOW-HEADERS}",
+          "using": { "method": "regex", "selector": "[\\s\\S]*" }
+        }]
+    }
+  }]
+},
+{
+  "predicates": [
+    {
+      "and": [
+        {
+          "deepEquals": {
+            "method": "GET",
+            "path": "/jetpacks"
+          }
+        },
+        {
+          "exists": {
+            "query": {
+              "id": true
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "responses": [
+    {
+      "is": {
+        "headers": {
+          "Access-Control-Allow-Origin": "*"
+        },
+        "body": {
+          "id": "${id}",
+          "name": "Jetpack Fortnite Wiki",
+          "image": "https://gamepedia.cursecdn.com/fortnite_gamepedia/e/e1/Jetpack_icon.png"
+        }
+      },
+      "_behaviors": {
+        "copy": [
+          {
+            "from": {
+              "query": "id"
+            },
+            "into": "${id}",
+            "using": {
+              "method": "regex",
+              "selector": "[\\s\\S]*"
+            }
+          }
+        ]
+      }
+    }
+  ]
+},
+{
   "predicates": [
     {
       "deepEquals": {
@@ -103,7 +180,7 @@
     {
       "equals": {
         "method": "DELETE",
-        "path": "/jetpacks?id=a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d"
+        "path": "/jetpacks/a8019ec0-bfdc-4140-9dbb-4927e5ef5c8d"
       }
     }
   ],
