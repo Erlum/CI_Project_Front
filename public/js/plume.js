@@ -1,4 +1,4 @@
-// Source: https://codepen.io/davepvm/pen/Hhstl
+// Adapted from https://codepen.io/davepvm/pen/Hhstl
 
 let canvas = $("canvas#cursor-plume")[0];
 let stage = canvas.getContext("2d");
@@ -11,9 +11,9 @@ let mouseX = null;
 let mouseY = null;
 
 const MAX_LIFESPAN = 30;
-const PARTICLE_BASE_SPEED = 6;
+const PARTICLE_BASE_SPEED = 4;
 const PARTICLE_SIZE = 3;
-const PARTICLE_PER_UPDATE = 25;
+const PARTICLE_PER_UPDATE = 15;
 
 //The class we will use to store particles. It includes x and y
 //coordinates, horizontal and vertical PARTICLE_BASE_SPEED, and how long it's
@@ -57,7 +57,6 @@ function init() {
 
         //Update the particles every frame
         setInterval(update, 1/60);
-
     } else {
         alert("Canvas not supported.");
     }
@@ -126,9 +125,10 @@ function update() {
         stage.fill();
 
         //Move the particle based on its horizontal and vertical speeds
-        let random_orthogonal_adjustment = ((1 - lifespan_fraction) * 1.5 ** 1.5) * (Math.random() * (2) - 1) * 3;
-        particles[i].x += particles[i].speed * (0.2 + lifespan_fraction) + random_orthogonal_adjustment;
-        particles[i].y += particles[i].speed * (0.2 + lifespan_fraction) - random_orthogonal_adjustment;
+        let trail_speed = particles[i].speed * (0.3 + lifespan_fraction);
+        let random_orthogonal_modifier = ((1 - lifespan_fraction) * 1.5 ** 1.5) * (Math.random() * (2) - 1) * 3;
+        particles[i].x += trail_speed + random_orthogonal_modifier;
+        particles[i].y += trail_speed - random_orthogonal_modifier;
 
         particles[i].lifespan++;
         //If the particle has lived longer than we are allowing, remove it from the array.
