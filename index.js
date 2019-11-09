@@ -19,7 +19,7 @@ function display_all_jetpacks_and_create_listeners() {
     jetpackService.getJetPacks().then(jetpacks => {
         let html_display_all_jetpacks =  '';
         jetpacks.forEach((jetpack) => {
-            html_display_all_jetpacks += jetpack.toCard()
+            html_display_all_jetpacks += jetpack.toCardAllJetPacks()
         });
 
         document.getElementById('jetpacks').innerHTML = html_display_all_jetpacks ;
@@ -72,8 +72,6 @@ check_jetpacks_action_button.onclick = function() {
     let date_month = date_array[1]
     let date_day = date_array[2]
 
-    let fr_date = "'date_day'"
-
 
 
     document.getElementById("modal_booking_start_date").value = booking_start_date
@@ -86,19 +84,7 @@ check_jetpacks_action_button.onclick = function() {
     jetpackService.getJetPacksInRange(booking_start_date, booking_end_date).then(jetpacks => {
         let html_display_avalaible_jetpacks = '';
         jetpacks.forEach((jetpack) => {
-            html_display_avalaible_jetpacks +=
-                '<div class="col-lg-4 col-md-6 mb-4">' +
-                '<div class="card h box zoom" style="width: 18rem;">\n' +
-                '  <img src="' + jetpack.image + '" class="card-img-top" alt="...">\n' +
-                '  <div class="card-body">\n' +
-                '    <h4 class="card-title">' + jetpack.name + '</h4>\n' +
-                '    <span id="jetpack-id" class="hidden">' + jetpack.id + '</span>' +
-                '  </div>\n' +
-                '     <div class="btn-group" role="group"">' +
-                '           <button type="button" id="diplay_jetpack_booking_id/' + jetpack.id + '"class="btn btn-outline-success booking_button_class" data-toggle="modal" data-target="#booking_modal">Réserver</button>' +
-                '    </div>' +
-                '</div>' +
-                '</div>'
+            html_display_avalaible_jetpacks += jetpack.toCardAvailableJetPacks()
         });
 
         document.getElementById('jetpacks').innerHTML = html_display_avalaible_jetpacks;
