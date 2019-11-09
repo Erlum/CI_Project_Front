@@ -11,9 +11,9 @@ let mouseX = null;
 let mouseY = null;
 
 const MAX_LIFESPAN = 30;
-const PARTICLE_BASE_SPEED = 10;
+const PARTICLE_BASE_SPEED = 6;
 const PARTICLE_SIZE = 3;
-const PARTICLE_PER_UPDATE = 100;
+const PARTICLE_PER_UPDATE = 25;
 
 //The class we will use to store particles. It includes x and y
 //coordinates, horizontal and vertical PARTICLE_BASE_SPEED, and how long it's
@@ -22,7 +22,7 @@ function Particle(x, y, speed) {
     this.x = x;
     this.y = y;
     this.speed = speed;
-    this.lifespan = 0;
+    this.lifespan = Math.random() * 5;
 }
 
 function resizeCanvas() {
@@ -36,7 +36,7 @@ function resizeCanvas() {
 
 function init() {
 
-    stage.globalCompositeOperation = "lighter";
+    stage.globalCompositeOperation = "xor";
     resizeCanvas();
 
     //See if the browser supports canvas
