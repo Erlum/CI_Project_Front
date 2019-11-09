@@ -1,3 +1,7 @@
+* {
+    cursor: url(../images/cursor.gif), default !important;
+}
+
 body {
     padding-top: 56px!important;
     cursor: url('favicon.png'), auto;
