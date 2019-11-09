@@ -1,19 +1,21 @@
-// Source: https://codepen.io/davepvm/pen/Hhstl
+// Adapted from https://codepen.io/davepvm/pen/Hhstl
 
 let canvas = $("canvas#cursor-plume")[0];
 let stage = canvas.getContext("2d");
-let width = 650;
-let height = 400;
+let width = null;
+let height = null;
 let particles = [];
 let lastX = null;
 let lastY = null;
 let mouseX = null;
 let mouseY = null;
+let mouseDown = false;
 
+const CURSOR_OFFSET = 27;
 const MAX_LIFESPAN = 30;
-const PARTICLE_BASE_SPEED = 10;
+const PARTICLE_BASE_SPEED = 4;
 const PARTICLE_SIZE = 3;
-const PARTICLE_PER_UPDATE = 100;
+const PARTICLE_PER_UPDATE = 15;
 
 //The class we will use to store particles. It includes x and y
 //coordinates, horizontal and vertical PARTICLE_BASE_SPEED, and how long it's
@@ -22,7 +24,7 @@ function Particle(x, y, speed) {
     this.x = x;
     this.y = y;
     this.speed = speed;
-    this.lifespan = 0;
+    this.lifespan = Math.random() * 5;
 }
 
 function resizeCanvas() {
@@ -30,13 +32,11 @@ function resizeCanvas() {
     height = window.innerHeight;
     canvas.width = width;
     canvas.height = height;
-    canvas.style.width = width + "px";
-    canvas.style.height = height + "px";
 }
 
 function init() {
 
-    stage.globalCompositeOperation = "lighter";
+    stage.globalCompositeOperation = "xor";
     resizeCanvas();
 
     //See if the browser supports canvas
@@ -53,11 +53,17 @@ function init() {
             $(document).mousemove(updateMousePosition)
         });
 
+        $(document).mousedown(function () {
+            mouseDown = true;
+        });
+        $(document).mouseup(function () {
+            mouseDown = false;
+        });
+
         window.addEventListener("resize", resizeCanvas);
 
         //Update the particles every frame
         setInterval(update, 1/60);
-
     } else {
         alert("Canvas not supported.");
     }
@@ -84,18 +90,19 @@ function update() {
 
     //Adds ten new particles every frame
     if (mouseX !== null && mouseY !== null){
-        let startX = lastX + 24;
-        let startY = lastY + 24;
-        let endX = mouseX + 24;
-        let endY = mouseY + 24;
+        let startX = lastX + CURSOR_OFFSET;
+        let startY = lastY + CURSOR_OFFSET;
+        let endX = mouseX + CURSOR_OFFSET;
+        let endY = mouseY + CURSOR_OFFSET;
         for (let i = 0; i < PARTICLE_PER_UPDATE; i++) {
             let position_fraction = (PARTICLE_PER_UPDATE - i) / PARTICLE_PER_UPDATE;
             let inverse_position_fraction = 1 - position_fraction;
             //Adds a particle at the mouse position, with random horizontal and vertical speeds
+            let speed_modifier = mouseDown ? 2.5 : 1;
             let p = new Particle(
-                startX * position_fraction + endX * inverse_position_fraction + i % 10,
-                startY * position_fraction + endY * inverse_position_fraction + i % 10,
-                Math.random() * 2 + PARTICLE_BASE_SPEED);
+                startX * position_fraction + endX * inverse_position_fraction + i % 4,
+                startY * position_fraction + endY * inverse_position_fraction + i % 4,
+                Math.random() * 2 + PARTICLE_BASE_SPEED * speed_modifier);
             particles.push(p);
         }
     }
@@ -110,10 +117,9 @@ function update() {
         let hue = lifespan_fraction * 60;
         let saturation = 100;
         let lightness = lifespan_fraction * 100;
-        let alpha = (lifespan_fraction + 0.5) * 0.4;
+        let alpha = (lifespan_fraction + 0.5) * 0.7;
 
         stage.beginPath();
-        //Draw the particle as a circle, which gets slightly smaller the longer it's been alive for
         stage.arc(particles[i].x, particles[i].y,
             (1 - lifespan_fraction + 1) * (PARTICLE_SIZE),
             0, 2 * Math.PI);
@@ -126,9 +132,10 @@ function update() {
         stage.fill();
 
         //Move the particle based on its horizontal and vertical speeds
-        let random_orthogonal_adjustment = ((1 - lifespan_fraction) * 1.5 ** 1.5) * (Math.random() * (2) - 1) * 3;
-        particles[i].x += particles[i].speed * (0.2 + lifespan_fraction) + random_orthogonal_adjustment;
-        particles[i].y += particles[i].speed * (0.2 + lifespan_fraction) - random_orthogonal_adjustment;
+        let trail_speed = particles[i].speed * (0.4 + lifespan_fraction);
+        let random_orthogonal_modifier = ((1 - lifespan_fraction) * 1.5 ** 1.5) * (Math.random() * (2) - 1) * 3;
+        particles[i].x += trail_speed + random_orthogonal_modifier;
+        particles[i].y += trail_speed - random_orthogonal_modifier;
 
         particles[i].lifespan++;
         //If the particle has lived longer than we are allowing, remove it from the array.
