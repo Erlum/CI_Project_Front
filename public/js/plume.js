@@ -9,6 +9,7 @@ let lastX = null;
 let lastY = null;
 let mouseX = null;
 let mouseY = null;
+let mouseDown = false;
 
 const MAX_LIFESPAN = 30;
 const PARTICLE_BASE_SPEED = 4;
@@ -51,6 +52,13 @@ function init() {
             $(document).mousemove(updateMousePosition)
         });
 
+        $(document).mousedown(function () {
+            mouseDown = true;
+        });
+        $(document).mouseup(function () {
+            mouseDown = false;
+        });
+
         window.addEventListener("resize", resizeCanvas);
 
         //Update the particles every frame
@@ -89,10 +97,11 @@ function update() {
             let position_fraction = (PARTICLE_PER_UPDATE - i) / PARTICLE_PER_UPDATE;
             let inverse_position_fraction = 1 - position_fraction;
             //Adds a particle at the mouse position, with random horizontal and vertical speeds
+            let speed_modifier = mouseDown ? 2.5 : 1;
             let p = new Particle(
                 startX * position_fraction + endX * inverse_position_fraction,
                 startY * position_fraction + endY * inverse_position_fraction,
-                Math.random() * 2 + PARTICLE_BASE_SPEED);
+                Math.random() * 2 + PARTICLE_BASE_SPEED * speed_modifier);
             particles.push(p);
         }
     }
