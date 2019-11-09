@@ -10,7 +10,7 @@ const jetpackService = new JetpackService(httpClient);
 const bookingService = new BookingService(httpClient) ;
 
 
-/**** Display all jetpacks in index.html (definition below ***/
+/**** Display all jetpacks in index.html (definition below) ***/
 display_all_jetpacks_and_create_listeners();
 
 
@@ -69,8 +69,7 @@ check_jetpacks_action_button.onclick = function() {
     document.getElementById("modal_booking_end_date").value = booking_end_date
 
     //console.log('/jetpacks?=' + '&start_date=' + booking_start_date + '&end_date='+ booking_end_date)
-
-    //console.log("debut : " + booking_start_date + "fin : " + booking_end_date)
+    /console.log("debut : " + booking_start_date + "fin : " + booking_end_date)
 
     //include get avalaible method here
     jetpackService.getJetPacksInRange(booking_start_date, booking_end_date).then(jetpacks => {
@@ -148,6 +147,9 @@ function getJetPackIdBooking(event){
     let id_array = event.target.id.split("/");
     jetpack_id = id_array[1];
     document.getElementById("booking_jetpack_id").value = jetpack_id;
+    document.getElementById("modal_booking_start_date").value = document.getElementById("booking_start_date").value
+    document.getElementById("modal_booking_end_date").value = document.getElementById("booking_end_date").value
+
     //console.log("book jetpack id " + jetpack_id)
 }
 
@@ -242,15 +244,19 @@ booking_jetpack_action_button.onclick = function() {
     let start_date = document.getElementById("modal_booking_start_date").value
     let end_date = document.getElementById("modal_booking_end_date").value
 
-    //console.log("jetpack id : " + jetpack_id)
-    //console.log("start date : " + start_date)
-    //console.log("end date : " + end_date)
+    console.log("jetpack id : " + jetpack_id)
+    console.log("start date : " + start_date)
+    console.log("end date : " + end_date)
 
     booking_to_post = new Object()
 
     booking_to_post.id =  jetpack_id
-    booking_to_post._start = start_date
-    booking_to_post._end = end_date
+    booking_to_post.start = start_date
+    booking_to_post.end = end_date
+
+    console.log("jetpack id to book : " + booking_to_post.id)
+    console.log("start date to book : " + booking_to_post.start)
+    console.log("end date to book: " + booking_to_post.end)
 
     //console.log(booking_to_post)
 
