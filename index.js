@@ -10,6 +10,20 @@ const jetpackService = new JetpackService(httpClient);
 const bookingService = new BookingService(httpClient) ;
 
 
+/**** Translate datepicker output yyyy-mm-dd to dd-mm-yyyy ****/
+function setDateFr(date) {
+
+    let date_array = booking_start_date.split("-");
+    let date_year = date_array[0]
+    let date_month = date_array[1]
+    let date_day = date_array[2]
+
+    let fr_date = ''
+    fr_date = fr_date + date_day + '-' + date_month + '-' + date_year
+
+    return fr_date
+}
+
 /**** Display all jetpacks in index.html (definition below) ***/
 display_all_jetpacks_and_create_listeners();
 
@@ -50,12 +64,12 @@ function display_all_jetpacks_and_create_listeners() {
     });
 }
 
+
 /**** Reset jetpack filter list button ****/
 var reset_jetpack_list_action_button = document.getElementById("reset_jetpack_filter") ;
 reset_jetpack_list_action_button.onclick = function () {
     display_all_jetpacks_and_create_listeners()
 }
-
 
 
 /**** Display only avalaible jetpacks for selected range date ****/
@@ -64,15 +78,6 @@ check_jetpacks_action_button.onclick = function() {
 
     let booking_start_date = document.getElementById("booking_start_date").value;
     let booking_end_date = document.getElementById("booking_end_date").value;
-
-    console.log(booking_start_date)
-
-    let date_array = booking_start_date.split("-");
-    let date_year = date_array[0]
-    let date_month = date_array[1]
-    let date_day = date_array[2]
-
-
 
     document.getElementById("modal_booking_start_date").value = booking_start_date
     document.getElementById("modal_booking_end_date").value = booking_end_date
