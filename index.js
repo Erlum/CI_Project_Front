@@ -220,12 +220,14 @@ edit_jetpack_action_button.onclick = function() {
 
         console.log("edit this jet pack " + jetpack_to_edit)
         //jetpack_to_edit.id = jetpack.id ;
+
+        jetpackService.editJetPack(jetpack_to_edit).then(function() {
+
+            alert("Votre jetpack a bien été modifié.");
+        });
     });
 
-    jetpackService.editJetPack(jetpack_to_edit).then(function() {
 
-        alert("Votre jetpack a bien été modifié.");
-    });
 
     display_all_jetpacks_and_create_listeners()
 };
