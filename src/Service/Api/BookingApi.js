@@ -26,14 +26,10 @@ module.exports = class  {
         return this.httpClient.fetch('/bookings', {
             method: "post",
             body: JSON.stringify({
-                "idjetpack": booking.jetPack,
+                "idjetpack": booking.id,
                 "startdate": booking.start,
                 "enddate": booking.end,
             })
-        }).then(response => {
-            booking.id = response.id;
-        });
+        })
     }
-
-
 };

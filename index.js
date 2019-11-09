@@ -65,6 +65,17 @@ check_jetpacks_action_button.onclick = function() {
     let booking_start_date = document.getElementById("booking_start_date").value;
     let booking_end_date = document.getElementById("booking_end_date").value;
 
+    console.log(booking_start_date)
+
+    let date_array = booking_start_date.split("-");
+    let date_year = date_array[0]
+    let date_month = date_array[1]
+    let date_day = date_array[2]
+
+    let fr_date = "'date_day'"
+
+
+
     document.getElementById("modal_booking_start_date").value = booking_start_date
     document.getElementById("modal_booking_end_date").value = booking_end_date
 
@@ -229,8 +240,6 @@ edit_jetpack_action_button.onclick = function() {
         });
     });
 
-
-
     display_all_jetpacks_and_create_listeners()
 };
 
@@ -240,25 +249,25 @@ edit_jetpack_action_button.onclick = function() {
 var  booking_jetpack_action_button = document.getElementById("booking_jetpack_button");
 booking_jetpack_action_button.onclick = function() {
 
-    let jetpack_id = document.getElementById("booking_jetpack_id").value
-    let start_date = document.getElementById("modal_booking_start_date").value
-    let end_date = document.getElementById("modal_booking_end_date").value
+    var jetpack_id = document.getElementById("booking_jetpack_id").value
+    var start_date = document.getElementById("modal_booking_start_date").value
+    var end_date = document.getElementById("modal_booking_end_date").value
 
-    console.log("jetpack id : " + jetpack_id)
-    console.log("start date : " + start_date)
-    console.log("end date : " + end_date)
+    //console.log("jetpack id : " + jetpack_id) ;
+    //console.log("start date : " + start_date) ;
+    //console.log("end date : " + end_date) ;
 
     booking_to_post = new Object()
 
-    booking_to_post.id =  jetpack_id
-    booking_to_post.start = start_date
-    booking_to_post.end = end_date
+    booking_to_post.id =  jetpack_id ;
+    booking_to_post.start = start_date ;
+    booking_to_post.end = end_date ;
 
-    console.log("jetpack id to book : " + booking_to_post.id)
-    console.log("start date to book : " + booking_to_post.start)
-    console.log("end date to book: " + booking_to_post.end)
+    //console.log("jetpack id to book : " + booking_to_post.id)
+    //console.log("start date to book : " + booking_to_post.start)
+    //console.log("end date to book: " + booking_to_post.end)
 
-    //console.log(booking_to_post)
+    console.log(booking_to_post)
 
     bookingService.postBooking(booking_to_post)
 
