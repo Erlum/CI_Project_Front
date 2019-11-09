@@ -1,6 +1,6 @@
 body {
     padding-top: 56px!important;
-    cursor: url('/public/favicon.png'), auto;
+    cursor: url('favicon.png'), auto;
 }
 
 cursor {
