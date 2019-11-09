@@ -2,7 +2,6 @@ const appConfig = require('./app.config');
 const HTTPError = require('./src/Entity/HTTPError') ;
 const JetPack = require('./src/Entity/Jetpack') ;
 const Booking = require('./src/Entity/Booking') ;
-const Booking = require('./src/Entity/') ;
 const JetpackService = require('./src/Service/Api/JetpackApi');
 const BookingService = require('./src/Service/Api/BookingApi');
 const HttpClient = require('./src/HttpClient');
@@ -17,39 +16,38 @@ display_all_jetpacks_and_create_listeners();
 
 /*** function to display all jetpacks ***/
 function display_all_jetpacks_and_create_listeners() {
-    try {
-        jetpackService.getJetPacks().then(jetpacks => {
-            let html_display_all_jetpacks =  '';
-            jetpacks.forEach((jetpack) => {
-                html_display_all_jetpacks += jetpack.toCard()
-            });
-
-            document.getElementById('jetpacks').innerHTML = html_display_all_jetpacks ;
-
-            /**** delete listener on each jetpack delete button class ****/
-            let delete_jetpack_button = document.getElementsByClassName("delete_button_class");
-            for(var i=0; i < delete_jetpack_button.length;i++){
-                delete_jetpack_button[i].addEventListener('click',function() {
-                    getJetPackId(event);
-                }, true);
-            }
-
-            /**** edit listener on each jetpack edit button class ****/
-            let edit_jetpack_button = document.getElementsByClassName("edit_button_class");
-            for(var i=0; i<edit_jetpack_button.length;i++){
-                edit_jetpack_button[i].addEventListener('click',function() {
-                    getJetPackId(event);
-                    getInfosJetpackEdit(event)
-                }, true);
-            }
+    jetpackService.getJetPacks().then(jetpacks => {
+        let html_display_all_jetpacks =  '';
+        jetpacks.forEach((jetpack) => {
+            html_display_all_jetpacks += jetpack.toCard()
         });
-    }
-    catch(e){
-        if (e instanceof Error){
 
+        document.getElementById('jetpacks').innerHTML = html_display_all_jetpacks ;
+
+        /**** delete listener on each jetpack delete button class ****/
+        let delete_jetpack_button = document.getElementsByClassName("delete_button_class");
+        for(var i=0; i < delete_jetpack_button.length;i++){
+            delete_jetpack_button[i].addEventListener('click',function() {
+                getJetPackId(event);
+            }, true);
         }
-        alert(e.status);
-    }
+
+        /**** edit listener on each jetpack edit button class ****/
+        let edit_jetpack_button = document.getElementsByClassName("edit_button_class");
+        for(var i=0; i<edit_jetpack_button.length;i++){
+            edit_jetpack_button[i].addEventListener('click',function() {
+                getJetPackId(event);
+                getInfosJetpackEdit(event)
+            }, true);
+        }
+    }).catch(e => {
+        if (e instanceof TypeError && e.message.includes("fetch")){
+            alert("Connection au serveur impossible.");
+        }
+        else if (e instanceof HTTPError){
+            alert("Le serveur a renvoye une erreur " + e.status);
+        }
+    });
 }
 
 /**** Reset jetpack filter list button ****/
