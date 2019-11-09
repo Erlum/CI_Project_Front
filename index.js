@@ -20,7 +20,7 @@ function display_all_jetpacks_and_create_listeners() {
         jetpacks.forEach((jetpack) => {
             html_display_all_jetpacks +=
                 '<div class="col-lg-4 col-md-6 mb-4">' +
-                '<div class="card h" style="width: 18rem;">\n' +
+                '<div class="card h box zoom" style="width: 18rem;">\n' +
                 '  <img src="'+ jetpack.image +'" class="card-img-top" alt="...">\n' +
                 '  <div class="card-body">\n' +
                 '    <h4 class="card-title">' + jetpack.name + '</h4>\n' +
@@ -76,15 +76,17 @@ check_jetpacks_action_button.onclick = function() {
     document.getElementById("modal_booking_start_date").value = booking_start_date
     document.getElementById("modal_booking_end_date").value = booking_end_date
 
+    //console.log('/jetpacks?=' + '&start_date=' + booking_start_date + '&end_date='+ booking_end_date)
+
     //console.log("debut : " + booking_start_date + "fin : " + booking_end_date)
 
     //include get avalaible method here
-    jetpackService.getJetPacks().then(jetpacks => {
+    jetpackService.getJetPacksInRange(booking_start_date, booking_end_date).then(jetpacks => {
         let html_display_avalaible_jetpacks = '';
         jetpacks.forEach((jetpack) => {
             html_display_avalaible_jetpacks +=
                 '<div class="col-lg-4 col-md-6 mb-4">' +
-                '<div class="card h" style="width: 18rem;">\n' +
+                '<div class="card h box zoom" style="width: 18rem;">\n' +
                 '  <img src="' + jetpack.image + '" class="card-img-top" alt="...">\n' +
                 '  <div class="card-body">\n' +
                 '    <h4 class="card-title">' + jetpack.name + '</h4>\n' +
@@ -238,6 +240,7 @@ booking_jetpack_action_button.onclick = function() {
 
     bookingService.postBooking(booking_to_post)
 
+    closeElement(booking_jetpack_action_button)
 };
 
 
