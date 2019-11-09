@@ -1,4 +1,5 @@
 const appConfig = require('./app.config');
+const HTTPError = require('./src/Entity/HTTPError') ;
 const JetPack = require('./src/Entity/Jetpack') ;
 const Booking = require('./src/Entity/Booking') ;
 const Booking = require('./src/Entity/') ;

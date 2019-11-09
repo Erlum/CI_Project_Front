@@ -1,3 +1,5 @@
+const HTTPError = require('./Entity/HTTPError') ;
+
 module.exports = class  {
     constructor(url) {
         this.url = url;
@@ -17,7 +19,7 @@ module.exports = class  {
         }
         return fetch(this.url + path, options).then(function (response) {
                 if (!response.ok) {
-                    throw new Error('Bad status code from server: ' + response.status + response.statusText);
+                    throw new HTTPError(response.status, response.statusText);
                 }
                 return response.body ? response.json() : {};
             }
