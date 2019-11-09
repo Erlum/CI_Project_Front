@@ -120,7 +120,7 @@ add_jet_pack_action_button.onclick = function() {
         var jetpack_to_add = new Object();
         jetpack_to_add.name = name;
         jetpack_to_add.image = image;
-        console.log("add this jet pack" + jetPack)
+        console.log("add this jet pack" + jetpack_to_add)
 
         jetpackService.postJetPack(jetpack_to_add).then(function() {
 
@@ -189,7 +189,7 @@ function getInfosJetpackEdit(event){
         //console.log(jetpack);
         document.getElementById("modal_edit_jetpack_name").value = jetpack.name
         document.getElementById("modal_edit_jetpack_image").value = jetpack.image
-        document.getElementById("edit_id_jetpack").value = jetpack.id;
+        document.getElementById("edit_jetpack_id").value = jetpack.id;
     });
 }
 
@@ -202,8 +202,22 @@ edit_jetpack_action_button.onclick = function() {
 
     jetpackService.getJetPack(jetpack_id).then(jetpack => {
         //console.log(jetpack);
-        jetpack_to_edit.name = jetpack.name ;
-        jetpack_to_edit.image = jetpack.image ;
+
+        console.log("old jetpack name : " + jetpack.name)
+        console.log("old jetpack image : " + jetpack.image)
+        console.log("old jetpack id : " + jetpack.id)
+
+        let new_jetpack_name = document.getElementById("modal_edit_jetpack_name").value
+        let new_jetpack_image = document.getElementById("modal_edit_jetpack_image").value
+
+        jetpack_to_edit.name = new_jetpack_name
+        jetpack_to_edit.image = new_jetpack_image ;
+        jetpack_to_edit.id = jetpack.id
+
+        console.log("new jetpack name : " + jetpack_to_edit.name)
+        console.log("new jetpack image : " + jetpack_to_edit.image)
+        console.log("new jetpack id : " + jetpack_to_edit.id)
+
         console.log("edit this jet pack " + jetpack_to_edit)
         //jetpack_to_edit.id = jetpack.id ;
     });
