@@ -128,12 +128,14 @@ add_jet_pack_action_button.onclick = function() {
         var jetpack_to_add = new Object();
         jetpack_to_add.name = name;
         jetpack_to_add.image = image;
-        //console.log(jetPack)
+        console.log("add this jet pack" + jetPack)
 
         jetpackService.postJetPack(jetpack_to_add).then(function() {
 
             alert("Votre jetpack a bien été enregistré.");
         });
+
+        display_all_jetpacks_and_create_listeners()
     }
 };
 
@@ -165,19 +167,22 @@ delete_jetpack_action_button.onclick = function() {
     jetpack_id = document.getElementById("delete_jetpack_id").value;
     //console.log("delete button " + jetpack_id)
 
-    var jetpack_to_delete = new Object()
-
     jetpackService.getJetPack(jetpack_id).then(jetpack => {
-        //console.log(jetpack);
+        console.log("get this jetpack to delete " + jetpack);
+
+        var jetpack_to_delete = new Object()
         jetpack_to_delete.name = jetpack.name ;
         jetpack_to_delete.image = jetpack.image ;
         jetpack_to_delete.id = jetpack.id ;
+        console.log("delete this jetpack" + jetpack_to_delete)
+
+        jetpackService.deleteJetPack(jetpack_to_delete).then(function() {
+            alert("Votre jetpack a été supprimé.");
+        });
+        
     });
 
-    jetpackService.deleteJetPack(jetpack_to_delete).then(function() {
 
-        alert("Votre jetpack a été supprimé.");
-    });
 };
 
 
@@ -207,13 +212,16 @@ edit_jetpack_action_button.onclick = function() {
         //console.log(jetpack);
         jetpack_to_edit.name = jetpack.name ;
         jetpack_to_edit.image = jetpack.image ;
-        jetpack_to_edit.id = jetpack.id ;
+        console.log("edit this jet pack " + jetpack_to_edit)
+        //jetpack_to_edit.id = jetpack.id ;
     });
 
     jetpackService.editJetPack(jetpack_to_edit).then(function() {
 
-        alert("Votre jetpack a été modifié.");
+        alert("Votre jetpack a bien été modifié.");
     });
+
+    display_all_jetpacks_and_create_listeners()
 };
 
 
@@ -233,14 +241,13 @@ booking_jetpack_action_button.onclick = function() {
     booking_to_post = new Object()
 
     booking_to_post.id =  jetpack_id
-    booking_to_post.start = start_date
+    booking_to_post._start = start_date
     booking_to_post._end = end_date
 
     //console.log(booking_to_post)
 
     bookingService.postBooking(booking_to_post)
 
-    closeElement(booking_jetpack_action_button)
 };
 
 

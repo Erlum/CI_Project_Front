@@ -26,12 +26,7 @@ module.exports = class {
         });
     }
 
-    getJetPacksAvailable(start_date, end_date){
-
-
-    }
-
-    postJetPack(jetPack) {
+   postJetPack(jetPack) {
         return this.httpClient.fetch('/jetpacks', {
             method: "post",
             body: JSON.stringify({
