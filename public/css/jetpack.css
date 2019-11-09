@@ -1,14 +1,26 @@
-* {
-    cursor: url(../images/cursor.gif), default !important;
+html, body{
+    height: 100%;
+    width: 100%;
 }
 
 body {
     padding-top: 56px!important;
-    cursor: url('favicon.png'), auto;
 }
 
-cursor {
-url(/public/favicon.png) !important;
+* {
+    box-sizing: border-box;
+    cursor: url(../images/cursor.gif), default !important;
+}
+
+canvas#cursor-plume{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: block;
+    z-index: 10000;
+    pointer-events: none;
 }
 
 
