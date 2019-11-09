@@ -1,76 +1,67 @@
-var canvas;
-var stage;
-var width = 650;
-var height = 400;
-var particles = [];
-var max = 60;
-var mouseX=0;
-var mouseY=0;
+// Source: https://codepen.io/davepvm/pen/Hhstl
 
-var speed=3;
-var size=20;
+let canvas = $("canvas#cursor-plume")[0];
+let stage = canvas.getContext("2d");
+let width = 650;
+let height = 400;
+let particles = [];
+let mouseX = null;
+let mouseY = null;
+
+const max_lifespan = 30;
+const particle_base_speed = 6;
+const particle_size = 3;
 
 //The class we will use to store particles. It includes x and y
-//coordinates, horizontal and vertical speed, and how long it's
+//coordinates, horizontal and vertical particle_base_speed, and how long it's
 //been "alive" for.
-function Particle(x, y, xs, ys) {
-    this.x=x;
-    this.y=y;
-    this.xs=xs;
-    this.ys=ys;
-    this.life=0;
+function Particle(x, y, x_speed, y_speed) {
+    this.x = x;
+    this.y = y;
+    this.x_speed = x_speed;
+    this.y_speed = y_speed;
+    this.lifespan = 0;
 }
 
 function resizeCanvas() {
-    setTimeout(function() {
-        width = window.innerWidth;
-        height = window.innerHeight;
-        canvas.width = width;
-        canvas.height = height;
-        canvas.style.width = width + "px";
-        canvas.style.height = height + "px";
-        mouseX=canvas.width/2;
-        mouseY=canvas.height*0.8;
-        stage.globalCompositeOperation="lighter"
-    }, 0);
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+    canvas.style.width = width + "px";
+    canvas.style.height = height + "px";
 }
 
 function init() {
 
-    //Reference to the HTML element
-    canvas=document.getElementById("cursor-plume");
-
+    stage.globalCompositeOperation = "xor";
     resizeCanvas();
 
     //See if the browser supports canvas
     if (canvas.getContext) {
 
-        //Get the canvas context to draw onto
-        stage = canvas.getContext("2d");
-
-        //Makes the colors add onto each other, producing
-        //that nice white in the middle of the fire
-        stage.globalCompositeOperation="xor";
-
         //Update the mouse position
         $(document).mousemove(getMousePos);
-
-        window.addEventListener("resize", function() {
-            resizeCanvas();
-            stage.globalCompositeOperation="lighter";
-            mouseX=canvas.width/2;
-            mouseY=canvas.height*0.8;
+        $(document).mouseleave(function () {
+            mouseX = null;
+            mouseY = null;
+            $(document).unbind('mousemove', getMousePos)
+        });
+        $(document).mouseenter(function () {
+            $(document).mousemove(getMousePos)
         });
 
+        window.addEventListener("resize", resizeCanvas);
+
         //Update the particles every frame
-        var timer=setInterval(update,40);
+        var timer = setInterval(update, 40);
 
     } else {
         alert("Canvas not supported.");
     }
 }
 
-function getMousePos (evt) {
+function getMousePos(evt) {
     var rect = canvas.getBoundingClientRect();
     var root = document.documentElement;
 
@@ -82,36 +73,43 @@ function getMousePos (evt) {
 function update() {
 
     //Adds ten new particles every frame
-    for (var i=0; i<10; i++) {
-
-        //Adds a particle at the mouse position, with random horizontal and vertical speeds
-        var p = new Particle(mouseX + 24, mouseY + 24,
-            Math.random()*2*speed,
-            Math.random()*2*speed);
-        particles.push(p);
+    if (mouseX !== null && mouseY !== null){
+        for (let i = 0; i < 100; i++) {
+            //Adds a particle at the mouse position, with random horizontal and vertical speeds
+            var p = new Particle(mouseX + 24 + i%20, mouseY + 24 + i%20,
+                Math.random() * 2 + particle_base_speed,
+                Math.random() + 2 + particle_base_speed);
+            particles.push(p);
+        }
     }
 
     //Clear the stage so we can draw the new frame
     stage.clearRect(0, 0, width, height);
 
     //Cycle through all the particles to draw them
-    for (i=0; i<particles.length; i++) {
+    for (let i = 0; i < particles.length; i++) {
+        let lifespan_fraction = (max_lifespan - particles[i].lifespan) / max_lifespan;
 
-        //Set the file colour to an RGBA value where it starts off red-orange, but progressively gets more grey and transparent the longer the particle has been alive for
-        stage.fillStyle = "rgba("+(260-(particles[i].life*2))+","+((particles[i].life*2)+50)+","+(particles[i].life*2)+","+(((max-particles[i].life)/max)*0.4)+")";
+        let hue = lifespan_fraction * 60;
+        let saturation = 100;
+        let lightness = lifespan_fraction * 100;
+        let alpha = lifespan_fraction * 0.4;
+        stage.fillStyle = "hsl(" + hue + "," + saturation + "%," + lightness + "%," + alpha + ")";
 
         stage.beginPath();
         //Draw the particle as a circle, which gets slightly smaller the longer it's been alive for
-        stage.arc(particles[i].x,particles[i].y,(max-particles[i].life)/max*(size/2)+(size/2),0,2*Math.PI);
+        stage.arc(particles[i].x, particles[i].y,
+            (1 - lifespan_fraction + 1) * (particle_size),
+            0, 2 * Math.PI);
         stage.fill();
 
         //Move the particle based on its horizontal and vertical speeds
-        particles[i].x+=particles[i].xs;
-        particles[i].y+=particles[i].ys;
+        particles[i].x += particles[i].x_speed * lifespan_fraction;
+        particles[i].y += particles[i].y_speed * lifespan_fraction;
 
-        particles[i].life++;
+        particles[i].lifespan++;
         //If the particle has lived longer than we are allowing, remove it from the array.
-        if (particles[i].life >= max) {
+        if (particles[i].lifespan >= max_lifespan) {
             particles.splice(i, 1);
             i--;
         }

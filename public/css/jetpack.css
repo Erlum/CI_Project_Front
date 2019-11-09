@@ -5,11 +5,12 @@ html, body{
 
 body {
     padding-top: 56px!important;
+    background-color: lightgray;
 }
 
 * {
     box-sizing: border-box;
-    cursor: url(../images/cursor.gif), default !important;
+    cursor: url(../images/cursor_no_plume.gif), default !important;
 }
 
 canvas#cursor-plume{
