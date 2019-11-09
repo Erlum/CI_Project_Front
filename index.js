@@ -8,6 +8,7 @@ const HttpClient = require('./src/HttpClient');
 const httpClient = new HttpClient(appConfig.apiUrl);
 const jetpackService = new JetpackService(httpClient);
 const bookingService = new BookingService(httpClient) ;
+require('./public/js/plume');
 
 
 /**** Display all jetpacks in index.html (definition below ***/
