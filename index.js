@@ -1,6 +1,7 @@
 const appConfig = require('./app.config');
 const JetPack = require('./src/Entity/Jetpack') ;
 const Booking = require('./src/Entity/Booking') ;
+const Booking = require('./src/Entity/') ;
 const JetpackService = require('./src/Service/Api/JetpackApi');
 const BookingService = require('./src/Service/Api/BookingApi');
 const HttpClient = require('./src/HttpClient');
@@ -10,52 +11,44 @@ const bookingService = new BookingService(httpClient) ;
 
 
 /**** Display all jetpacks in index.html (definition below ***/
-display_all_jetpacks_and_create_listeners()
+display_all_jetpacks_and_create_listeners();
 
 
 /*** function to display all jetpacks ***/
 function display_all_jetpacks_and_create_listeners() {
-    jetpackService.getJetPacks().then(jetpacks => {
-        let html_display_all_jetpacks =  '';
-        jetpacks.forEach((jetpack) => {
-            html_display_all_jetpacks +=
-                '<div class="col-lg-4 col-md-6 mb-4">' +
-                '<div class="card h box zoom" style="width: 18rem;">\n' +
-                '  <img src="'+ jetpack.image +'" class="card-img-top" alt="...">\n' +
-                '  <div class="card-body">\n' +
-                '    <h4 class="card-title">' + jetpack.name + '</h4>\n' +
-                '    <span id="jetpack-id" class="invisible">' + jetpack.id + '</span>' +
+    try {
+        jetpackService.getJetPacks().then(jetpacks => {
+            let html_display_all_jetpacks =  '';
+            jetpacks.forEach((jetpack) => {
+                html_display_all_jetpacks += jetpack.toCard()
+            });
 
-                '  </div>\n' +
-                '     <div class="btn-group" role="group"">' +
-                //'         <button type="button" id="display_jetpack_view_id/'+jetpack.id+'" class="btn btn-outline-primary edit_button_class" data-toggle="modal" data-target="#view_modal"style="">Voir</button>' +
-                '         <button type="button" id="display_jetpack_edit_id/'+jetpack.id+'" class="btn btn-outline-primary edit_button_class dual-btn-equal-width" data-toggle="modal" data-target="#edit_modal"style="">Modifier</button>' +
-                //'         <button type="button" id="diplay_jetpack_booking_id/'+jetpack.id+'"class="btn btn-outline-success booking_button_class" data-toggle="modal" data-target="#booking_modal">Réserver</button>' +
-                '         <button type="button" id="display_jetpack_delete_id/'+jetpack.id+'"class="btn btn-outline-danger delete_button_class dual-btn-equal-width" data-toggle="modal" data-target="#delete_modal">Supprimer</button>' +
-                '    </div>' +
-                '</div>' +
-                '</div>'
+            document.getElementById('jetpacks').innerHTML = html_display_all_jetpacks ;
+
+            /**** delete listener on each jetpack delete button class ****/
+            let delete_jetpack_button = document.getElementsByClassName("delete_button_class");
+            for(var i=0; i < delete_jetpack_button.length;i++){
+                delete_jetpack_button[i].addEventListener('click',function() {
+                    getJetPackId(event);
+                }, true);
+            }
+
+            /**** edit listener on each jetpack edit button class ****/
+            let edit_jetpack_button = document.getElementsByClassName("edit_button_class");
+            for(var i=0; i<edit_jetpack_button.length;i++){
+                edit_jetpack_button[i].addEventListener('click',function() {
+                    getJetPackId(event);
+                    getInfosJetpackEdit(event)
+                }, true);
+            }
         });
+    }
+    catch(e){
+        if (e instanceof Error){
 
-        document.getElementById('jetpacks').innerHTML = html_display_all_jetpacks ;
-
-        /**** delete listener on each jetpack delete button class ****/
-        let delete_jetpack_button = document.getElementsByClassName("delete_button_class");
-        for(var i=0; i < delete_jetpack_button.length;i++){
-            delete_jetpack_button[i].addEventListener('click',function() {
-                getJetPackId(event);
-            }, true);
         }
-
-        /**** edit listener on each jetpack edit button class ****/
-        let edit_jetpack_button = document.getElementsByClassName("edit_button_class");
-        for(var i=0; i<edit_jetpack_button.length;i++){
-            edit_jetpack_button[i].addEventListener('click',function() {
-                getJetPackId(event);
-                getInfosJetpackEdit(event)
-            }, true);
-        }
-    });
+        alert(e.status);
+    }
 }
 
 /**** Reset jetpack filter list button ****/
