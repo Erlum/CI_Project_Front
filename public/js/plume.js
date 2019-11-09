@@ -2,8 +2,8 @@
 
 let canvas = $("canvas#cursor-plume")[0];
 let stage = canvas.getContext("2d");
-let width = 650;
-let height = 400;
+let width = null;
+let height = null;
 let particles = [];
 let lastX = null;
 let lastY = null;
@@ -30,8 +30,6 @@ function resizeCanvas() {
     height = window.innerHeight;
     canvas.width = width;
     canvas.height = height;
-    canvas.style.width = width + "px";
-    canvas.style.height = height + "px";
 }
 
 function init() {
@@ -92,8 +90,8 @@ function update() {
             let inverse_position_fraction = 1 - position_fraction;
             //Adds a particle at the mouse position, with random horizontal and vertical speeds
             let p = new Particle(
-                startX * position_fraction + endX * inverse_position_fraction + i % 10,
-                startY * position_fraction + endY * inverse_position_fraction + i % 10,
+                startX * position_fraction + endX * inverse_position_fraction,
+                startY * position_fraction + endY * inverse_position_fraction,
                 Math.random() * 2 + PARTICLE_BASE_SPEED);
             particles.push(p);
         }
