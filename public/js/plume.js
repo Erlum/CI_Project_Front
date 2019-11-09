@@ -5,21 +5,23 @@ let stage = canvas.getContext("2d");
 let width = 650;
 let height = 400;
 let particles = [];
+let lastX = null;
+let lastY = null;
 let mouseX = null;
 let mouseY = null;
 
-const max_lifespan = 30;
-const particle_base_speed = 6;
-const particle_size = 3;
+const MAX_LIFESPAN = 30;
+const PARTICLE_BASE_SPEED = 10;
+const PARTICLE_SIZE = 3;
+const PARTICLE_PER_UPDATE = 100;
 
 //The class we will use to store particles. It includes x and y
-//coordinates, horizontal and vertical particle_base_speed, and how long it's
+//coordinates, horizontal and vertical PARTICLE_BASE_SPEED, and how long it's
 //been "alive" for.
-function Particle(x, y, x_speed, y_speed) {
+function Particle(x, y, speed) {
     this.x = x;
     this.y = y;
-    this.x_speed = x_speed;
-    this.y_speed = y_speed;
+    this.speed = speed;
     this.lifespan = 0;
 }
 
@@ -34,51 +36,66 @@ function resizeCanvas() {
 
 function init() {
 
-    stage.globalCompositeOperation = "xor";
+    stage.globalCompositeOperation = "lighter";
     resizeCanvas();
 
     //See if the browser supports canvas
     if (canvas.getContext) {
 
         //Update the mouse position
-        $(document).mousemove(getMousePos);
+        $(document).mousemove(updateMousePosition);
         $(document).mouseleave(function () {
             mouseX = null;
             mouseY = null;
-            $(document).unbind('mousemove', getMousePos)
+            $(document).unbind('mousemove', updateMousePosition)
         });
         $(document).mouseenter(function () {
-            $(document).mousemove(getMousePos)
+            $(document).mousemove(updateMousePosition)
         });
 
         window.addEventListener("resize", resizeCanvas);
 
         //Update the particles every frame
-        var timer = setInterval(update, 40);
+        setInterval(update, 1/60);
 
     } else {
         alert("Canvas not supported.");
     }
 }
 
-function getMousePos(evt) {
-    var rect = canvas.getBoundingClientRect();
-    var root = document.documentElement;
+function updateMousePosition(evt) {
+    lastX = mouseX;
+    lastY = mouseY;
 
-    // return mouse position relative to the canvas
-    mouseX = evt.clientX - rect.left - root.scrollLeft;
-    mouseY = evt.clientY - rect.top - root.scrollTop;
+    let root = document.documentElement;
+
+    mouseX = evt.clientX -  root.scrollLeft;
+    mouseY = evt.clientY - root.scrollTop;
+
+    if (lastX === null){
+        lastX = mouseX
+    }
+    if (lastY === null){
+        lastY = mouseY
+    }
 }
 
 function update() {
 
     //Adds ten new particles every frame
     if (mouseX !== null && mouseY !== null){
-        for (let i = 0; i < 100; i++) {
+        let startX = lastX + 24;
+        let startY = lastY + 24;
+        let endX = mouseX + 24;
+        let endY = mouseY + 24;
+        for (let i = 0; i < PARTICLE_PER_UPDATE; i++) {
+            let position_fraction = (PARTICLE_PER_UPDATE - i) / PARTICLE_PER_UPDATE;
+            let inverse_position_fraction = 1 - position_fraction;
             //Adds a particle at the mouse position, with random horizontal and vertical speeds
-            var p = new Particle(mouseX + 24 + i%20, mouseY + 24 + i%20,
-                Math.random() * 2 + particle_base_speed,
-                Math.random() + 2 + particle_base_speed);
+            let p = new Particle(
+                startX * position_fraction + endX * inverse_position_fraction + i % 10,
+                startY * position_fraction + endY * inverse_position_fraction + i % 10,
+                PARTICLE_BASE_SPEED);
             particles.push(p);
         }
     }
@@ -88,7 +105,7 @@ function update() {
 
     //Cycle through all the particles to draw them
     for (let i = 0; i < particles.length; i++) {
-        let lifespan_fraction = (max_lifespan - particles[i].lifespan) / max_lifespan;
+        let lifespan_fraction = (MAX_LIFESPAN - particles[i].lifespan) / MAX_LIFESPAN;
 
         let hue = lifespan_fraction * 60;
         let saturation = 100;
@@ -99,17 +116,24 @@ function update() {
         stage.beginPath();
         //Draw the particle as a circle, which gets slightly smaller the longer it's been alive for
         stage.arc(particles[i].x, particles[i].y,
-            (1 - lifespan_fraction + 1) * (particle_size),
+            (1 - lifespan_fraction + 1) * (PARTICLE_SIZE),
             0, 2 * Math.PI);
+
+        let gradient = stage.createRadialGradient(particles[i].x, particles[i].y, 2, particles[i].x, particles[i].y, (1 - lifespan_fraction + 1) * (PARTICLE_SIZE));
+        gradient.addColorStop(0, "hsl(" + hue + "," + saturation + "%," + lightness + "%," + alpha + ")");
+        gradient.addColorStop(1, "hsl(" + hue + "," + saturation + "%," + lightness + "%," + alpha / 3 + ")");
+
+        stage.fillStyle = gradient;
         stage.fill();
 
         //Move the particle based on its horizontal and vertical speeds
-        particles[i].x += particles[i].x_speed * lifespan_fraction;
-        particles[i].y += particles[i].y_speed * lifespan_fraction;
+        let random_orthogonal_adjustment = ((1 - lifespan_fraction) * 1.5 ** 1.5) * (Math.random() * (2) - 1) * 3;
+        particles[i].x += particles[i].speed * lifespan_fraction + random_orthogonal_adjustment;
+        particles[i].y += particles[i].speed * lifespan_fraction - random_orthogonal_adjustment;
 
         particles[i].lifespan++;
         //If the particle has lived longer than we are allowing, remove it from the array.
-        if (particles[i].lifespan >= max_lifespan) {
+        if (particles[i].lifespan >= MAX_LIFESPAN) {
             particles.splice(i, 1);
             i--;
         }
