@@ -13,7 +13,7 @@ const bookingService = new BookingService(httpClient) ;
 /**** Translate datepicker output yyyy-mm-dd to dd-mm-yyyy ****/
 function setDateFr(date) {
 
-    let date_array = booking_start_date.split("-");
+    let date_array = date.split("-");
     let date_year = date_array[0]
     let date_month = date_array[1]
     let date_day = date_array[2]
@@ -76,8 +76,11 @@ reset_jetpack_list_action_button.onclick = function () {
 var  check_jetpacks_action_button = document.getElementById("check_jetpack_availability");
 check_jetpacks_action_button.onclick = function() {
 
-    let booking_start_date = document.getElementById("booking_start_date").value;
-    let booking_end_date = document.getElementById("booking_end_date").value;
+    let date_picker_start_date = document.getElementById("booking_start_date").value;
+    let date_picker_end_date = document.getElementById("booking_end_date").value;
+
+    let booking_start_date = setDateFr(date_picker_start_date)
+    let booking_end_date = setDateFr(date_picker_end_date)
 
     document.getElementById("modal_booking_start_date").value = booking_start_date
     document.getElementById("modal_booking_end_date").value = booking_end_date
