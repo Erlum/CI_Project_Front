@@ -95,7 +95,7 @@ function update() {
             let p = new Particle(
                 startX * position_fraction + endX * inverse_position_fraction + i % 10,
                 startY * position_fraction + endY * inverse_position_fraction + i % 10,
-                PARTICLE_BASE_SPEED);
+                Math.random() * 2 + PARTICLE_BASE_SPEED);
             particles.push(p);
         }
     }
@@ -105,13 +105,12 @@ function update() {
 
     //Cycle through all the particles to draw them
     for (let i = 0; i < particles.length; i++) {
-        let lifespan_fraction = (MAX_LIFESPAN - particles[i].lifespan) / MAX_LIFESPAN;
+        let lifespan_fraction = Math.max((MAX_LIFESPAN - particles[i].lifespan) / MAX_LIFESPAN, 0);
 
         let hue = lifespan_fraction * 60;
         let saturation = 100;
         let lightness = lifespan_fraction * 100;
-        let alpha = lifespan_fraction * 0.4;
-        stage.fillStyle = "hsl(" + hue + "," + saturation + "%," + lightness + "%," + alpha + ")";
+        let alpha = (lifespan_fraction + 0.5) * 0.4;
 
         stage.beginPath();
         //Draw the particle as a circle, which gets slightly smaller the longer it's been alive for
@@ -128,14 +127,20 @@ function update() {
 
         //Move the particle based on its horizontal and vertical speeds
         let random_orthogonal_adjustment = ((1 - lifespan_fraction) * 1.5 ** 1.5) * (Math.random() * (2) - 1) * 3;
-        particles[i].x += particles[i].speed * lifespan_fraction + random_orthogonal_adjustment;
-        particles[i].y += particles[i].speed * lifespan_fraction - random_orthogonal_adjustment;
+        particles[i].x += particles[i].speed * (0.2 + lifespan_fraction) + random_orthogonal_adjustment;
+        particles[i].y += particles[i].speed * (0.2 + lifespan_fraction) - random_orthogonal_adjustment;
 
         particles[i].lifespan++;
         //If the particle has lived longer than we are allowing, remove it from the array.
-        if (particles[i].lifespan >= MAX_LIFESPAN) {
-            particles.splice(i, 1);
-            i--;
+        if (particles[i].lifespan >= MAX_LIFESPAN / 1.5) {
+            if (particles[i].lifespan >= MAX_LIFESPAN * 1.5) {
+                particles.splice(i, 1);
+                i--;
+            }
+            else if (Math.random() > 0.9){
+                particles.splice(i, 1);
+                i--;
+            }
         }
     }
 }
