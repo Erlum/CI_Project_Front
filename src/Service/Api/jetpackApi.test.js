@@ -143,7 +143,7 @@ describe('JetPackApi get JetPacks in range', function () {
     });
     test('Test getJetPacksInRange call path', () => {
         return jetpackApi.getJetPacksInRange(start, end).then(resp => {
-            expect(httpClientMock.fetch.mock.calls[0][0]).toBe('/jetpacks?start_date=' + start + '&end_date=' + end);
+            expect(httpClientMock.fetch.mock.calls[0][0]).toBe('/jetpacks?beg=' + start + '&end=' + end);
         });
     });
 });
