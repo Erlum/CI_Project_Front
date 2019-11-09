@@ -109,7 +109,7 @@ function update() {
         let hue = lifespan_fraction * 60;
         let saturation = 100;
         let lightness = lifespan_fraction * 100;
-        let alpha = (lifespan_fraction + 0.5) * 0.4;
+        let alpha = (lifespan_fraction + 0.5) * 0.7;
 
         stage.beginPath();
         //Draw the particle as a circle, which gets slightly smaller the longer it's been alive for
@@ -125,7 +125,7 @@ function update() {
         stage.fill();
 
         //Move the particle based on its horizontal and vertical speeds
-        let trail_speed = particles[i].speed * (0.3 + lifespan_fraction);
+        let trail_speed = particles[i].speed * (0.4 + lifespan_fraction);
         let random_orthogonal_modifier = ((1 - lifespan_fraction) * 1.5 ** 1.5) * (Math.random() * (2) - 1) * 3;
         particles[i].x += trail_speed + random_orthogonal_modifier;
         particles[i].y += trail_speed - random_orthogonal_modifier;
