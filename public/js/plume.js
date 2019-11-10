@@ -76,10 +76,8 @@ function updateMousePosition(evt) {
     lastX = mouseX;
     lastY = mouseY;
 
-    let root = document.documentElement;
-
-    mouseX = evt.clientX -  root.scrollLeft;
-    mouseY = evt.clientY - root.scrollTop;
+    mouseX = evt.clientX;
+    mouseY = evt.clientY;
 
     if (lastX === null){
         lastX = mouseX

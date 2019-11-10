@@ -37,7 +37,7 @@ function display_all_jetpacks_and_create_listeners() {
     jetpackService.getJetPacks().then(jetpacks => {
         let html_display_all_jetpacks =  '';
         jetpacks.forEach((jetpack) => {
-            html_display_all_jetpacks += jetpack.toCardAllJetPacks()
+            html_display_all_jetpacks += jetpack.toCard()
         });
 
         document.getElementById('jetpacks').innerHTML = html_display_all_jetpacks ;
@@ -93,7 +93,7 @@ check_jetpacks_action_button.onclick = function() {
     jetpackService.getJetPacksInRange(booking_start_date, booking_end_date).then(jetpacks => {
         let html_display_avalaible_jetpacks = '';
         jetpacks.forEach((jetpack) => {
-            html_display_avalaible_jetpacks += jetpack.toCardAvailableJetPacks()
+            html_display_avalaible_jetpacks += jetpack.toCard(true)
         });
 
         document.getElementById('jetpacks').innerHTML = html_display_avalaible_jetpacks;
