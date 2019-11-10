@@ -116,8 +116,7 @@ check_jetpacks_action_button.onclick = function() {
 /********************************* ADD **********************************/
 var  add_jet_pack_action_button = document.getElementById("add_jetpack_button_id");
 add_jet_pack_action_button.onclick = function() {
-    // var nom = prompt("Please enter your name");
-    //var url = prompt("Please enter your url");
+
     let name = document.getElementById("modal_add_jetpack_name").value;
     let image = document.getElementById("modal_add_jetpack_image").value;
 
@@ -130,9 +129,11 @@ add_jet_pack_action_button.onclick = function() {
         jetpackService.postJetPack(jetpack_to_add).then(function() {
 
             alert("Votre jetpack a bien été enregistré.");
+
+            display_all_jetpacks_and_create_listeners()
         });
 
-        display_all_jetpacks_and_create_listeners()
+
     }
 };
 
@@ -177,6 +178,9 @@ delete_jetpack_action_button.onclick = function() {
         console.log("delete this jetpack" + jetpack_to_delete)
 
         jetpackService.deleteJetPack(jetpack_to_delete).then(function() {
+
+            display_all_jetpacks_and_create_listeners()
+
             alert("Votre jetpack a été supprimé.");
         });
         
@@ -231,6 +235,8 @@ edit_jetpack_action_button.onclick = function() {
 
         jetpackService.editJetPack(jetpack_to_edit).then(function() {
 
+            display_all_jetpacks_and_create_listeners()
+
             alert("Votre jetpack a bien été modifié.");
         });
     });
@@ -265,6 +271,8 @@ booking_jetpack_action_button.onclick = function() {
     console.log(booking_to_post)
 
     bookingService.postBooking(booking_to_post)
+
+    display_all_jetpacks_and_create_listeners()
 
 };
 

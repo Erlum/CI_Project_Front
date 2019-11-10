@@ -88,7 +88,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" id="add_jetpack_button_id" class="btn btn-success">Ajouter</button>
+                <button type="button" id="add_jetpack_button_id" class="btn btn-success" data-dismiss="modal" >Ajouter</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
             </div>
         </div>
@@ -118,7 +118,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" id="edit_jetpack_button">Modifier</button>
+                <button type="button" class="btn btn-success" id="edit_jetpack_button" data-dismiss="modal">Modifier</button>
 
                 <input type="hidden"  id="edit_jetpack_id"  value=""  />
 
@@ -141,7 +141,7 @@
             </div>
             <div class="modal-body text-center">
 
-                <button class="submit-btn btn-danger" id="delete_jetpack_button" >SUPPRIMER</button>
+                <button class="submit-btn btn-danger" id="delete_jetpack_button" data-dismiss="modal" >SUPPRIMER</button>
 
                 <input type="hidden"  id="delete_jetpack_id"  value=""  />
 
@@ -164,7 +164,7 @@
             </div>
             <div class="modal-body text-center">
 
-                <button class="submit-btn btn-success" id="booking_jetpack_button" >RESERVER</button>
+                <button class="submit-btn btn-success" id="booking_jetpack_button" data-dismiss="modal">RESERVER</button>
                 <input type="hidden"  id="booking_jetpack_id"  value=""  />
                 <input id="modal_booking_start_date" class="hidden" type="date" value="">
                 <input id="modal_booking_end_date" class="hidden" type="date" value="">
