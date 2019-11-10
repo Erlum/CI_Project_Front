@@ -17,7 +17,7 @@ body {
 }
 
 canvas#cursor-plume{
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     height: 100%;
@@ -28,7 +28,7 @@ canvas#cursor-plume{
 }
 
 
-.hidden{
+.hide{
     display: none;
 }
 
