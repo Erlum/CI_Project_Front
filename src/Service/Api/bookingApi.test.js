@@ -132,7 +132,7 @@ describe('JetPackApi post Bookings', function () {
         image: "blurry.jpg"
     };
     let bookingEntry = {
-        id: "a26574f0-3dd0-4e3b-9c1d-6089619f2f80",
+        id: "6089619f2f80",
         idjetpack: jetPackEntry.id,
         startdate: "2019-01-01",
         enddate: "2042-01-01"
@@ -145,7 +145,7 @@ describe('JetPackApi post Bookings', function () {
 
     test('Test postJetPack booking id', () => {
         return bookingApi.postBooking(booking).then(resp => {
-            expect(booking.id).toBe(bookingEntry.id);
+            expect(booking.jetPack).toBe(jetPack.id);
         });
     });
     test('Test postJetPack call jetpack', () => {

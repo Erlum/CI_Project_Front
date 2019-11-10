@@ -86,7 +86,7 @@ check_jetpacks_action_button.onclick = function() {
     document.getElementById("modal_booking_end_date").value = booking_end_date
 
     //console.log('/jetpacks?=' + '&start_date=' + booking_start_date + '&end_date='+ booking_end_date)
-    /console.log("debut : " + booking_start_date + "fin : " + booking_end_date)
+    //console.log("debut : " + booking_start_date + "fin : " + booking_end_date)
 
     //include get avalaible method here
     jetpackService.getJetPacksInRange(booking_start_date, booking_end_date).then(jetpacks => {
@@ -251,13 +251,13 @@ booking_jetpack_action_button.onclick = function() {
     //console.log("start date : " + start_date) ;
     //console.log("end date : " + end_date) ;
 
-    booking_to_post = new Object()
+    var booking_to_post = new Object()
 
-    booking_to_post.id =  jetpack_id ;
     booking_to_post.start = start_date ;
     booking_to_post.end = end_date ;
+    booking_to_post.jetPack =  jetpack_id ;
 
-    //console.log("jetpack id to book : " + booking_to_post.id)
+    console.log("jetpack id to book : " + booking_to_post.id)
     //console.log("start date to book : " + booking_to_post.start)
     //console.log("end date to book: " + booking_to_post.end)
 
