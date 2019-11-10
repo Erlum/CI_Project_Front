@@ -13,19 +13,17 @@ require('./public/js/plume');
 
 /**** Translate datepicker output yyyy-mm-dd to dd-mm-yyyy ****/
 function setDateFr(date) {
-
     let date_array = date.split("-");
     let date_year = date_array[0]
     let date_month = date_array[1]
     let date_day = date_array[2]
-
     let fr_date = ''
     fr_date = fr_date + date_day + '-' + date_month + '-' + date_year
 
     return fr_date
 }
 
-/**** Clear form values ****/
+/**** Clear form field values ****/
 function clearValues(elementId) {
     document.getElementById(elementId).value = '';
 }
@@ -77,14 +75,12 @@ reset_jetpack_list_action_button.onclick = function () {
     display_all_jetpacks_and_create_listeners()
 }
 
-
 /**** Display only avalaible jetpacks for selected range date ****/
 var  check_jetpacks_action_button = document.getElementById("check_jetpack_availability");
 check_jetpacks_action_button.onclick = function() {
 
     let date_picker_start_date = document.getElementById("booking_start_date").value;
     let date_picker_end_date = document.getElementById("booking_end_date").value;
-
     let booking_start_date = setDateFr(date_picker_start_date)
     let booking_end_date = setDateFr(date_picker_end_date)
 
@@ -98,7 +94,6 @@ check_jetpacks_action_button.onclick = function() {
         let html_display_avalaible_jetpacks = '';
         jetpacks.forEach((jetpack) => {
             html_display_avalaible_jetpacks += jetpack.toCardAvailableJetPacks()
-
         });
 
         document.getElementById('jetpacks').innerHTML = html_display_avalaible_jetpacks;
@@ -107,16 +102,11 @@ check_jetpacks_action_button.onclick = function() {
         let book_jetpack_button = document.getElementsByClassName("booking_button_class");
         for (var i = 0; i < book_jetpack_button.length; i++) {
             book_jetpack_button[i].addEventListener('click', function () {
-
                 getJetPackIdBooking(event)
-
             }, true);
         }
     });
 }
-
-
-
 
 /********************************* ADD **********************************/
 var  add_jet_pack_action_button = document.getElementById("add_jetpack_button_id");
@@ -129,22 +119,16 @@ add_jet_pack_action_button.onclick = function() {
         var jetpack_to_add = new Object();
         jetpack_to_add.name = name;
         jetpack_to_add.image = image;
-        console.log("add this jet pack" + jetpack_to_add)
+        //console.log("add this jet pack" + jetpack_to_add)
 
         jetpackService.postJetPack(jetpack_to_add).then(function() {
-
             clearValues("modal_add_jetpack_name")
             clearValues("modal_add_jetpack_image")
-
             alert("Votre jetpack a bien été enregistré.");
-
             display_all_jetpacks_and_create_listeners()
         });
-
-
     }
 };
-
 
 /******************************** GET JETPACK ID ***************************/
 function getJetPackId(event){
@@ -155,7 +139,6 @@ function getJetPackId(event){
     //console.log("getjetpackid " + jetpack_id)
 }
 
-
 /******************************** GET JETPACK ID for booking ***************************/
 function getJetPackIdBooking(event){
     //console.log(event.target.id);
@@ -164,37 +147,28 @@ function getJetPackIdBooking(event){
     document.getElementById("booking_jetpack_id").value = jetpack_id;
     document.getElementById("modal_booking_start_date").value = document.getElementById("booking_start_date").value
     document.getElementById("modal_booking_end_date").value = document.getElementById("booking_end_date").value
-
     //console.log("book jetpack id " + jetpack_id)
 }
-
 
 /********************************* DELETE **********************************/
 var  delete_jetpack_action_button = document.getElementById("delete_jetpack_button");
 delete_jetpack_action_button.onclick = function() {
-
     jetpack_id = document.getElementById("delete_jetpack_id").value;
     //console.log("delete button " + jetpack_id)
 
     jetpackService.getJetPack(jetpack_id).then(jetpack => {
-        console.log("get this jetpack to delete " + jetpack);
-
+        //console.log("get this jetpack to delete " + jetpack);
         var jetpack_to_delete = new Object()
         jetpack_to_delete.name = jetpack.name ;
         jetpack_to_delete.image = jetpack.image ;
         jetpack_to_delete.id = jetpack.id ;
-        console.log("delete this jetpack" + jetpack_to_delete)
+        //console.log("delete this jetpack" + jetpack_to_delete)
 
         jetpackService.deleteJetPack(jetpack_to_delete).then(function() {
-
             display_all_jetpacks_and_create_listeners()
-
             alert("Votre jetpack a été supprimé.");
         });
-        
     });
-
-
 };
 
 
@@ -215,17 +189,14 @@ function getInfosJetpackEdit(event){
 
 var  edit_jetpack_action_button = document.getElementById("edit_jetpack_button");
 edit_jetpack_action_button.onclick = function() {
-
     jetpack_id = document.getElementById("edit_jetpack_id").value;
-
     var jetpack_to_edit = new Object()
 
     jetpackService.getJetPack(jetpack_id).then(jetpack => {
         //console.log(jetpack);
-
-        console.log("old jetpack name : " + jetpack.name)
-        console.log("old jetpack image : " + jetpack.image)
-        console.log("old jetpack id : " + jetpack.id)
+        //console.log("old jetpack name : " + jetpack.name)
+        //console.log("old jetpack image : " + jetpack.image)
+        //console.log("old jetpack id : " + jetpack.id)
 
         let new_jetpack_name = document.getElementById("modal_edit_jetpack_name").value
         let new_jetpack_image = document.getElementById("modal_edit_jetpack_image").value
@@ -234,24 +205,19 @@ edit_jetpack_action_button.onclick = function() {
         jetpack_to_edit.image = new_jetpack_image ;
         jetpack_to_edit.id = jetpack.id
 
-        console.log("new jetpack name : " + jetpack_to_edit.name)
-        console.log("new jetpack image : " + jetpack_to_edit.image)
-        console.log("new jetpack id : " + jetpack_to_edit.id)
-
-        console.log("edit this jet pack " + jetpack_to_edit)
+        //console.log("new jetpack name : " + jetpack_to_edit.name)
+        //console.log("new jetpack image : " + jetpack_to_edit.image)
+        //console.log("new jetpack id : " + jetpack_to_edit.id)
+        //console.log("edit this jet pack " + jetpack_to_edit)
         //jetpack_to_edit.id = jetpack.id ;
 
         jetpackService.editJetPack(jetpack_to_edit).then(function() {
-
             clearValues("modal_edit_jetpack_name")
             clearValues("modal_edit_jetpack_image")
-
             display_all_jetpacks_and_create_listeners()
-
             alert("Votre jetpack a bien été modifié.");
         });
     });
-
     display_all_jetpacks_and_create_listeners()
 };
 
@@ -260,34 +226,26 @@ edit_jetpack_action_button.onclick = function() {
 
 var  booking_jetpack_action_button = document.getElementById("booking_jetpack_button");
 booking_jetpack_action_button.onclick = function() {
-
     var jetpack_id = document.getElementById("booking_jetpack_id").value
     var start_date = document.getElementById("modal_booking_start_date").value
     var end_date = document.getElementById("modal_booking_end_date").value
-
     //console.log("jetpack id : " + jetpack_id) ;
     //console.log("start date : " + start_date) ;
     //console.log("end date : " + end_date) ;
-
     var booking_to_post = new Object()
-
     booking_to_post.start = start_date ;
     booking_to_post.end = end_date ;
     booking_to_post.jetPack =  jetpack_id ;
-
-    console.log("jetpack id to book : " + booking_to_post.jetPack)
-    console.log("start date to book : " + booking_to_post.start)
-    console.log("end date to book: " + booking_to_post.end)
-
-    console.log(booking_to_post)
+    //console.log("jetpack id to book : " + booking_to_post.jetPack)
+    //console.log("start date to book : " + booking_to_post.start)
+    //console.log("end date to book: " + booking_to_post.end)
+    //console.log(booking_to_post)
 
     bookingService.postBooking(booking_to_post)
 
-    clearValues("booking_start_date")
-    clearValues("booking_end_date")
-
-    display_all_jetpacks_and_create_listeners()
-
+        clearValues("booking_start_date")
+        clearValues("booking_end_date")
+        display_all_jetpacks_and_create_listeners()
 };
 
 
