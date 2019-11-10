@@ -25,7 +25,7 @@
                 <h1 class="text-center text-white m-1" style="display: inline">JetPack Club </h1>
             </div>
             <div class="col-sm">
-                <input id="booking_start_date" title="Date de début de réservation" uib-datepicker-popup="MM/dd/yyyy" class="form-control" type="date" required>
+                <input id="booking_start_date" title="Date de début de réservation" class="form-control" type="date" required>
             </div>
             <div class="col-sm">
                 <input id="booking_end_date" title="Date de fin de réservation" class="form-control" type="date" required>
@@ -67,7 +67,7 @@
 
 
 <div class="modal fade" id="add_modal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" >Ajouter un JetPack</h5>
@@ -76,7 +76,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form >
+                <form>
                     <div class="form-group">
                         <label for="modal_add_jetpack_name" class="col-form-label">Nom du JetPack :</label>
                         <input type="text" class="form-control" id="modal_add_jetpack_name">
@@ -88,7 +88,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" id="add_jetpack_button_id" class="btn btn-success">Ajouter</button>
+                <button type="button" id="add_jetpack_button_id" class="btn btn-success" data-dismiss="modal" >Ajouter</button>
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
             </div>
         </div>
@@ -97,7 +97,7 @@
 
 
 <div class="modal fade" id="edit_modal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="">Modifier le JetPack</h5>
@@ -118,7 +118,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" id="edit_jetpack_button">Modifier</button>
+                <button type="button" class="btn btn-success" id="edit_jetpack_button" data-dismiss="modal">Modifier</button>
 
                 <input type="hidden"  id="edit_jetpack_id"  value=""  />
 
@@ -131,7 +131,7 @@
 
 
 <div class="modal" id="delete_modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Supprimer le JetPack</h5>
@@ -141,7 +141,7 @@
             </div>
             <div class="modal-body text-center">
 
-                <button class="submit-btn btn-danger" id="delete_jetpack_button" >SUPPRIMER</button>
+                <button class="submit-btn btn-danger" id="delete_jetpack_button" data-dismiss="modal" >SUPPRIMER</button>
 
                 <input type="hidden"  id="delete_jetpack_id"  value=""  />
 
@@ -154,7 +154,7 @@
 </div>
 
 <div class="modal" id="booking_modal" tabindex="-1" role="dialog">
-    <div class="modal-dialog" role="document">
+    <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Réserver le JetPack</h5>
@@ -164,7 +164,7 @@
             </div>
             <div class="modal-body text-center">
 
-                <button class="submit-btn btn-success" id="booking_jetpack_button" >RESERVER</button>
+                <button class="submit-btn btn-success" id="booking_jetpack_button" data-dismiss="modal">RESERVER</button>
                 <input type="hidden"  id="booking_jetpack_id"  value=""  />
                 <input id="modal_booking_start_date" class="hidden" type="date" value="">
                 <input id="modal_booking_end_date" class="hidden" type="date" value="">
