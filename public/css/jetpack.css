@@ -89,14 +89,14 @@ canvas#cursor-plume{
     width: 14px;
 }
 ::-webkit-scrollbar-track {
-    background: rgba(0, 0, 0, 0);
+    background-color: transparent;
 }
 ::-webkit-scrollbar-thumb {
-    background: #c1c1c1;
+    background-color: rgba(193, 193, 193, 0.6);
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: #9c9c9c;
+    background-color: #9c9c9c;
 }
 ::-webkit-scrollbar-thumb:active {
-    background: #5e5e5e;
+    background-color: #5e5e5e;
 }
