@@ -30,10 +30,6 @@ module.exports = class  {
                 "startdate": booking.start,
                 "enddate": booking.end,
             })
-        }).then(response => {
-            booking.id = response.id;
-        });
+        })
     }
-
-
 };

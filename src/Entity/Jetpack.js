@@ -45,7 +45,7 @@ module.exports = class  {
         }
     }
 
-    toCard(){
+    toCardAllJetPacks(){
         return '' +
         '<div class="col-lg-4 col-md-6 mb-4">' +
         '    <div class="card h box zoom" style="width: 18rem;">\n' +
@@ -62,5 +62,23 @@ module.exports = class  {
         '        </div>' +
         '    </div>' +
         '</div>'
+    }
+
+    toCardAvailableJetPacks(){
+        return '' +
+            '<div class="col-lg-4 col-md-6 mb-4">' +
+            '   <div class="col-lg-4 col-md-6 mb-4">' +
+            '       <div class="card h box zoom" style="width: 18rem;">\n' +
+            '           <img src="' + this.image + '" class="card-img-top" alt="...">\n' +
+            '           <div class="card-body">\n' +
+            '               <h4 class="card-title">' + this.name + '</h4>\n' +
+            '               <span id="jetpack-id" class="hidden">' + this.id + '</span>' +
+            '           </div>\n' +
+            '           <div class="btn-group" role="group"">' +
+            '               <button type="button" id="diplay_jetpack_booking_id/' + this.id + '"class="btn btn-outline-success booking_button_class" data-toggle="modal" data-target="#booking_modal">Réserver</button>' +
+            '           </div>' +
+            '       </div>' +
+            '   </div>' +
+            '</div>'
     }
 };

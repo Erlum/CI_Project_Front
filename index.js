@@ -11,7 +11,21 @@ const bookingService = new BookingService(httpClient) ;
 require('./public/js/plume');
 
 
-/**** Display all jetpacks in index.html (definition below ***/
+/**** Translate datepicker output yyyy-mm-dd to dd-mm-yyyy ****/
+function setDateFr(date) {
+
+    let date_array = date.split("-");
+    let date_year = date_array[0]
+    let date_month = date_array[1]
+    let date_day = date_array[2]
+
+    let fr_date = ''
+    fr_date = fr_date + date_day + '-' + date_month + '-' + date_year
+
+    return fr_date
+}
+
+/**** Display all jetpacks in index.html (definition below) ***/
 display_all_jetpacks_and_create_listeners();
 
 
@@ -20,7 +34,7 @@ function display_all_jetpacks_and_create_listeners() {
     jetpackService.getJetPacks().then(jetpacks => {
         let html_display_all_jetpacks =  '';
         jetpacks.forEach((jetpack) => {
-            html_display_all_jetpacks += jetpack.toCard()
+            html_display_all_jetpacks += jetpack.toCardAllJetPacks()
         });
 
         document.getElementById('jetpacks').innerHTML = html_display_all_jetpacks ;
@@ -51,6 +65,7 @@ function display_all_jetpacks_and_create_listeners() {
     });
 }
 
+
 /**** Reset jetpack filter list button ****/
 var reset_jetpack_list_action_button = document.getElementById("reset_jetpack_filter") ;
 reset_jetpack_list_action_button.onclick = function () {
@@ -58,38 +73,27 @@ reset_jetpack_list_action_button.onclick = function () {
 }
 
 
-
 /**** Display only avalaible jetpacks for selected range date ****/
 var  check_jetpacks_action_button = document.getElementById("check_jetpack_availability");
 check_jetpacks_action_button.onclick = function() {
 
-    let booking_start_date = document.getElementById("booking_start_date").value;
-    let booking_end_date = document.getElementById("booking_end_date").value;
+    let date_picker_start_date = document.getElementById("booking_start_date").value;
+    let date_picker_end_date = document.getElementById("booking_end_date").value;
+
+    let booking_start_date = setDateFr(date_picker_start_date)
+    let booking_end_date = setDateFr(date_picker_end_date)
 
     document.getElementById("modal_booking_start_date").value = booking_start_date
     document.getElementById("modal_booking_end_date").value = booking_end_date
 
     //console.log('/jetpacks?=' + '&start_date=' + booking_start_date + '&end_date='+ booking_end_date)
-
     //console.log("debut : " + booking_start_date + "fin : " + booking_end_date)
 
     //include get avalaible method here
     jetpackService.getJetPacksInRange(booking_start_date, booking_end_date).then(jetpacks => {
         let html_display_avalaible_jetpacks = '';
         jetpacks.forEach((jetpack) => {
-            html_display_avalaible_jetpacks +=
-                '<div class="col-lg-4 col-md-6 mb-4">' +
-                '<div class="card h box zoom" style="width: 18rem;">\n' +
-                '  <img src="' + jetpack.image + '" class="card-img-top" alt="...">\n' +
-                '  <div class="card-body">\n' +
-                '    <h4 class="card-title">' + jetpack.name + '</h4>\n' +
-                '    <span id="jetpack-id" class="hidden">' + jetpack.id + '</span>' +
-                '  </div>\n' +
-                '     <div class="btn-group" role="group"">' +
-                '           <button type="button" id="diplay_jetpack_booking_id/' + jetpack.id + '"class="btn btn-outline-success booking_button_class" data-toggle="modal" data-target="#booking_modal">Réserver</button>' +
-                '    </div>' +
-                '</div>' +
-                '</div>'
+            html_display_avalaible_jetpacks += jetpack.toCardAvailableJetPacks()
         });
 
         document.getElementById('jetpacks').innerHTML = html_display_avalaible_jetpacks;
@@ -121,7 +125,7 @@ add_jet_pack_action_button.onclick = function() {
         var jetpack_to_add = new Object();
         jetpack_to_add.name = name;
         jetpack_to_add.image = image;
-        console.log("add this jet pack" + jetPack)
+        console.log("add this jet pack" + jetpack_to_add)
 
         jetpackService.postJetPack(jetpack_to_add).then(function() {
 
@@ -149,6 +153,9 @@ function getJetPackIdBooking(event){
     let id_array = event.target.id.split("/");
     jetpack_id = id_array[1];
     document.getElementById("booking_jetpack_id").value = jetpack_id;
+    document.getElementById("modal_booking_start_date").value = document.getElementById("booking_start_date").value
+    document.getElementById("modal_booking_end_date").value = document.getElementById("booking_end_date").value
+
     //console.log("book jetpack id " + jetpack_id)
 }
 
@@ -190,7 +197,7 @@ function getInfosJetpackEdit(event){
         //console.log(jetpack);
         document.getElementById("modal_edit_jetpack_name").value = jetpack.name
         document.getElementById("modal_edit_jetpack_image").value = jetpack.image
-        document.getElementById("edit_id_jetpack").value = jetpack.id;
+        document.getElementById("edit_jetpack_id").value = jetpack.id;
     });
 }
 
@@ -203,15 +210,29 @@ edit_jetpack_action_button.onclick = function() {
 
     jetpackService.getJetPack(jetpack_id).then(jetpack => {
         //console.log(jetpack);
-        jetpack_to_edit.name = jetpack.name ;
-        jetpack_to_edit.image = jetpack.image ;
+
+        console.log("old jetpack name : " + jetpack.name)
+        console.log("old jetpack image : " + jetpack.image)
+        console.log("old jetpack id : " + jetpack.id)
+
+        let new_jetpack_name = document.getElementById("modal_edit_jetpack_name").value
+        let new_jetpack_image = document.getElementById("modal_edit_jetpack_image").value
+
+        jetpack_to_edit.name = new_jetpack_name
+        jetpack_to_edit.image = new_jetpack_image ;
+        jetpack_to_edit.id = jetpack.id
+
+        console.log("new jetpack name : " + jetpack_to_edit.name)
+        console.log("new jetpack image : " + jetpack_to_edit.image)
+        console.log("new jetpack id : " + jetpack_to_edit.id)
+
         console.log("edit this jet pack " + jetpack_to_edit)
         //jetpack_to_edit.id = jetpack.id ;
-    });
 
-    jetpackService.editJetPack(jetpack_to_edit).then(function() {
+        jetpackService.editJetPack(jetpack_to_edit).then(function() {
 
-        alert("Votre jetpack a bien été modifié.");
+            alert("Votre jetpack a bien été modifié.");
+        });
     });
 
     display_all_jetpacks_and_create_listeners()
@@ -223,21 +244,25 @@ edit_jetpack_action_button.onclick = function() {
 var  booking_jetpack_action_button = document.getElementById("booking_jetpack_button");
 booking_jetpack_action_button.onclick = function() {
 
-    let jetpack_id = document.getElementById("booking_jetpack_id").value
-    let start_date = document.getElementById("modal_booking_start_date").value
-    let end_date = document.getElementById("modal_booking_end_date").value
+    var jetpack_id = document.getElementById("booking_jetpack_id").value
+    var start_date = document.getElementById("modal_booking_start_date").value
+    var end_date = document.getElementById("modal_booking_end_date").value
 
-    //console.log("jetpack id : " + jetpack_id)
-    //console.log("start date : " + start_date)
-    //console.log("end date : " + end_date)
+    //console.log("jetpack id : " + jetpack_id) ;
+    //console.log("start date : " + start_date) ;
+    //console.log("end date : " + end_date) ;
 
-    booking_to_post = new Object()
+    var booking_to_post = new Object()
 
-    booking_to_post.id =  jetpack_id
-    booking_to_post._start = start_date
-    booking_to_post._end = end_date
+    booking_to_post.start = start_date ;
+    booking_to_post.end = end_date ;
+    booking_to_post.jetPack =  jetpack_id ;
 
-    //console.log(booking_to_post)
+    console.log("jetpack id to book : " + booking_to_post.id)
+    //console.log("start date to book : " + booking_to_post.start)
+    //console.log("end date to book: " + booking_to_post.end)
+
+    console.log(booking_to_post)
 
     bookingService.postBooking(booking_to_post)
 
