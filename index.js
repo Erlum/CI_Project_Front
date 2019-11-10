@@ -258,9 +258,9 @@ booking_jetpack_action_button.onclick = function() {
     booking_to_post.end = end_date ;
     booking_to_post.jetPack =  jetpack_id ;
 
-    console.log("jetpack id to book : " + booking_to_post.id)
-    //console.log("start date to book : " + booking_to_post.start)
-    //console.log("end date to book: " + booking_to_post.end)
+    console.log("jetpack id to book : " + booking_to_post.jetPack)
+    console.log("start date to book : " + booking_to_post.start)
+    console.log("end date to book: " + booking_to_post.end)
 
     console.log(booking_to_post)
 

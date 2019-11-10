@@ -5,8 +5,11 @@ html, body{
 
 body {
     padding-top: 56px!important;
-    background-color: lightgray;
+    background-image: url('../images/jetpack_wallpaper.jpg');
+    background-color: rgba(245, 245, 245, 0.4);
+    background-size: cover;
 }
+
 
 * {
     box-sizing: border-box;
@@ -44,8 +47,10 @@ canvas#cursor-plume{
 
 }
 .box:hover {
-    box-shadow: 0 0 11px rgba(33,33,33,.2);
-    scale(1.5);
+    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+    padding: 3px 0px 3px 3px;
+    margin: 5px 1px 3px 0px;
+    border: 1px solid rgba(81, 203, 238, 1);
 }
 
 .zoom {
