@@ -9,11 +9,14 @@ let lastX = null;
 let lastY = null;
 let mouseX = null;
 let mouseY = null;
+
 let mouseDown = false;
+let speed_modifier = 1;
 
 const CURSOR_OFFSET = 27;
 const MAX_LIFESPAN = 30;
-const PARTICLE_BASE_SPEED = 4;
+const PARTICLE_BASE_SPEED = 2;
+const MAX_SPEED_MODIFIER = 14;
 const PARTICLE_SIZE = 3;
 const PARTICLE_PER_UPDATE = 15;
 
@@ -98,7 +101,12 @@ function update() {
             let position_fraction = (PARTICLE_PER_UPDATE - i) / PARTICLE_PER_UPDATE;
             let inverse_position_fraction = 1 - position_fraction;
             //Adds a particle at the mouse position, with random horizontal and vertical speeds
-            let speed_modifier = mouseDown ? 2.5 : 1;
+            if (mouseDown && speed_modifier < MAX_SPEED_MODIFIER){
+                speed_modifier = speed_modifier + (0.005 * (MAX_SPEED_MODIFIER - speed_modifier) / MAX_SPEED_MODIFIER)
+            }
+            else if ((! mouseDown) && speed_modifier > 1) {
+                speed_modifier = speed_modifier - (0.005 * (1 - (MAX_SPEED_MODIFIER - speed_modifier) / MAX_SPEED_MODIFIER) + 0.0001)
+            }
             let p = new Particle(
                 startX * position_fraction + endX * inverse_position_fraction + i % 4,
                 startY * position_fraction + endY * inverse_position_fraction + i % 4,
