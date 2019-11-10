@@ -12,6 +12,8 @@ body {
     background-image: url('../images/jetpack_wallpaper.jpg');
     background-color: rgba(245, 245, 245, 0.4);
     background-size: cover;
+    background-position-y: top;
+    background-position-x: center;
 }
 #jetpack-container{
     height: 100%;
