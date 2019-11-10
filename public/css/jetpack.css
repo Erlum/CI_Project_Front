@@ -61,3 +61,7 @@ canvas#cursor-plume{
 .zoom:hover {
     transform: scale(1.1);
 }
+
+#add-jetpack-button{
+    border-radius: 100px;
+}
