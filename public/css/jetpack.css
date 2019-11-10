@@ -3,17 +3,28 @@ html, body{
     width: 100%;
 }
 
+* {
+    box-sizing: border-box;
+    cursor: url(../images/cursor_no_plume.gif), default !important;
+}
+
 body {
-    padding-top: 56px!important;
     background-image: url('../images/jetpack_wallpaper.jpg');
     background-color: rgba(245, 245, 245, 0.4);
     background-size: cover;
 }
+#jetpack-container{
+    height: 100%;
+    padding: 70px 0 40px!important;
+    position: relative;
+}
+#jetpack-scrollbox{
+    height: 100%;
+    overflow-y: scroll;
+}
 
-
-* {
-    box-sizing: border-box;
-    cursor: url(../images/cursor_no_plume.gif), default !important;
+.hide{
+    display: none;
 }
 
 canvas#cursor-plume{
@@ -25,11 +36,6 @@ canvas#cursor-plume{
     display: block;
     z-index: 10000;
     pointer-events: none;
-}
-
-
-.hide{
-    display: none;
 }
 
 .dual-btn-equal-width {
@@ -63,5 +69,8 @@ canvas#cursor-plume{
 }
 
 #add-jetpack-button{
-    border-radius: 100px;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 40px;
+    right: -70px;
 }
