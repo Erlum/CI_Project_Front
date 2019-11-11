@@ -1,5 +1,4 @@
 # Install
-
 `npm install`
 
 # Build
@@ -15,7 +14,6 @@
 `npm run start`
 
 # Test
-
 ## Unit Tests
 `npm run unit.test`
 ## Unit Tests with coverage
@@ -25,3 +23,6 @@
 ## UI tests
 `npm run ui.test` to run all tests
 `npm run ui.open` to open Cypress 
+
+## Full UI tests for front/back connected
+cypress open --config-file cypress_full_test.json
