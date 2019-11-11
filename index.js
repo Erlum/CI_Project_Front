@@ -166,7 +166,7 @@ delete_jetpack_action_button.onclick = function() {
 
         jetpackService.deleteJetPack(jetpack_to_delete).then(function() {
             display_all_jetpacks_and_create_listeners()
-            alert("Votre jetpack a été supprimé.");
+            alert("Votre jetpack a bien été supprimé.");
         });
     });
 };

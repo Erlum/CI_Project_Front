@@ -1,6 +1,6 @@
 describe('Test if jetpack creation add a new jetpack', function() {
 
-    it('homepage exists', function() {
+    it('homepage exists', function () {
         cy.visit('/')
     });
 
@@ -26,9 +26,8 @@ describe('Test if jetpack creation add a new jetpack', function() {
 
     it('When we click on add button >> creation confirmation alert box', () => {
         cy.get('#add_jetpack_button_id').click()
-
         cy.on('window:alert', (str) =>
-        expect(str).to.equal ("Votre jetpack a bien été ajouté."))
+            expect(str).to.equal("Votre jetpack a bien été ajouté."))
     });
 
     it('Once jetpack_demo added >> jetpack list displayed', () => {
@@ -36,9 +35,8 @@ describe('Test if jetpack creation add a new jetpack', function() {
     });
 
     it('Once jetpack list displayed >> jetpack_demo is displayed', () => {
+        cy.wait(2500)
         cy.get('#jetpacks')
         cy.get('.card-title').contains('demo_jetpack_name')
     });
-
-
 });
