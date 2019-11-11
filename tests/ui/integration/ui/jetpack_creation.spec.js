@@ -1,4 +1,4 @@
-describe('Test if jetpack creation add a new jetpack', function() {
+describe('Test jetpack creation', function() {
 
     it('homepage exists', function () {
         cy.visit('/')
@@ -30,16 +30,4 @@ describe('Test if jetpack creation add a new jetpack', function() {
             expect(str).to.equal("Votre jetpack a bien été ajouté."))
     });
 
-    it('Once jetpack_demo added >> jetpack list displayed', () => {
-        cy.get('#jetpacks').should('be.visible')
-    });
-
-    it('Refresh jetpack list', () => {
-        cy.get('#reset_jetpack_filter').click()
-    });
-
-    it('Once jetpack list displayed >> jetpack_demo is displayed', () => {
-        cy.wait(2500)
-        cy.contains('demo_jetpack_name')
-    });
 });
