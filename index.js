@@ -124,7 +124,7 @@ add_jet_pack_action_button.onclick = function() {
         jetpackService.postJetPack(jetpack_to_add).then(function() {
             clearValues("modal_add_jetpack_name")
             clearValues("modal_add_jetpack_image")
-            alert("Votre jetpack a bien été enregistré.");
+            alert("Votre jetpack a bien été ajouté.");
             display_all_jetpacks_and_create_listeners()
         });
     }

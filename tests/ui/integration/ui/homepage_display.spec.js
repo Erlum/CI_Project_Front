@@ -35,7 +35,6 @@ describe('Test if home page is displayed with all of its elements', function() {
             .should('be.visible')
     });
 
-
     it('Footer content should be visible', () => {
         cy.get('footer')
             .should('be.visible')
