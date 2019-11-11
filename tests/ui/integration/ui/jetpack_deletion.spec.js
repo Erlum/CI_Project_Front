@@ -6,8 +6,8 @@ describe('Test if jetpack deletion delete the jetpack', function() {
 
     it('We create a jetpack to delete', () => {
         cy.get('#add-jetpack-button').click()
-        cy.get('#modal_add_jetpack_name').type('demo_jetpack_name')
-        cy.get('#modal_add_jetpack_image').type('demo_jetpack_image')
+        cy.get('#modal_add_jetpack_name').type('demo_jetpack__to_delete_name')
+        cy.get('#modal_add_jetpack_image').type('demo_jetpack_to_delete_image')
         cy.get('#add_jetpack_button_id').click()
     });
 
@@ -27,6 +27,6 @@ describe('Test if jetpack deletion delete the jetpack', function() {
     });
 
     it('Once jetpack_demo_to_delete deleted >> jetpack list displayed', () => {
-        cy.get('#jetpacks').should('be.visible')
+        cy.contains('demo_jetpack__to_delete_name').should('be.visible')
     });
 });
