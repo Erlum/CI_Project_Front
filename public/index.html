@@ -17,7 +17,7 @@
 
 <canvas id="cursor-plume"></canvas>
 
-<div class="bg-blue fixed-top">
+<header id="header" class="bg-blue fixed-top">
     <div class="container-fluid p-2">
         <div class="row align-items-center">
             <div class="col-sm">
@@ -35,7 +35,7 @@
             </div>
         </div>
     </div>
-</div>
+</header>
 
 <div class="" id="jetpack-container">
     <div class="" id="jetpack-scrollbox">
@@ -72,7 +72,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" id="add_jetpack_button_id" class="btn btn-success" data-dismiss="modal" >Ajouter</button>
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                <button type="button" id="cancel_add_jetpack_button_id" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
             </div>
         </div>
     </div>
@@ -82,7 +82,7 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="">Modifier le JetPack</h5>
+                <h5 class="modal-title">Modifier le JetPack</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -104,7 +104,7 @@
 
                 <input type="hidden"  id="edit_jetpack_id"  value=""  />
 
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-secondary" id="cancel_edit_jetpack_button" data-dismiss="modal">Fermer</button>
             </div>
         </div>
     </div>
@@ -161,9 +161,9 @@
     </div>
 </footer>
 
-</body>
 <script src="libraries/jquery/jquery.js"></script>
 <script src="libraries/bootstrap/js/bootstrap.bundle.js"></script>
 <script src="https://kit.fontawesome.com/cc448cd625.js" crossorigin="anonymous"></script>
 <script type="text/javascript" src="dist/bundle.js"></script>
+</body>
 </html>
