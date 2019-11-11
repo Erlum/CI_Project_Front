@@ -56,9 +56,9 @@ module.exports = class  {
         '        </div>\n' +
         '        <div class="btn-group" role="group"">' +
             (show_book_button ?
-        '            <button type="button" id="diplay_jetpack_booking_id/' + this.id + '"class="btn btn-outline-success booking_button_class" data-toggle="modal" data-target="#booking_modal">Réserver</button>' : (
-        '            <button type="button" id="display_jetpack_edit_id/' + this.id + '" class="btn btn-outline-primary edit_button_class dual-btn-equal-width" data-toggle="modal" data-target="#edit_modal"style="">Modifier</button>' +
-        '            <button type="button" id="display_jetpack_delete_id/' + this.id + '"class="btn btn-outline-danger delete_button_class dual-btn-equal-width" data-toggle="modal" data-target="#delete_modal">Supprimer</button>')) +
+        '            <button type="button" id="diplay_jetpack_booking_id/' + this.id + '"class="btn btn-outline-success booking_button_class" data-toggle="modal" data-target="#booking_modal"><i class="fas fa-calendar-alt"></i></button>' : (
+        '            <button type="button" id="display_jetpack_edit_id/' + this.id + '" class="btn btn-outline-primary edit_button_class dual-btn-equal-width" data-toggle="modal" data-target="#edit_modal"><i class="fas fa-edit"></i></button>' +
+        '            <button type="button" id="display_jetpack_delete_id/' + this.id + '"class="btn btn-outline-danger delete_button_class dual-btn-equal-width" data-toggle="modal" data-target="#delete_modal"><i class="fas fa-trash"></i></button>')) +
         '        </div>' +
         '    </div>' +
         '</div>'
