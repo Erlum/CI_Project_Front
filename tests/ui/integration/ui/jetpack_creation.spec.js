@@ -36,7 +36,6 @@ describe('Test if jetpack creation add a new jetpack', function() {
 
     it('Once jetpack list displayed >> jetpack_demo is displayed', () => {
         cy.wait(2500)
-        cy.get('#jetpacks')
         cy.get('.card-title').contains('demo_jetpack_name')
     });
 });
