@@ -1,4 +1,4 @@
-describe('Display homepage', function() {
+describe('Test if home page is displayed with all of its elements', function() {
 
     it('homepage exists', function() {
         cy.visit('/')
@@ -25,6 +25,10 @@ describe('Display homepage', function() {
             .should('be.visible')
     });
 
+    it('jetpack list container should be visible', () => {
+        cy.get('#jetpacks')
+            .should('be.visible')
+    });
 
     it('add jetpack button should be visible', () => {
         cy.get('#add-jetpack-button')
