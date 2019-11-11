@@ -22,6 +22,10 @@ describe('Test if jetpack deletion delete the jetpack', function() {
             expect(str).to.equal("Votre jetpack a bien été supprimé."))
     });
 
+    it('Refresh jetpack list', () => {
+        cy.get('#reset_jetpack_filter').click()
+    });
+
     it('Once jetpack_demo_to_delete deleted >> jetpack list displayed', () => {
         cy.get('#jetpacks').should('be.visible')
     });

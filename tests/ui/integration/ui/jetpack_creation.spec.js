@@ -34,6 +34,10 @@ describe('Test if jetpack creation add a new jetpack', function() {
         cy.get('#jetpacks').should('be.visible')
     });
 
+    it('Refresh jetpack list', () => {
+        cy.get('#reset_jetpack_filter').click()
+    });
+
     it('Once jetpack list displayed >> jetpack_demo is displayed', () => {
         cy.wait(2500)
         cy.get('.card-title').contains('demo_jetpack_name')
